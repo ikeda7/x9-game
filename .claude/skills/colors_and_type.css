@@ -1,0 +1,179 @@
+/* ============================================================
+   X9: O INFILTRADO — Design Tokens
+   Aesthetic: "Noir Cibernético" (Cyber Noir)
+   Graphite-black surfaces · vibrant neon purple · dark/neon red alerts
+   ============================================================ */
+
+/* Fonts loaded via Google Fonts CDN in HTML <head>:
+   Chakra Petch (display/UI), Space Grotesk (body), Share Tech Mono (numeric/digital).
+   See README.md → VISUAL FOUNDATIONS for substitution notes. */
+
+:root {
+  /* ---------- BRAND / NEON ---------- */
+  --neon-purple:        #B026FF;   /* primary accent — civis, CTAs, borders */
+  --neon-purple-bright: #C95CFF;   /* hover / highlight */
+  --neon-purple-soft:   #D9A8FF;   /* tint text on dark */
+  --neon-purple-deep:   #6A0DAD;   /* pressed / shadow base */
+
+  --neon-red:           #FF2A4D;   /* impostor (X9), alerts, danger */
+  --red-dark:           #B00020;   /* deep alert fill */
+  --red-blood:          #7A0010;   /* pressed danger */
+
+  --neon-green:         #2BFF88;   /* victory (civis win), success, "active" */
+  --neon-green-deep:    #0B7A41;
+
+  --neon-amber:         #FFC53D;   /* timer warning / caution */
+
+  /* ---------- SURFACES (graphite stack) ---------- */
+  --bg-void:      #07070B;   /* deepest — privacy/reveal screens */
+  --bg-base:      #0C0C13;   /* app background */
+  --bg-surface:   #14141F;   /* cards, panels */
+  --bg-elevated:  #1C1C2A;   /* raised cards, inputs */
+  --bg-overlay:   rgba(7, 7, 11, 0.78); /* modal scrim */
+
+  /* ---------- LINES / BORDERS ---------- */
+  --line-subtle:  rgba(176, 38, 255, 0.10);  /* hairline w/ faint purple cast */
+  --line-soft:    rgba(255, 255, 255, 0.08);
+  --line-neon:    rgba(176, 38, 255, 0.55);   /* glowing card edge */
+  --line-danger:  rgba(255, 42, 77, 0.55);
+
+  /* ---------- TEXT ---------- */
+  --text-hi:   #F3F1FA;   /* headings, key labels */
+  --text-mid:  #A9A4BD;   /* body, secondary */
+  --text-low:  #6B6880;   /* hints, disabled, meta */
+  --text-on-neon: #0C0613; /* text sitting on a neon fill */
+
+  /* ---------- GLOWS (box-shadow tokens) ---------- */
+  --glow-purple:  0 0 0 1px rgba(176,38,255,0.4), 0 0 18px -2px rgba(176,38,255,0.55), 0 0 44px -10px rgba(176,38,255,0.45);
+  --glow-purple-sm: 0 0 0 1px rgba(176,38,255,0.35), 0 0 12px -3px rgba(176,38,255,0.5);
+  --glow-red:     0 0 0 1px rgba(255,42,77,0.45), 0 0 18px -2px rgba(255,42,77,0.55), 0 0 44px -10px rgba(255,42,77,0.4);
+  --glow-green:   0 0 0 1px rgba(43,255,136,0.4), 0 0 18px -2px rgba(43,255,136,0.5);
+  --shadow-card:  0 10px 30px -8px rgba(0,0,0,0.7), 0 2px 0 0 rgba(255,255,255,0.02) inset;
+
+  /* ---------- RADII ---------- */
+  --r-xs: 6px;
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --r-pill: 999px;
+
+  /* ---------- SPACING (8pt base) ---------- */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 64px;
+
+  /* ---------- TYPE FAMILIES ---------- */
+  --font-display: "Chakra Petch", "Eurostile", sans-serif; /* angular, techy headings + UI */
+  --font-body:    "Space Grotesk", "Inter", sans-serif;    /* readable body */
+  --font-mono:    "Share Tech Mono", "Consolas", monospace; /* timers, codes, numerals */
+
+  /* ---------- TYPE SCALE ---------- */
+  --fs-display: 64px;  /* logo / hero numerals */
+  --fs-h1: 34px;
+  --fs-h2: 26px;
+  --fs-h3: 20px;
+  --fs-body: 16px;
+  --fs-small: 14px;
+  --fs-micro: 12px;
+
+  --lh-tight: 1.05;
+  --lh-snug: 1.25;
+  --lh-body: 1.5;
+
+  --tracking-display: 0.04em;
+  --tracking-label: 0.14em;   /* uppercase eyebrow/labels */
+  --tracking-body: 0.005em;
+
+  /* ---------- TEXTURE ---------- */
+  --noise-opacity: 0.04;
+  --scanline-opacity: 0.05;
+}
+
+/* ============================================================
+   SEMANTIC ELEMENT STYLES
+   ============================================================ */
+
+.x9-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-display);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-display);
+  color: var(--text-hi);
+}
+
+.x9-h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-h1);
+  line-height: var(--lh-snug);
+  letter-spacing: 0.01em;
+  color: var(--text-hi);
+}
+
+.x9-h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-h2);
+  line-height: var(--lh-snug);
+  color: var(--text-hi);
+}
+
+.x9-h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-h3);
+  line-height: var(--lh-snug);
+  color: var(--text-hi);
+}
+
+/* Uppercase tracked eyebrow / meta label */
+.x9-label {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-low);
+}
+
+.x9-body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  letter-spacing: var(--tracking-body);
+  color: var(--text-mid);
+}
+
+.x9-small {
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  line-height: var(--lh-body);
+  color: var(--text-mid);
+}
+
+/* Digital readout — timers, counters, codes */
+.x9-mono {
+  font-family: var(--font-mono);
+  letter-spacing: 0.06em;
+  color: var(--neon-purple-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- TEXTURE HELPERS ---------- */
+.x9-noise::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--noise-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}

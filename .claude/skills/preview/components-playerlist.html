@@ -1,0 +1,19 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"/>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>html,body{margin:0}body{background:radial-gradient(120% 90% at 50% 0%,#16101f,#0b0b11 60%);font-family:var(--font-body);padding:22px;box-sizing:border-box}
+.col{display:flex;flex-direction:column;gap:10px;max-width:360px}
+.rowi{display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:var(--r-md);background:var(--bg-surface);border:1px solid var(--line-soft)}
+.av{width:32px;height:32px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:rgba(176,38,255,.12);color:var(--neon-purple-soft)}
+.nm{flex:1;color:var(--text-hi);font-size:16px}
+.dead .nm{color:var(--text-low);text-decoration:line-through}
+.dead{opacity:.5}.dead .av{background:transparent;border:1px solid var(--line-soft);color:var(--text-low)}
+.alive{width:7px;height:7px;border-radius:50%;background:var(--neon-green);box-shadow:0 0 8px var(--neon-green)}</style></head><body>
+<div class="col">
+  <div class="rowi"><span class="av"><i data-lucide="user" width="16"></i></span><span class="nm">Bia</span><span class="alive"></span></div>
+  <div class="rowi"><span class="av"><i data-lucide="user" width="16"></i></span><span class="nm">Caio</span><span class="alive"></span></div>
+  <div class="rowi dead"><span class="av"><i data-lucide="skull" width="16"></i></span><span class="nm">Léo</span><span class="x9-label" style="color:var(--text-low)">Eliminado</span></div>
+</div>
+<script>lucide.createIcons()</script>
+</body></html>

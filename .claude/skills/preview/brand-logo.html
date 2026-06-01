@@ -1,0 +1,24 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"/>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>html,body{margin:0}body{background:radial-gradient(120% 90% at 50% -10%,#170f24,#07070b 60%);box-sizing:border-box;display:flex;align-items:center;justify-content:center;gap:54px;padding:24px}
+.logo{position:relative;font-family:var(--font-display);font-weight:700;font-size:84px;letter-spacing:.02em}
+.ghost{position:absolute;left:-3px;top:1px;color:var(--neon-red);opacity:.55;filter:blur(.5px)}
+.fg{position:relative;color:var(--text-hi);text-shadow:0 0 8px rgba(176,38,255,.9),0 0 28px rgba(176,38,255,.6),0 0 60px rgba(176,38,255,.35)}
+.sub{font-family:var(--font-display);font-weight:600;font-size:12px;letter-spacing:.34em;color:var(--neon-purple-soft);text-transform:uppercase;text-align:center;margin-top:6px;padding-left:.34em}
+.chips{display:flex;flex-direction:column;gap:14px}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:var(--r-pill)}
+.civ{border:1px solid var(--neon-purple);background:rgba(176,38,255,.10);color:var(--neon-purple-soft)}
+.x9{border:1px solid var(--neon-red);background:rgba(255,42,77,.10);color:#FF8095}
+.chip .x9-label{letter-spacing:.12em;white-space:nowrap}</style></head><body>
+<div>
+  <div class="logo"><span class="ghost">X9</span><span class="fg">X9</span></div>
+  <div class="sub">O&nbsp;Infiltrado</div>
+</div>
+<div class="chips">
+  <span class="chip civ"><i data-lucide="shield-check" width="16"></i><span class="x9-label">Você é um Civil</span></span>
+  <span class="chip x9"><i data-lucide="venetian-mask" width="16"></i><span class="x9-label">Você é o X9</span></span>
+</div>
+<script>lucide.createIcons()</script>
+</body></html>

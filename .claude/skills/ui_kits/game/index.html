@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>X9: O Infiltrado — UI Kit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../colors_and_type.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+  html, body {
+    margin: 0;
+    background:
+      radial-gradient(80% 60% at 20% 0%, #140d1f 0%, transparent 60%),
+      radial-gradient(80% 60% at 90% 100%, #1a0a12 0%, transparent 55%),
+      #07070b;
+    min-height: 100vh;
+    font-family: var(--font-body);
+    color: var(--text-hi);
+  }
+  * { box-sizing: border-box; }
+  ::-webkit-scrollbar { width: 0; height: 0; }
+  .stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+  /* segmented flow controls */
+  .flowbar {
+    position: fixed;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+    display: flex;
+    gap: 4px;
+    padding: 6px;
+    border-radius: 999px;
+    background: rgba(20,20,31,0.85);
+    border: 1px solid var(--line-soft);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 12px 40px -12px rgba(0,0,0,0.8);
+    max-width: 94vw;
+    overflow-x: auto;
+  }
+  .flowbar button {
+    white-space: nowrap;
+    border: none;
+    background: transparent;
+    color: var(--text-low);
+    font-family: var(--font-display);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    padding: 8px 13px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .flowbar button.on {
+    background: linear-gradient(180deg,#C95CFF,#B026FF);
+    color: var(--text-on-neon);
+    box-shadow: 0 0 16px -3px rgba(176,38,255,0.7);
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" src="Primitives.jsx" data-presets="react"></script>
+<script type="text/babel" src="HomeSetup.jsx" data-presets="react"></script>
+<script type="text/babel" src="Reveal.jsx" data-presets="react"></script>
+<script type="text/babel" src="Gameplay.jsx" data-presets="react"></script>
+
+<script type="text/babel" data-presets="react">
+const { useState: useAppState, useEffect: useAppEffect } = React;
+
+// ---- Demo data ----
+const SECRET = { word: "PIZZA", emoji: "🍕" };
+
+function App() {
+  const [screen, setScreen] = useAppState("home");        // home | setup | wait | reveal | game | vote
+  const [players, setPlayers] = useAppState(["Bia", "Caio", "Duda", "Léo"]);
+  const [impostors, setImpostors] = useAppState(1);
+  const [revealIdx, setRevealIdx] = useAppState(0);
+  const [revealed, setRevealed] = useAppState(false);
+  const [eliminated, setEliminated] = useAppState([]);
+  const [result, setResult] = useAppState(null);
+
+  // assign roles deterministically for the demo: last player(s) are X9
+  const x9Set = players.slice(players.length - impostors);
+  const roleOf = (p) => (x9Set.includes(p) ? "x9" : "civil");
+
+  useAppEffect(() => { if (window.lucide) window.lucide.createIcons(); });
+
+  const startReveal = () => { setRevealIdx(0); setRevealed(false); setScreen("wait"); };
+
+  const renderPhone = () => {
+    switch (screen) {
+      case "home":
+        return <HomeScreen onNew={() => setScreen("setup")} onHow={() => setScreen("setup")} />;
+      case "setup":
+        return (
+          <SetupScreen
+            players={players} setPlayers={setPlayers}
+            impostors={impostors} setImpostors={setImpostors}
+            onStart={startReveal} onBack={() => setScreen("home")}
+          />
+        );
+      case "wait":
+        return (
+          <RevealWait
+            playerName={players[revealIdx]} index={revealIdx} total={players.length}
+            onReveal={() => { setRevealed(true); setScreen("reveal"); }}
+          />
+        );
+      case "reveal": {
+        const p = players[revealIdx];
+        const isX9 = roleOf(p) === "x9";
+        const last = revealIdx >= players.length - 1;
+        return (
+          <RevealCard
+            role={roleOf(p)}
+            word={isX9 ? "DESCONHECIDA" : SECRET.word}
+            emoji={isX9 ? "❓" : SECRET.emoji}
+            playerName={p} index={revealIdx} total={players.length} last={last}
+            onNext={() => {
+              if (last) { setScreen("game"); }
+              else { setRevealIdx(revealIdx + 1); setScreen("wait"); }
+            }}
+          />
+        );
+      }
+      case "game":
+        return (
+          <GameplayScreen players={players} eliminated={eliminated} onVote={() => setScreen("vote")} />
+        );
+      case "vote":
+        return (
+          <>
+            <VotingScreen
+              players={players} eliminated={eliminated}
+              onConfirm={(name) => {
+                const wasImpostor = roleOf(name) === "x9";
+                setResult({ name, wasImpostor, civicsWin: wasImpostor });
+              }}
+            />
+            {result && (
+              <ResultModal
+                name={result.name} wasImpostor={result.wasImpostor} civicsWin={result.civicsWin}
+                onContinue={() => {
+                  if (result.civicsWin) {
+                    setEliminated([]); setResult(null); setScreen("home");
+                  } else {
+                    setEliminated([...eliminated, result.name]); setResult(null); setScreen("game");
+                  }
+                }}
+              />
+            )}
+          </>
+        );
+      default:
+        return null;
+    }
+  };
+
+  const steps = [
+    ["home", "Início"], ["setup", "Setup"], ["wait", "Passar"],
+    ["reveal", "Revelar"], ["game", "Discussão"], ["vote", "Votação"],
+  ];
+
+  return (
+    <div className="stage">
+      <PhoneFrame label={`X9 · ${steps.find(s => s[0] === screen)?.[1] || ""}`}>
+        {renderPhone()}
+      </PhoneFrame>
+      <div className="flowbar">
+        {steps.map(([k, label]) => (
+          <button key={k} className={screen === k ? "on" : ""}
+            onClick={() => { setResult(null); if (k === "reveal") setRevealed(true); setScreen(k); }}>
+            {label}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

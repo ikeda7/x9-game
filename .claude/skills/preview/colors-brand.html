@@ -1,0 +1,35 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"/>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  html,body{margin:0}
+  body{background:radial-gradient(120% 90% at 50% 0%,#16101f,#0b0b11 60%);color:var(--text-hi);font-family:var(--font-body);padding:22px;box-sizing:border-box}
+  *{box-sizing:border-box}
+  .row{display:flex;gap:14px;flex-wrap:wrap;align-items:stretch}
+  .col{display:flex;flex-direction:column;gap:14px}
+  .swatch{flex:1;min-width:96px;border-radius:var(--r-md);padding:12px;display:flex;flex-direction:column;justify-content:flex-end;height:96px;border:1px solid var(--line-soft)}
+  .sw-name{font-family:var(--font-display);font-size:12px;font-weight:600}
+  .sw-hex{font-family:var(--font-mono);font-size:11px;opacity:.75}
+</style></head><body>
+<div class="row">
+  <div class="swatch" style="background:linear-gradient(180deg,#C95CFF,#B026FF);box-shadow:var(--glow-purple-sm)">
+    <div class="sw-name" style="color:var(--text-on-neon)">Neon Purple</div>
+    <div class="sw-hex" style="color:var(--text-on-neon)">#B026FF · primary</div>
+  </div>
+  <div class="swatch" style="background:#C95CFF">
+    <div class="sw-name" style="color:var(--text-on-neon)">Bright</div><div class="sw-hex" style="color:var(--text-on-neon)">#C95CFF · hover</div>
+  </div>
+  <div class="swatch" style="background:#6A0DAD">
+    <div class="sw-name">Deep</div><div class="sw-hex">#6A0DAD · pressed</div>
+  </div>
+  <div class="swatch" style="background:linear-gradient(180deg,#FF4D68,#FF2A4D);box-shadow:var(--glow-red)">
+    <div class="sw-name" style="color:#fff">Neon Red</div><div class="sw-hex" style="color:#fff">#FF2A4D · X9 / danger</div>
+  </div>
+  <div class="swatch" style="background:#2BFF88">
+    <div class="sw-name" style="color:#06281a">Neon Green</div><div class="sw-hex" style="color:#06281a">#2BFF88 · victory</div>
+  </div>
+  <div class="swatch" style="background:#FFC53D">
+    <div class="sw-name" style="color:#3a2a00">Amber</div><div class="sw-hex" style="color:#3a2a00">#FFC53D · timer warn</div>
+  </div>
+</div>
+</body></html>
