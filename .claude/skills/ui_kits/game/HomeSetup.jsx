@@ -61,7 +61,7 @@ function HomeScreen({ onNew, onHow }) {
           className="x9-body"
           style={{ marginTop: 26, textAlign: "center", maxWidth: 270, color: "var(--text-mid)" }}
         >
-          Um de vocês é o infiltrado. Descubra quem antes que seja tarde.
+          Um de vocês é o X9. Descubra quem antes que seja tarde.
         </div>
 
         <div style={{ flex: 1 }} />

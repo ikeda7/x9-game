@@ -1,6 +1,6 @@
 ---
 name: x9-design
-description: Use this skill to generate well-branded interfaces and assets for "X9: O Infiltrado" (Jogo do Impostor), a mobile pass-and-play party game with a "Noir Cibernético" aesthetic — graphite-black surfaces, vibrant neon-purple accents, dark-red alerts. Use for production UI or throwaway prototypes/mocks. Contains design guidelines, color & type tokens, icon usage, and a full game UI kit.
+description: Use this skill to generate well-branded interfaces and assets for "X9 — Jogo do Impostor", a mobile pass-and-play party game with a "Noir Cibernético" aesthetic — graphitee-black surfaces, vibrant neon-purple accents, dark-red alerts. Use for production UI or throwaway prototypes/mocks. Contains design guidelines, color & type tokens, icon usage, and a full game UI kit.
 user-invocable: true
 ---
 
@@ -11,6 +11,7 @@ Read the `README.md` file within this skill for the full context, content voice,
 - `preview/` — small specimen cards (colors, type, spacing, components, brand).
 
 **Core rules to honor:**
+- Brand is **just "X9"** (descriptor *"Jogo do Impostor"*). The old "O Infiltrado" sub-label is **retired** — never use it. The villain is called **"X9"**.
 - Language is **Brazilian Portuguese (pt-BR)**. Voice is playful, conspiratorial, second-person; tense and theatrical.
 - Color is functional: **purple = civis / primary action / safe**, **red = X9 / danger / eliminate**, **green = victory / alive**. Never add hues outside the token set.
 - Fonts: **Chakra Petch** (display/UI/buttons, UPPERCASE labels via CSS), **Space Grotesk** (body), **Share Tech Mono** (timer/numbers). Load from Google Fonts.

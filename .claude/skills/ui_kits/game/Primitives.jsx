@@ -115,9 +115,9 @@ function Logo({ size = 72, tagline = false }) {
       {tagline && (
         <div
           className="x9-label"
-          style={{ color: "var(--neon-purple-soft)", letterSpacing: "0.34em", fontSize: 11, paddingLeft: "0.34em" }}
+          style={{ color: "var(--neon-purple-soft)", letterSpacing: "0.28em", fontSize: 11, paddingLeft: "0.28em" }}
         >
-          O&nbsp;INFILTRADO
+          JOGO&nbsp;DO&nbsp;IMPOSTOR
         </div>
       )}
     </div>

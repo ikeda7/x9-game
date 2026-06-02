@@ -65,6 +65,9 @@ src/
     VotingScreen.tsx
     RoundResultScreen.tsx
     GameOverScreen.tsx
+
+public/                   # assets servidos na raiz "/": favicon (svg/ico/png),
+                          # ícones PWA, manifest.webmanifest, og-image, splash
 ```
 
 ### Design system
@@ -75,6 +78,15 @@ lá; reutilize as primitivas de [src/components/ui.tsx](src/components/ui.tsx) e
 classes `.x9-*` em vez de re-estilizar do zero.
 
 Para adicionar palavras, edite [src/data/words.ts](src/data/words.ts).
+
+## Instalar no celular
+
+O app traz um Web App Manifest e ícones, então dá pra usar **"Adicionar à tela
+inicial"** e rodar em tela cheia, como um app. Por opção de projeto **não há
+service worker** (sem cache offline) — para evitar que um SW desatualizado sirva
+uma versão antiga; o [src/main.tsx](src/main.tsx) inclusive desregistra SWs órfãos
+da origem ao carregar. As metatags de favicon, manifest e Open Graph estão no
+[index.html](index.html); o `og:image` aponta para a URL do deploy.
 
 ## Stack
 React 18 · TypeScript · Vite 6 · Tailwind CSS v4 (`@tailwindcss/vite`) ·

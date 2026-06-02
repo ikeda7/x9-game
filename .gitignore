@@ -19,6 +19,13 @@ pnpm-debug.log*
 # Vite cache
 .vite/
 
+# Vercel CLI
+.vercel/
+
+# Design skill: keep the source, but not the duplicated asset "delivery" folder
+# (those binaries already live in /public, which is what the app actually serves)
+.claude/skills/public/
+
 # Environment
 .env
 .env.*

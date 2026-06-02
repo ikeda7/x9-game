@@ -1,6 +1,8 @@
-# X9: O Infiltrado — Design System
+# X9 — Jogo do Impostor — Design System
 
-**X9: O Infiltrado** is a mobile-first, pass-and-play **party game** (a social deduction game in the "Spyfall / Impostor" family). Players gather around a *single phone*: most are **Civis** (Civilians) who share a secret word, while one or more **X9** (the infiltrator/impostor) must bluff their way through discussion without knowing it. The phone is passed hand to hand to reveal roles in secret, the group debates, then votes to eliminate a suspect.
+> **Brand note (June 2026):** the brand is now **just "X9"**, with the descriptor **"Jogo do Impostor"**. The old sub-label **"O Infiltrado"** was dropped (a game named *Infiltrado* already exists) — do not use it in the logo or copy. In-game, the villain is called **"X9"** (not "infiltrado").
+
+**X9 — Jogo do Impostor** is a mobile-first, pass-and-play **party game** (a social deduction game in the "Spyfall / Impostor" family). Players gather around a *single phone*: most are **Civis** (Civilians) who share a secret word, while one or more **X9** (the infiltrator/impostor) must bluff their way through discussion without knowing it. The phone is passed hand to hand to reveal roles in secret, the group debates, then votes to eliminate a suspect.
 
 The product is a **single web app** designed entirely for **touch on one phone**. Its visual identity is **"Noir Cibernético" (Cyber Noir)**: a very dark graphite-black canvas with subtle film-grain + scanline texture, lit by **vibrant neon purple** accents and **dark/neon red** alerts. The mood is mysterious, tense, and modern — a digital interrogation room.
 
@@ -8,7 +10,7 @@ The product is a **single web app** designed entirely for **touch on one phone**
 
 ## Sources
 This system was built **from scratch** to a written brief (no prior codebase, Figma, or screenshots were provided). The brief specified:
-- Brand: *X9 - Jogo do Impostor* / *"X9: O Infiltrado"*
+- Brand: **X9** — descriptor *"Jogo do Impostor"* (no "O Infiltrado" sub-label)
 - Aesthetic: *Noir Cibernético* — graphite/black background with subtle texture, vibrant neon-purple borders/details, dark-red alerts.
 - Five screen flows: **Home**, **Setup**, **Role Reveal (Wait → Civil → X9)**, **Discussion/Gameplay (timer)**, **Voting + Result**.
 
@@ -37,7 +39,7 @@ There is **no external source of truth** to diverge from — this repo *is* the 
 | Context | String |
 |---|---|
 | Tagline | `Jogue com amigos em um único celular` |
-| Home subhead | `Um de vocês é o infiltrado. Descubra quem antes que seja tarde.` |
+| Home subhead | `Um de vocês é o X9. Descubra quem antes que seja tarde.` |
 | Setup title | `Quem vai jogar?` |
 | Setup min-rule | `Mínimo de 3 jogadores` |
 | Setup option | `Quantidade de X9s` |
@@ -120,7 +122,7 @@ The game uses **no photography**. "Imagery" is the secret-word **emoji** on reve
 - **Key glyphs in use:** `play`, `help-circle`, `smartphone`, `chevron-left`, `plus`/`minus`/`x`, `users`, `check-circle-2`, `venetian-mask` (the X9/impostor motif), `shield-check` (Civil), `fingerprint` (the hold-to-reveal gesture), `user`/`user-x`/`skull` (alive/eliminate/dead), `gavel`, `zap`, `eye-off`, `pause`, `flag`, `party-popper`, signal/wifi/battery (status bar).
 - **Recurring motifs:** the **venetian mask** = X9/impostor everywhere; **shield-check** = Civil; **fingerprint** = the secret reveal action; **skull / strikethrough** = eliminated players.
 - **Emoji:** only as the secret word's illustration on reveal cards (`🍕`, `❓`) — never as UI chrome.
-- **Logo:** the "X9" wordmark is rendered in Chakra Petch with a layered neon-purple text-glow and a faint offset **red glitch ghost**, plus an `O INFILTRADO` tracked sub-label. See `Primitives.jsx → Logo`. There is no separate raster logo asset; it is type-driven and lives in code so it scales crisply.
+- **Logo:** the "X9" wordmark is rendered in Chakra Petch with a layered neon-purple text-glow and a faint offset **red glitch ghost**, plus a `JOGO DO IMPOSTOR` tracked descriptor (the old `O INFILTRADO` sub-label is retired). See `Primitives.jsx → Logo`. There is no separate raster logo asset; it is type-driven and lives in code so it scales crisply.
 
 ---
 
@@ -132,6 +134,7 @@ The game uses **no photography**. "Imagery" is the secret-word **emoji** on reve
 | `colors_and_type.css` | All design tokens: colors, surfaces, glows, radii, spacing, type families + scale, semantic `.x9-*` text classes, texture helpers. **Import this everywhere.** |
 | `SKILL.md` | Agent-Skill manifest so this system can be used as a Claude Skill. |
 | `preview/` | Small HTML cards for the Design System tab (type, colors, spacing, components, brand). |
+| `public/` | **Brand / launch assets** ready for the app's `/public`: favicons (svg/png/ico), apple-touch & PWA icons (incl. maskable), `manifest.webmanifest`, `og-image.png`, splash, and `head-snippet.html`. See `public/README.md`. |
 | `ui_kits/game/` | The **X9 game UI kit** — the real product, as an interactive click-through. |
 | `ui_kits/game/index.html` | Entry point: full flow Home → Setup → Reveal → Discussion → Voting → Result. |
 | `ui_kits/game/Primitives.jsx` | Shared: `Icon`, `Texture`, `Logo`, `Button`, `PhoneFrame`, `StatusBar`. |
