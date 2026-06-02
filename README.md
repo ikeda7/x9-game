@@ -1,5 +1,15 @@
 # X9 — Jogo do Impostor
 
+> **Um de vocês é o X9.** Descubra quem antes que seja tarde.
+
+[![▶ Jogar agora](https://img.shields.io/badge/▶_jogar_agora-x9--game.vercel.app-B026FF?style=for-the-badge&labelColor=0C0C13)](https://x9-game.vercel.app)
+&nbsp;
+[![React](https://img.shields.io/badge/React-18-149ECA?style=flat-square&logo=react&logoColor=white&labelColor=0C0C13)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript&logoColor=white&labelColor=0C0C13)](https://www.typescriptlang.org)
+[![Vite](https://img.shields.io/badge/Vite-6-646CFF?style=flat-square&logo=vite&logoColor=white&labelColor=0C0C13)](https://vite.dev)
+
+**🎮 Jogue agora: [x9-game.vercel.app](https://x9-game.vercel.app)**
+
 Jogo de festa (dedução social, família *Spyfall / Impostor*) jogado em **um único
 celular**, passado de mão em mão. A maioria são **Civis** que compartilham uma
 palavra secreta; um ou mais jogadores são o **X9**, que não conhece a palavra e
