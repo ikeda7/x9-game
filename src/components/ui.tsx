@@ -149,6 +149,7 @@ export function Screen({
     >
       <Texture vignette={!dark} scanlines />
       <div
+        className="animate-screen-in"
         style={{
           position: 'relative',
           zIndex: 10,

@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import type { ReactNode } from 'react'
-import type { GameConfig } from '../types'
+import type { GameConfig, VoteMode } from '../types'
 import { Button, Icon, Screen } from '../components/ui'
 import { CATEGORIES, emojiForCategory } from '../data/words'
+import { loadSetup } from '../game/storage'
 
 const MIN_PLAYERS = 3
 
@@ -23,12 +24,18 @@ function maxImpostors(playerCount: number): number {
 }
 
 export default function SetupScreen({ onStart, onBack }: Props) {
-  const [players, setPlayers] = useState<string[]>([])
+  const [saved] = useState(loadSetup)
+  const savedCategories = (saved?.categories ?? []).filter((c) => CATEGORIES.includes(c))
+
+  const [players, setPlayers] = useState<string[]>(saved?.names ?? [])
   const [name, setName] = useState('')
-  const [impostors, setImpostors] = useState(1)
-  const [hintMode, setHintMode] = useState(false)
-  const [duration, setDuration] = useState(120)
-  const [categories, setCategories] = useState<string[]>(CATEGORIES)
+  const [impostors, setImpostors] = useState(saved?.impostorCount ?? 1)
+  const [hintMode, setHintMode] = useState(saved?.hintMode ?? false)
+  const [duration, setDuration] = useState(saved?.discussionSeconds ?? 120)
+  const [categories, setCategories] = useState<string[]>(
+    savedCategories.length ? savedCategories : CATEGORIES,
+  )
+  const [voteMode, setVoteMode] = useState<VoteMode>(saved?.voteMode ?? 'open')
 
   const enough = players.length >= MIN_PLAYERS
   const cap = maxImpostors(players.length)
@@ -63,6 +70,7 @@ export default function SetupScreen({ onStart, onBack }: Props) {
       hintMode,
       discussionSeconds: duration,
       categories,
+      voteMode,
     })
   }
 
@@ -237,6 +245,47 @@ export default function SetupScreen({ onStart, onBack }: Props) {
             })}
           </div>
         </Row>
+
+        {/* modo de votação */}
+        <Row>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <Icon name="gavel" size={18} color="var(--neon-purple-soft)" />
+            <span style={{ color: 'var(--text-hi)', fontFamily: 'var(--font-body)', fontSize: 15 }}>Votação</span>
+          </div>
+          <div style={{ display: 'flex', gap: 6 }}>
+            {([
+              { v: 'open', label: 'Aberta' },
+              { v: 'secret', label: 'Secreta' },
+            ] as const).map((o) => {
+              const on = voteMode === o.v
+              return (
+                <button
+                  key={o.v}
+                  onClick={() => setVoteMode(o.v)}
+                  style={{
+                    padding: '7px 12px',
+                    borderRadius: 'var(--r-sm)',
+                    cursor: 'pointer',
+                    fontFamily: 'var(--font-display)',
+                    fontSize: 12,
+                    letterSpacing: '0.04em',
+                    color: on ? 'var(--text-on-neon)' : 'var(--text-mid)',
+                    background: on ? 'var(--neon-purple)' : 'var(--bg-elevated)',
+                    border: `1px solid ${on ? 'var(--neon-purple)' : 'var(--line-soft)'}`,
+                    boxShadow: on ? 'var(--glow-purple-sm)' : 'none',
+                  }}
+                >
+                  {o.label}
+                </button>
+              )
+            })}
+          </div>
+        </Row>
+        <div className="x9-small" style={{ marginTop: 6, color: 'var(--text-low)', fontSize: 12, paddingLeft: 2 }}>
+          {voteMode === 'open'
+            ? 'Aberta: o grupo declara e soma os votos juntos.'
+            : 'Secreta: cada um vota escondido passando o celular.'}
+        </div>
 
         {/* categorias */}
         <div

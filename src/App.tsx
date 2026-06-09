@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { GameConfig, Phase, Player, Winner, WordEntry } from './types'
 import { createPlayers, checkWinner } from './game/logic'
+import { saveSetup } from './game/storage'
 import { pickRandomWord } from './data/words'
 import HomeScreen from './screens/HomeScreen'
 import SetupScreen from './screens/SetupScreen'
@@ -39,6 +40,7 @@ export default function App() {
   }
 
   function startGame(cfg: GameConfig) {
+    saveSetup(cfg)
     const newPlayers = createPlayers(cfg.names, cfg.impostorCount)
     setConfig(cfg)
     setPlayers(newPlayers)
@@ -130,6 +132,7 @@ export default function App() {
     case 'voting':
       return (
         <VotingScreen
+          mode={config!.voteMode}
           players={players}
           onEliminate={eliminate}
           onTie={() => resolveNoElimination('tie')}

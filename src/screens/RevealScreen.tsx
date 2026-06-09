@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import type { Player, WordEntry } from '../types'
 import { Button, Icon, Screen } from '../components/ui'
+import { haptic } from '../game/feedback'
 
 interface Props {
   players: Player[]
@@ -29,7 +30,10 @@ export default function RevealScreen({ players, word, hintMode, onDone }: Props)
         playerName={player.name}
         index={index}
         total={players.length}
-        onReveal={() => setRevealed(true)}
+        onReveal={() => {
+          haptic(28)
+          setRevealed(true)
+        }}
       />
     )
   }

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import type { Player } from '../types'
 import { Button, Icon, Screen } from '../components/ui'
+import { timesUp } from '../game/feedback'
 
 interface Props {
   players: Player[]
@@ -28,7 +29,7 @@ export default function DiscussionScreen({ players, starterId, durationSeconds, 
     if (secs === 0 && !buzzed.current) {
       buzzed.current = true
       setRunning(false)
-      navigator.vibrate?.([180, 90, 180])
+      timesUp()
     }
   }, [secs])
 

@@ -71,6 +71,44 @@ export const WORDS: WordEntry[] = [
   { category: 'Objetos', word: 'Câmera', emoji: '📷', hint: 'Filmadora' },
   { category: 'Objetos', word: 'Chave', emoji: '🔑', hint: 'Cadeado' },
   { category: 'Objetos', word: 'Vassoura', emoji: '🧹', hint: 'Rodo' },
+
+  // 🍓 Frutas
+  { category: 'Frutas', word: 'Morango', emoji: '🍓', hint: 'Cereja' },
+  { category: 'Frutas', word: 'Banana', emoji: '🍌', hint: 'Manga' },
+  { category: 'Frutas', word: 'Abacaxi', emoji: '🍍', hint: 'Melão' },
+  { category: 'Frutas', word: 'Melancia', emoji: '🍉', hint: 'Melão' },
+  { category: 'Frutas', word: 'Uva', emoji: '🍇', hint: 'Jabuticaba' },
+  { category: 'Frutas', word: 'Maçã', emoji: '🍎', hint: 'Pêra' },
+  { category: 'Frutas', word: 'Laranja', emoji: '🍊', hint: 'Tangerina' },
+  { category: 'Frutas', word: 'Coco', emoji: '🥥', hint: 'Castanha' },
+
+  // 🎵 Música
+  { category: 'Música', word: 'Piano', emoji: '🎹', hint: 'Teclado' },
+  { category: 'Música', word: 'Bateria', emoji: '🥁', hint: 'Cajón' },
+  { category: 'Música', word: 'Microfone', emoji: '🎤', hint: 'Megafone' },
+  { category: 'Música', word: 'Fone', emoji: '🎧', hint: 'Caixa de som' },
+  { category: 'Música', word: 'Saxofone', emoji: '🎷', hint: 'Trompete' },
+  { category: 'Música', word: 'Sanfona', emoji: '🪗', hint: 'Gaita' },
+  { category: 'Música', word: 'Pandeiro', emoji: '🪘', hint: 'Tamborim' },
+
+  // 🌿 Natureza
+  { category: 'Natureza', word: 'Vulcão', emoji: '🌋', hint: 'Montanha' },
+  { category: 'Natureza', word: 'Arco-íris', emoji: '🌈', hint: 'Aurora' },
+  { category: 'Natureza', word: 'Cachoeira', emoji: '⛰️', hint: 'Rio' },
+  { category: 'Natureza', word: 'Tempestade', emoji: '⛈️', hint: 'Furacão' },
+  { category: 'Natureza', word: 'Neve', emoji: '❄️', hint: 'Granizo' },
+  { category: 'Natureza', word: 'Cacto', emoji: '🌵', hint: 'Samambaia' },
+  { category: 'Natureza', word: 'Lua', emoji: '🌙', hint: 'Estrela' },
+
+  // 🚗 Transporte
+  { category: 'Transporte', word: 'Avião', emoji: '✈️', hint: 'Helicóptero' },
+  { category: 'Transporte', word: 'Trem', emoji: '🚆', hint: 'Metrô' },
+  { category: 'Transporte', word: 'Bicicleta', emoji: '🚲', hint: 'Patinete' },
+  { category: 'Transporte', word: 'Navio', emoji: '🚢', hint: 'Barco' },
+  { category: 'Transporte', word: 'Foguete', emoji: '🚀', hint: 'Ônibus espacial' },
+  { category: 'Transporte', word: 'Moto', emoji: '🏍️', hint: 'Lambreta' },
+  { category: 'Transporte', word: 'Ônibus', emoji: '🚌', hint: 'Van' },
+  { category: 'Transporte', word: 'Caminhão', emoji: '🚚', hint: 'Trator' },
 ]
 
 /** Todas as categorias disponíveis, na ordem do banco. */
@@ -96,6 +134,10 @@ const CATEGORY_EMOJI: Record<string, string> = {
   Esportes: '⚽',
   Profissões: '👔',
   Objetos: '🎒',
+  Frutas: '🍓',
+  Música: '🎵',
+  Natureza: '🌿',
+  Transporte: '🚗',
 }
 
 export function emojiForCategory(category: string): string {

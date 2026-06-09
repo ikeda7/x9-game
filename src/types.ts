@@ -34,7 +34,11 @@ export interface GameConfig {
   discussionSeconds: number
   /** Categorias habilitadas no sorteio. Vazio = todas. */
   categories: string[]
+  /** Votação: 'open' = contagem aberta; 'secret' = passa o celular. */
+  voteMode: VoteMode
 }
+
+export type VoteMode = 'open' | 'secret'
 
 /** Resultado de uma rodada de votação. */
 export type RoundOutcome =
