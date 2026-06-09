@@ -10,20 +10,44 @@ import VotingScreen from './screens/VotingScreen'
 import RoundResultScreen from './screens/RoundResultScreen'
 import GameOverScreen from './screens/GameOverScreen'
 
+type NoElimReason = 'tie' | 'skip'
+
 export default function App() {
   const [phase, setPhase] = useState<Phase>('home')
   const [config, setConfig] = useState<GameConfig | null>(null)
   const [players, setPlayers] = useState<Player[]>([])
   const [word, setWord] = useState<WordEntry | null>(null)
   const [lastEliminated, setLastEliminated] = useState<Player | null>(null)
+  const [noElimReason, setNoElimReason] = useState<NoElimReason | null>(null)
   const [winner, setWinner] = useState<Winner | null>(null)
+  const [starterId, setStarterId] = useState<number | null>(null)
+  const [round, setRound] = useState(0)
+
+  /** Sorteia quem abre a discussão entre os jogadores vivos. */
+  function pickStarter(list: Player[]): number | null {
+    const alive = list.filter((p) => p.alive)
+    if (!alive.length) return null
+    return alive[Math.floor(Math.random() * alive.length)].id
+  }
+
+  function goToDiscussion(list = players) {
+    setStarterId(pickStarter(list))
+    setLastEliminated(null)
+    setNoElimReason(null)
+    setRound((r) => r + 1)
+    setPhase('discussion')
+  }
 
   function startGame(cfg: GameConfig) {
+    const newPlayers = createPlayers(cfg.names, cfg.impostorCount)
     setConfig(cfg)
-    setPlayers(createPlayers(cfg.names, cfg.impostorCount))
-    setWord(pickRandomWord())
+    setPlayers(newPlayers)
+    setWord(pickRandomWord(cfg.categories))
     setLastEliminated(null)
+    setNoElimReason(null)
     setWinner(null)
+    setStarterId(null)
+    setRound(0)
     setPhase('reveal')
   }
 
@@ -33,12 +57,21 @@ export default function App() {
     )
     setPlayers(updated)
     setLastEliminated(updated.find((p) => p.id === playerId) ?? null)
+    setNoElimReason(null)
     setWinner(checkWinner(updated))
     setPhase('roundResult')
   }
 
+  function resolveNoElimination(reason: NoElimReason) {
+    setLastEliminated(null)
+    setNoElimReason(reason)
+    setWinner(null)
+    setPhase('roundResult')
+  }
+
   function continueAfterResult() {
-    setPhase(winner ? 'gameover' : 'discussion')
+    if (winner) setPhase('gameover')
+    else goToDiscussion()
   }
 
   function playAgain() {
@@ -51,7 +84,9 @@ export default function App() {
     setPlayers([])
     setWord(null)
     setLastEliminated(null)
+    setNoElimReason(null)
     setWinner(null)
+    setStarterId(null)
   }
 
   function newSetup() {
@@ -77,26 +112,36 @@ export default function App() {
           players={players}
           word={word!}
           hintMode={config!.hintMode}
-          onDone={() => setPhase('discussion')}
+          onDone={() => goToDiscussion()}
         />
       )
 
     case 'discussion':
-      return <DiscussionScreen players={players} onVote={() => setPhase('voting')} />
+      return (
+        <DiscussionScreen
+          key={round}
+          players={players}
+          starterId={starterId}
+          durationSeconds={config!.discussionSeconds}
+          onVote={() => setPhase('voting')}
+        />
+      )
 
     case 'voting':
       return (
         <VotingScreen
           players={players}
           onEliminate={eliminate}
-          onSkip={() => setPhase('discussion')}
+          onTie={() => resolveNoElimination('tie')}
+          onSkip={() => resolveNoElimination('skip')}
         />
       )
 
     case 'roundResult':
       return (
         <RoundResultScreen
-          eliminated={lastEliminated!}
+          eliminated={lastEliminated}
+          noElimReason={noElimReason}
           remainingImpostors={players.filter((p) => p.alive && p.isImpostor).length}
           onContinue={continueAfterResult}
         />

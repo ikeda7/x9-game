@@ -1,8 +1,16 @@
 import { useState } from 'react'
+import type { ReactNode } from 'react'
 import type { GameConfig } from '../types'
 import { Button, Icon, Screen } from '../components/ui'
+import { CATEGORIES, emojiForCategory } from '../data/words'
 
 const MIN_PLAYERS = 3
+
+const DURATIONS = [
+  { secs: 60, label: '1 min' },
+  { secs: 120, label: '2 min' },
+  { secs: 180, label: '3 min' },
+]
 
 interface Props {
   onStart: (config: GameConfig) => void
@@ -19,9 +27,12 @@ export default function SetupScreen({ onStart, onBack }: Props) {
   const [name, setName] = useState('')
   const [impostors, setImpostors] = useState(1)
   const [hintMode, setHintMode] = useState(false)
+  const [duration, setDuration] = useState(120)
+  const [categories, setCategories] = useState<string[]>(CATEGORIES)
 
   const enough = players.length >= MIN_PLAYERS
   const cap = maxImpostors(players.length)
+  const canStart = enough && categories.length > 0
 
   function add() {
     const v = name.trim()
@@ -38,9 +49,21 @@ export default function SetupScreen({ onStart, onBack }: Props) {
     })
   }
 
+  function toggleCategory(cat: string) {
+    setCategories((prev) =>
+      prev.includes(cat) ? prev.filter((c) => c !== cat) : [...prev, cat],
+    )
+  }
+
   function start() {
-    if (!enough) return
-    onStart({ names: players, impostorCount: Math.min(impostors, cap), hintMode })
+    if (!canStart) return
+    onStart({
+      names: players,
+      impostorCount: Math.min(impostors, cap),
+      hintMode,
+      discussionSeconds: duration,
+      categories,
+    })
   }
 
   return (
@@ -65,8 +88,9 @@ export default function SetupScreen({ onStart, onBack }: Props) {
         </div>
       </div>
 
-      {/* counter pill */}
-      <div style={{ padding: '14px 22px 0' }}>
+      {/* scroll: jogadores + configurações */}
+      <div style={{ flex: 1, overflowY: 'auto', padding: '14px 22px 8px' }}>
+        {/* counter pill */}
         <div
           style={{
             display: 'inline-flex',
@@ -90,63 +114,52 @@ export default function SetupScreen({ onStart, onBack }: Props) {
             {enough ? `${players.length} jogadores prontos` : `Mínimo de ${MIN_PLAYERS} jogadores`}
           </span>
         </div>
-      </div>
 
-      {/* player list */}
-      <div
-        style={{
-          flex: 1,
-          overflowY: 'auto',
-          padding: '16px 22px 8px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 10,
-        }}
-      >
-        {players.map((p, i) => (
-          <div
-            key={i}
-            className="animate-fade-in"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 12,
-              padding: '13px 14px',
-              borderRadius: 'var(--r-md)',
-              background: 'var(--bg-surface)',
-              border: '1px solid var(--line-soft)',
-            }}
-          >
-            <span
+        {/* player list */}
+        <div style={{ marginTop: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {players.map((p, i) => (
+            <div
+              key={i}
+              className="animate-fade-in"
               style={{
-                display: 'inline-flex',
+                display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center',
-                width: 30,
-                height: 30,
-                borderRadius: 9,
-                background: 'rgba(176,38,255,0.12)',
-                color: 'var(--neon-purple-soft)',
-                fontFamily: 'var(--font-mono)',
-                fontSize: 13,
+                gap: 12,
+                padding: '13px 14px',
+                borderRadius: 'var(--r-md)',
+                background: 'var(--bg-surface)',
+                border: '1px solid var(--line-soft)',
               }}
             >
-              {String(i + 1).padStart(2, '0')}
-            </span>
-            <span style={{ flex: 1, color: 'var(--text-hi)', fontFamily: 'var(--font-body)', fontSize: 16 }}>{p}</span>
-            <button
-              onClick={() => remove(i)}
-              style={{ display: 'inline-flex', background: 'transparent', border: 'none', cursor: 'pointer', padding: 4, color: 'var(--text-low)' }}
-            >
-              <Icon name="x" size={18} />
-            </button>
-          </div>
-        ))}
-      </div>
+              <span
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: 30,
+                  height: 30,
+                  borderRadius: 9,
+                  background: 'rgba(176,38,255,0.12)',
+                  color: 'var(--neon-purple-soft)',
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: 13,
+                }}
+              >
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <span style={{ flex: 1, color: 'var(--text-hi)', fontFamily: 'var(--font-body)', fontSize: 16 }}>{p}</span>
+              <button
+                onClick={() => remove(i)}
+                style={{ display: 'inline-flex', background: 'transparent', border: 'none', cursor: 'pointer', padding: 4, color: 'var(--text-low)' }}
+              >
+                <Icon name="x" size={18} />
+              </button>
+            </div>
+          ))}
+        </div>
 
-      {/* add input */}
-      <div style={{ padding: '4px 22px 0' }}>
-        <div style={{ display: 'flex', gap: 10 }}>
+        {/* add input */}
+        <div style={{ marginTop: 10, display: 'flex', gap: 10 }}>
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -185,34 +198,99 @@ export default function SetupScreen({ onStart, onBack }: Props) {
             <Icon name="plus" size={22} />
           </button>
         </div>
-      </div>
 
-      {/* impostor stepper */}
-      <div style={{ padding: '16px 22px 0' }}>
+        {/* ---- Configurações ---- */}
+        <SectionLabel>Configurações</SectionLabel>
+
+        {/* X9 stepper */}
+        <Row>
+          <RowLeft icon="venetian-mask" iconColor="var(--neon-red)" label="Quantidade de X9s" />
+          <Stepper value={Math.min(impostors, cap)} min={1} max={cap} onChange={setImpostors} />
+        </Row>
+
+        {/* duração */}
+        <Row>
+          <RowLeft icon="pause" iconColor="var(--neon-purple-soft)" label="Tempo de discussão" />
+          <div style={{ display: 'flex', gap: 6 }}>
+            {DURATIONS.map((d) => {
+              const on = duration === d.secs
+              return (
+                <button
+                  key={d.secs}
+                  onClick={() => setDuration(d.secs)}
+                  style={{
+                    padding: '7px 11px',
+                    borderRadius: 'var(--r-sm)',
+                    cursor: 'pointer',
+                    fontFamily: 'var(--font-display)',
+                    fontSize: 12,
+                    letterSpacing: '0.04em',
+                    color: on ? 'var(--text-on-neon)' : 'var(--text-mid)',
+                    background: on ? 'var(--neon-purple)' : 'var(--bg-elevated)',
+                    border: `1px solid ${on ? 'var(--neon-purple)' : 'var(--line-soft)'}`,
+                    boxShadow: on ? 'var(--glow-purple-sm)' : 'none',
+                  }}
+                >
+                  {d.label}
+                </button>
+              )
+            })}
+          </div>
+        </Row>
+
+        {/* categorias */}
         <div
           style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            padding: '12px 14px 12px 16px',
+            marginTop: 12,
+            padding: '14px 16px',
             borderRadius: 'var(--r-md)',
             background: 'var(--bg-surface)',
             border: '1px solid var(--line-soft)',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <Icon name="venetian-mask" size={18} color="var(--neon-red)" />
-            <span style={{ color: 'var(--text-hi)', fontFamily: 'var(--font-body)', fontSize: 15 }}>Quantidade de X9s</span>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <Icon name="flag" size={18} color="var(--neon-purple-soft)" />
+              <span style={{ color: 'var(--text-hi)', fontFamily: 'var(--font-body)', fontSize: 15 }}>Categorias</span>
+            </div>
+            <span className="x9-label" style={{ color: categories.length ? 'var(--text-low)' : 'var(--neon-red)' }}>
+              {categories.length ? `${categories.length}/${CATEGORIES.length}` : 'escolha 1'}
+            </span>
           </div>
-          <Stepper value={Math.min(impostors, cap)} min={1} max={cap} onChange={setImpostors} />
+          <div style={{ marginTop: 12, display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+            {CATEGORIES.map((cat) => {
+              const on = categories.includes(cat)
+              return (
+                <button
+                  key={cat}
+                  onClick={() => toggleCategory(cat)}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    padding: '7px 12px',
+                    borderRadius: 'var(--r-pill)',
+                    cursor: 'pointer',
+                    fontFamily: 'var(--font-body)',
+                    fontSize: 13,
+                    color: on ? 'var(--neon-purple-soft)' : 'var(--text-low)',
+                    background: on ? 'rgba(176,38,255,0.12)' : 'transparent',
+                    border: `1px solid ${on ? 'var(--line-neon)' : 'var(--line-soft)'}`,
+                  }}
+                >
+                  <span>{emojiForCategory(cat)}</span>
+                  {cat}
+                </button>
+              )
+            })}
+          </div>
         </div>
-      </div>
 
-      {/* hint mode toggle */}
-      <div style={{ padding: '12px 22px 0' }}>
+        {/* modo avançado */}
         <button
           onClick={() => setHintMode((v) => !v)}
           style={{
+            marginTop: 12,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -229,44 +307,87 @@ export default function SetupScreen({ onStart, onBack }: Props) {
           <div>
             <div style={{ color: 'var(--text-hi)', fontFamily: 'var(--font-body)', fontSize: 15 }}>Modo avançado</div>
             <div className="x9-small" style={{ color: 'var(--text-low)', fontSize: 12 }}>
-              O X9 recebe uma palavra parecida no lugar de "X9".
+              O X9 recebe uma palavra parecida no lugar de "???".
             </div>
           </div>
-          <span
-            style={{
-              position: 'relative',
-              flexShrink: 0,
-              width: 46,
-              height: 26,
-              borderRadius: 'var(--r-pill)',
-              background: hintMode ? 'var(--neon-purple)' : 'rgba(255,255,255,0.12)',
-              boxShadow: hintMode ? 'var(--glow-purple-sm)' : 'none',
-              transition: 'background .2s ease',
-            }}
-          >
-            <span
-              style={{
-                position: 'absolute',
-                top: 3,
-                left: hintMode ? 23 : 3,
-                width: 20,
-                height: 20,
-                borderRadius: '50%',
-                background: '#fff',
-                transition: 'left .2s ease',
-              }}
-            />
-          </span>
+          <Toggle on={hintMode} />
         </button>
       </div>
 
       {/* start */}
-      <div style={{ padding: '16px 22px 26px' }}>
-        <Button variant="primary" icon="zap" disabled={!enough} onClick={start}>
+      <div style={{ padding: '14px 22px 26px' }}>
+        <Button variant="primary" icon="zap" disabled={!canStart} onClick={start}>
           Iniciar Jogo
         </Button>
       </div>
     </Screen>
+  )
+}
+
+function SectionLabel({ children }: { children: ReactNode }) {
+  return (
+    <div className="x9-label" style={{ marginTop: 22, marginBottom: 4, color: 'var(--text-low)' }}>
+      {children}
+    </div>
+  )
+}
+
+function Row({ children }: { children: ReactNode }) {
+  return (
+    <div
+      style={{
+        marginTop: 12,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: 12,
+        padding: '12px 14px 12px 16px',
+        borderRadius: 'var(--r-md)',
+        background: 'var(--bg-surface)',
+        border: '1px solid var(--line-soft)',
+      }}
+    >
+      {children}
+    </div>
+  )
+}
+
+function RowLeft({ icon, iconColor, label }: { icon: 'venetian-mask' | 'pause'; iconColor: string; label: string }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+      <Icon name={icon} size={18} color={iconColor} />
+      <span style={{ color: 'var(--text-hi)', fontFamily: 'var(--font-body)', fontSize: 15 }}>{label}</span>
+    </div>
+  )
+}
+
+function Toggle({ on }: { on: boolean }) {
+  return (
+    <span
+      style={{
+        position: 'relative',
+        flexShrink: 0,
+        width: 46,
+        height: 26,
+        borderRadius: 'var(--r-pill)',
+        background: on ? 'var(--neon-purple)' : 'rgba(255,255,255,0.12)',
+        boxShadow: on ? 'var(--glow-purple-sm)' : 'none',
+        transition: 'background .2s ease',
+      }}
+    >
+      <span
+        style={{
+          position: 'absolute',
+          top: 3,
+          left: on ? 23 : 3,
+          width: 20,
+          height: 20,
+          borderRadius: '50%',
+          background: '#fff',
+          transition: 'left .2s ease',
+        }}
+      />
+    </span>
   )
 }
 

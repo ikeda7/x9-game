@@ -1,6 +1,5 @@
 import type { Player, Winner, WordEntry } from '../types'
 import { Button, Icon, Screen } from '../components/ui'
-import { emojiForCategory } from '../data/words'
 
 interface Props {
   winner: Winner
@@ -75,7 +74,7 @@ export default function GameOverScreen({ winner, players, word, onPlayAgain, onN
           }}
         >
           <div className="x9-label" style={{ color: 'var(--text-low)' }}>A palavra era</div>
-          <div style={{ marginTop: 8, fontSize: 40, lineHeight: 1 }}>{emojiForCategory(word.category)}</div>
+          <div style={{ marginTop: 8, fontSize: 40, lineHeight: 1 }}>{word.emoji}</div>
           <div
             style={{
               marginTop: 8,

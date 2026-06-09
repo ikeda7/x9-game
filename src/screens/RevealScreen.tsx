@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react'
 import type { Player, WordEntry } from '../types'
 import { Button, Icon, Screen } from '../components/ui'
-import { emojiForCategory } from '../data/words'
 
 interface Props {
   players: Player[]
@@ -174,7 +173,7 @@ function RevealCard({
   const accentSoft = isImpostor ? '#FF8095' : 'var(--neon-purple-soft)'
   const glow = isImpostor ? 'var(--glow-red)' : 'var(--glow-purple)'
 
-  const emoji = isImpostor ? '❓' : emojiForCategory(word.category)
+  const emoji = isImpostor ? '❓' : word.emoji
   const bigText = isImpostor ? (hintMode && word.hint ? word.hint : '???') : word.word
   const overline = isImpostor ? (hintMode && word.hint ? 'Sua dica secreta' : null) : word.category
 
