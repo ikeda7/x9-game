@@ -1,7 +1,9 @@
-import { Team } from '../common/enums/team.enum'
-import { Player } from '../common/interfaces/player.interface'
-import { WordEntry } from '../common/interfaces/word-entry.interface'
-import { Button, Icon, Screen } from '../components/ui'
+import { Team } from '../../common/enums/team.enum'
+import { Player } from '../../common/interfaces/player.interface'
+import { WordEntry } from '../../common/interfaces/word-entry.interface'
+import { Button } from '../../components/button/button'
+import { Icon } from '../../components/icon/icon'
+import { Screen } from '../../components/screen/screen'
 
 interface Props {
   winner: Team

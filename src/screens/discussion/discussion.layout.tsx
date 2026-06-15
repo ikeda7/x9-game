@@ -1,4 +1,5 @@
-import { Button, Icon } from '../../components/ui'
+import { Button } from '../../components/button/button'
+import { Icon } from '../../components/icon/icon'
 import { PlayerOrderListProps, StarterBadgeProps, TimerPanelProps } from './discussion.interface'
 
 export function TimerPanel({ mm, ss, done, warn, running, toggle }: TimerPanelProps) {

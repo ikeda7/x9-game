@@ -1,5 +1,8 @@
 import { useState } from 'react'
-import { Button, Icon, Logo, Screen, type IconName } from '../components/ui'
+import { Button } from '../../components/button/button'
+import { Icon, type IconName } from '../../components/icon/icon'
+import { Screen } from '../../components/screen/screen'
+import { Logo } from '../../components/logo/logo'
 
 interface Props {
   onNew: () => void

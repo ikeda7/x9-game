@@ -1,5 +1,7 @@
-import { Player } from '../common/interfaces/player.interface'
-import { Button, Icon, Screen, type IconName } from '../components/ui'
+import { Player } from "../../common/interfaces/player.interface"
+import { Icon, type IconName } from "../../components/icon/icon"
+import { Button } from "../../components/button/button"
+import { Screen } from "../../components/screen/screen"
 
 interface Props {
   eliminated: Player | null

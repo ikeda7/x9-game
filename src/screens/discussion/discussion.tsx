@@ -1,8 +1,8 @@
-import { Screen } from '../../components/ui'
-import './discussion.css'
+import { Screen } from '../../components/screen/screen'
 import { computePlayerOrder, useDiscussionTimer } from './discussion.hooks'
 import { DiscussionScreenProps } from './discussion.interface'
 import { DiscussionFooter, PlayerOrderList, StarterBadge, TimerPanel } from './discussion.layout'
+import './discussion.css'
 
 /** Fase de debate: quem começa + ordem de fala, cronômetro regressivo. */
 export default function DiscussionScreen({ players, starterId, durationSeconds, onVote }: DiscussionScreenProps) {

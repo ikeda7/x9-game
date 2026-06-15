@@ -1,8 +1,10 @@
 import { useRef, useState } from 'react'
-import { WordEntry } from '../common/interfaces/word-entry.interface'
-import { Player } from '../common/interfaces/player.interface'
-import { Button, Icon, Screen } from '../components/ui'
-import { haptic } from '../game/feedback'
+import { WordEntry } from '../../common/interfaces/word-entry.interface'
+import { Player } from '../../common/interfaces/player.interface'
+import { Button} from '../../components/button/button'
+import { Icon } from '../../components/icon/icon'
+import { Screen } from '../../components/screen/screen'
+import { haptic } from '../../game/feedback'
 
 interface Props {
   players: Player[]

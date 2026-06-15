@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import type { ReactNode } from 'react'
-import { GameConfig } from '../common/interfaces/game-config'
-import { Button, Icon, Screen } from '../components/ui'
-import { CATEGORIES, emojiForCategory } from '../common/data/words'
-import { loadSetup } from '../game/storage'
-import { VoteMode } from '../common/enums/vote-mode.enum'
+import { CATEGORIES, emojiForCategory } from '../../common/data/words'
+import { VoteMode } from '../../common/enums/vote-mode.enum'
+import { GameConfig } from '../../common/interfaces/game-config'
+import { Button } from '../../components/button/button'
+import { Icon } from '../../components/icon/icon'
+import { Screen } from '../../components/screen/screen'
+import { loadSetup } from '../../game/storage'
 
 const MIN_PLAYERS = 3
 
