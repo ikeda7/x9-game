@@ -1,4 +1,4 @@
-import type { Player } from '../types'
+import { Player } from '../common/interfaces/player.interface'
 import { Button, Icon, Screen, type IconName } from '../components/ui'
 
 interface Props {

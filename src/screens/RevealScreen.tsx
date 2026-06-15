@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
-import type { Player, WordEntry } from '../types'
+import { WordEntry } from '../common/interfaces/word-entry.interface'
+import { Player } from '../common/interfaces/player.interface'
 import { Button, Icon, Screen } from '../components/ui'
 import { haptic } from '../game/feedback'
 

@@ -1,8 +1,12 @@
 import { useState } from 'react'
-import type { GameConfig, Phase, Player, Winner, WordEntry } from './types'
 import { createPlayers, checkWinner } from './game/logic'
 import { saveSetup } from './game/storage'
-import { pickRandomWord } from './data/words'
+import { pickRandomWord } from './common/data/words'
+import { Phase } from './common/enums/phase.enum'
+import { GameConfig } from './common/interfaces/game-config'
+import { Player } from './common/interfaces/player.interface'
+import { WordEntry } from './common/interfaces/word-entry.interface'
+import { Team } from './common/enums/team.enum'
 import HomeScreen from './screens/HomeScreen'
 import SetupScreen from './screens/SetupScreen'
 import RevealScreen from './screens/RevealScreen'
@@ -11,16 +15,17 @@ import VotingScreen from './screens/VotingScreen'
 import RoundResultScreen from './screens/RoundResultScreen'
 import GameOverScreen from './screens/GameOverScreen'
 
+
 type NoElimReason = 'tie' | 'skip'
 
 export default function App() {
-  const [phase, setPhase] = useState<Phase>('home')
+  const [phase, setPhase] = useState<Phase>(Phase.HOME)
   const [config, setConfig] = useState<GameConfig | null>(null)
   const [players, setPlayers] = useState<Player[]>([])
   const [word, setWord] = useState<WordEntry | null>(null)
   const [lastEliminated, setLastEliminated] = useState<Player | null>(null)
   const [noElimReason, setNoElimReason] = useState<NoElimReason | null>(null)
-  const [winner, setWinner] = useState<Winner | null>(null)
+  const [winner, setWinner] = useState<Team | null>(null)
   const [starterId, setStarterId] = useState<number | null>(null)
   const [round, setRound] = useState(0)
 
@@ -36,7 +41,7 @@ export default function App() {
     setLastEliminated(null)
     setNoElimReason(null)
     setRound((r) => r + 1)
-    setPhase('discussion')
+    setPhase(Phase.DISCUSSION)
   }
 
   function startGame(cfg: GameConfig) {
@@ -50,7 +55,7 @@ export default function App() {
     setWinner(null)
     setStarterId(null)
     setRound(0)
-    setPhase('reveal')
+    setPhase(Phase.REVEAL)
   }
 
   function eliminate(playerId: number) {
@@ -61,18 +66,18 @@ export default function App() {
     setLastEliminated(updated.find((p) => p.id === playerId) ?? null)
     setNoElimReason(null)
     setWinner(checkWinner(updated))
-    setPhase('roundResult')
+    setPhase(Phase.ROUND_RESULT)
   }
 
   function resolveNoElimination(reason: NoElimReason) {
     setLastEliminated(null)
     setNoElimReason(reason)
     setWinner(null)
-    setPhase('roundResult')
+    setPhase(Phase.ROUND_RESULT)
   }
 
   function continueAfterResult() {
-    if (winner) setPhase('gameover')
+    if (winner) setPhase(Phase.GAME_OVER)
     else goToDiscussion()
   }
 
@@ -93,22 +98,22 @@ export default function App() {
 
   function newSetup() {
     resetAll()
-    setPhase('setup')
+    setPhase(Phase.SETUP)
   }
 
   function backToHome() {
     resetAll()
-    setPhase('home')
+    setPhase(Phase.HOME)
   }
 
   switch (phase) {
-    case 'home':
-      return <HomeScreen onNew={() => setPhase('setup')} />
+    case Phase.HOME:
+      return <HomeScreen onNew={() => setPhase(Phase.SETUP)} />
 
-    case 'setup':
+    case Phase.SETUP:
       return <SetupScreen onStart={startGame} onBack={backToHome} />
 
-    case 'reveal':
+    case Phase.REVEAL:
       return (
         <RevealScreen
           players={players}
@@ -118,18 +123,18 @@ export default function App() {
         />
       )
 
-    case 'discussion':
+    case Phase.DISCUSSION:
       return (
         <DiscussionScreen
           key={round}
           players={players}
           starterId={starterId}
           durationSeconds={config!.discussionSeconds}
-          onVote={() => setPhase('voting')}
+          onVote={() => setPhase(Phase.VOTING)}
         />
       )
 
-    case 'voting':
+    case Phase.VOTING:
       return (
         <VotingScreen
           mode={config!.voteMode}
@@ -140,7 +145,7 @@ export default function App() {
         />
       )
 
-    case 'roundResult':
+    case Phase.ROUND_RESULT:
       return (
         <RoundResultScreen
           eliminated={lastEliminated}
@@ -150,7 +155,7 @@ export default function App() {
         />
       )
 
-    case 'gameover':
+    case Phase.GAME_OVER:
       return (
         <GameOverScreen
           winner={winner!}

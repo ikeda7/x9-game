@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import type { ReactNode } from 'react'
-import type { GameConfig, VoteMode } from '../types'
+import { GameConfig } from '../common/interfaces/game-config'
 import { Button, Icon, Screen } from '../components/ui'
-import { CATEGORIES, emojiForCategory } from '../data/words'
+import { CATEGORIES, emojiForCategory } from '../common/data/words'
 import { loadSetup } from '../game/storage'
+import { VoteMode } from '../common/enums/vote-mode.enum'
 
 const MIN_PLAYERS = 3
 
@@ -35,7 +36,7 @@ export default function SetupScreen({ onStart, onBack }: Props) {
   const [categories, setCategories] = useState<string[]>(
     savedCategories.length ? savedCategories : CATEGORIES,
   )
-  const [voteMode, setVoteMode] = useState<VoteMode>(saved?.voteMode ?? 'open')
+  const [voteMode, setVoteMode] = useState<VoteMode>(saved?.voteMode ?? VoteMode.OPEN)
 
   const enough = players.length >= MIN_PLAYERS
   const cap = maxImpostors(players.length)
@@ -254,8 +255,8 @@ export default function SetupScreen({ onStart, onBack }: Props) {
           </div>
           <div style={{ display: 'flex', gap: 6 }}>
             {([
-              { v: 'open', label: 'Aberta' },
-              { v: 'secret', label: 'Secreta' },
+              { v: VoteMode.OPEN, label: 'Aberta' },
+              { v: VoteMode.SECRET, label: 'Secreta' },
             ] as const).map((o) => {
               const on = voteMode === o.v
               return (

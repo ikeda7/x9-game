@@ -1,8 +1,10 @@
-import type { Player, Winner, WordEntry } from '../types'
+import { Team } from '../common/enums/team.enum'
+import { Player } from '../common/interfaces/player.interface'
+import { WordEntry } from '../common/interfaces/word-entry.interface'
 import { Button, Icon, Screen } from '../components/ui'
 
 interface Props {
-  winner: Winner
+  winner: Team
   players: Player[]
   word: WordEntry
   onPlayAgain: () => void

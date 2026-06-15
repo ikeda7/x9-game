@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
-import type { Player } from '../types'
 import { Button, Icon, Screen } from '../components/ui'
 import { timesUp } from '../game/feedback'
+import { Player } from '../common/interfaces/player.interface'
 
 interface Props {
   players: Player[]

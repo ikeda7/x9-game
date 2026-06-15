@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import type { Player, VoteMode } from '../types'
+import { VoteMode } from '../common/enums/vote-mode.enum'
+import { Player } from '../common/interfaces/player.interface'
 import { Button, Icon, Screen } from '../components/ui'
 import { haptic } from '../game/feedback'
 

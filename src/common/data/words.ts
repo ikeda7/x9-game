@@ -1,4 +1,4 @@
-import type { WordEntry } from '../types'
+import { WordEntry } from "../interfaces/word-entry.interface"
 
 /**
  * Banco de palavras secretas.

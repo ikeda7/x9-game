@@ -1,4 +1,4 @@
-import type { GameConfig } from '../types'
+import { GameConfig } from "../common/interfaces/game-config"
 
 /**
  * Persistência local (conveniência, não é "backend") da última configuração

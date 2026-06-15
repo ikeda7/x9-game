@@ -1,4 +1,5 @@
-import type { Player, Winner } from '../types'
+import { Team } from "../common/enums/team.enum";
+import { Player } from "../common/interfaces/player.interface";
 
 /** Sorteia quais jogadores serão impostores e monta a lista inicial. */
 export function createPlayers(names: string[], impostorCount: number): Player[] {
@@ -25,12 +26,12 @@ export function createPlayers(names: string[], impostorCount: number): Player[] 
  *   (incl. o clássico: sobram 2 jogadores e o impostor está vivo).
  * - `null` significa que o jogo continua.
  */
-export function checkWinner(players: Player[]): Winner | null {
+export function checkWinner(players: Player[]): Team | null {
   const alive = players.filter((p) => p.alive)
   const impostors = alive.filter((p) => p.isImpostor).length
   const civilians = alive.length - impostors
 
-  if (impostors === 0) return 'civilians'
-  if (impostors >= civilians) return 'impostors'
+  if (impostors === 0) return Team.CIVILIANS
+  if (impostors >= civilians) return Team.IMPOSTORS
   return null
 }
