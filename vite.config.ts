@@ -1,6 +1,6 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
-import { defineConfig,UserConfig } from 'vite';
+import { defineConfig, UserConfig } from 'vite';
 
 // https://vite.dev/config/
 const userConfig: UserConfig = {

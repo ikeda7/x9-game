@@ -12,13 +12,17 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker
     .getRegistrations()
     .then((regs) => regs.forEach((r) => r.unregister()))
-    .catch(() => {});
+    .catch(() => {
+      /* ignore */
+    });
 }
 if (typeof caches !== 'undefined') {
   caches
     .keys()
     .then((keys) => keys.forEach((k) => caches.delete(k)))
-    .catch(() => {});
+    .catch(() => {
+      /* ignore */
+    });
 }
 
 createRoot(document.getElementById('root')!).render(
