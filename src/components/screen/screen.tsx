@@ -1,8 +1,9 @@
 // ============================================================
 // X9 — Shell de tela: fundo + textura + coluna centralizada (largura de celular)
 
-import { ReactNode, CSSProperties } from "react"
-import { Texture } from "../texture/texture"
+import { CSSProperties, ReactNode } from 'react';
+
+import { Texture } from '../texture/texture';
 
 // ============================================================
 export function Screen({
@@ -10,9 +11,9 @@ export function Screen({
   dark = false,
   style,
 }: {
-  children: ReactNode
-  dark?: boolean
-  style?: CSSProperties
+  children: ReactNode;
+  dark?: boolean;
+  style?: CSSProperties;
 }) {
   return (
     <div
@@ -29,7 +30,7 @@ export function Screen({
     >
       <Texture vignette={!dark} scanlines />
       <div
-        className="animate-screen-in"
+        className='animate-screen-in'
         style={{
           position: 'relative',
           zIndex: 10,
@@ -44,5 +45,5 @@ export function Screen({
         {children}
       </div>
     </div>
-  )
+  );
 }

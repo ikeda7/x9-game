@@ -1,4 +1,4 @@
-import { WordEntry } from "../interfaces/word-entry.interface"
+import { WordEntry } from '../interfaces/word-entry.interface';
 
 /**
  * Banco de palavras secretas.
@@ -20,7 +20,12 @@ export const WORDS: WordEntry[] = [
 
   // 🍔 Comidas
   { category: 'Comidas', word: 'Pizza', emoji: '🍕', hint: 'Lasanha' },
-  { category: 'Comidas', word: 'Hambúrguer', emoji: '🍔', hint: 'Cachorro-quente' },
+  {
+    category: 'Comidas',
+    word: 'Hambúrguer',
+    emoji: '🍔',
+    hint: 'Cachorro-quente',
+  },
   { category: 'Comidas', word: 'Sushi', emoji: '🍣', hint: 'Temaki' },
   { category: 'Comidas', word: 'Brigadeiro', emoji: '🍫', hint: 'Beijinho' },
   { category: 'Comidas', word: 'Feijoada', emoji: '🍲', hint: 'Estrogonofe' },
@@ -58,12 +63,22 @@ export const WORDS: WordEntry[] = [
   { category: 'Profissões', word: 'Bombeiro', emoji: '🧑‍🚒', hint: 'Policial' },
   { category: 'Profissões', word: 'Cozinheiro', emoji: '👨‍🍳', hint: 'Garçom' },
   { category: 'Profissões', word: 'Piloto', emoji: '👨‍✈️', hint: 'Comissário' },
-  { category: 'Profissões', word: 'Astronauta', emoji: '👨‍🚀', hint: 'Cientista' },
+  {
+    category: 'Profissões',
+    word: 'Astronauta',
+    emoji: '👨‍🚀',
+    hint: 'Cientista',
+  },
   { category: 'Profissões', word: 'Detetive', emoji: '🕵️', hint: 'Advogado' },
   { category: 'Profissões', word: 'Cantor', emoji: '🎤', hint: 'Ator' },
 
   // 🎒 Objetos
-  { category: 'Objetos', word: 'Guarda-chuva', emoji: '☂️', hint: 'Capa de chuva' },
+  {
+    category: 'Objetos',
+    word: 'Guarda-chuva',
+    emoji: '☂️',
+    hint: 'Capa de chuva',
+  },
   { category: 'Objetos', word: 'Relógio', emoji: '⌚', hint: 'Despertador' },
   { category: 'Objetos', word: 'Violão', emoji: '🎸', hint: 'Ukulele' },
   { category: 'Objetos', word: 'Geladeira', emoji: '🧊', hint: 'Freezer' },
@@ -105,14 +120,19 @@ export const WORDS: WordEntry[] = [
   { category: 'Transporte', word: 'Trem', emoji: '🚆', hint: 'Metrô' },
   { category: 'Transporte', word: 'Bicicleta', emoji: '🚲', hint: 'Patinete' },
   { category: 'Transporte', word: 'Navio', emoji: '🚢', hint: 'Barco' },
-  { category: 'Transporte', word: 'Foguete', emoji: '🚀', hint: 'Ônibus espacial' },
+  {
+    category: 'Transporte',
+    word: 'Foguete',
+    emoji: '🚀',
+    hint: 'Ônibus espacial',
+  },
   { category: 'Transporte', word: 'Moto', emoji: '🏍️', hint: 'Lambreta' },
   { category: 'Transporte', word: 'Ônibus', emoji: '🚌', hint: 'Van' },
   { category: 'Transporte', word: 'Caminhão', emoji: '🚚', hint: 'Trator' },
-]
+];
 
 /** Todas as categorias disponíveis, na ordem do banco. */
-export const CATEGORIES: string[] = [...new Set(WORDS.map((w) => w.category))]
+export const CATEGORIES: string[] = [...new Set(WORDS.map((w) => w.category))];
 
 /**
  * Sorteia uma palavra, restrita às categorias pedidas.
@@ -121,9 +141,9 @@ export const CATEGORIES: string[] = [...new Set(WORDS.map((w) => w.category))]
 export function pickRandomWord(categories: string[] = []): WordEntry {
   const pool = categories.length
     ? WORDS.filter((w) => categories.includes(w.category))
-    : WORDS
-  const list = pool.length ? pool : WORDS
-  return list[Math.floor(Math.random() * list.length)]
+    : WORDS;
+  const list = pool.length ? pool : WORDS;
+  return list[Math.floor(Math.random() * list.length)];
 }
 
 /** Emoji ilustrativo por categoria, usado nos chips de seleção. */
@@ -138,8 +158,8 @@ const CATEGORY_EMOJI: Record<string, string> = {
   Música: '🎵',
   Natureza: '🌿',
   Transporte: '🚗',
-}
+};
 
 export function emojiForCategory(category: string): string {
-  return CATEGORY_EMOJI[category] ?? '🗂️'
+  return CATEGORY_EMOJI[category] ?? '🗂️';
 }

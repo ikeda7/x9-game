@@ -10,13 +10,13 @@
 
 **🎮 Jogue agora: [x9-game.vercel.app](https://x9-game.vercel.app)**
 
-Jogo de festa (dedução social, família *Spyfall / Impostor*) jogado em **um único
-celular**, passado de mão em mão. A maioria são **Civis** que compartilham uma
-palavra secreta; um ou mais jogadores são o **X9**, que não conhece a palavra e
-precisa blefar sem se entregar.
+Jogo de festa (dedução social, família _Spyfall / Impostor_) jogado em **um
+único celular**, passado de mão em mão. A maioria são **Civis** que compartilham
+uma palavra secreta; um ou mais jogadores são o **X9**, que não conhece a
+palavra e precisa blefar sem se entregar.
 
-Sem servidor, sem rede, sem persistência — todo o estado vive em memória e some ao
-recarregar. Feito em **React + TypeScript + Vite**, com estética **"Noir
+Sem servidor, sem rede, sem persistência — todo o estado vive em memória e some
+ao recarregar. Feito em **React + TypeScript + Vite**, com estética **"Noir
 Cibernético"** (grafite, neon roxo, alertas vermelhos). Toda a interface é em
 **português do Brasil**.
 
@@ -38,22 +38,26 @@ home → setup → reveal → discussion → voting → roundResult → (discuss
 ```
 
 - **Home:** marca + entrada da partida.
-- **Setup:** adiciona jogadores (mín. 3), define a quantidade de X9s e o modo avançado.
-- **Reveal:** cada jogador segura o botão para ver seu papel em segredo e passa o celular.
+- **Setup:** adiciona jogadores (mín. 3), define a quantidade de X9s e o modo
+  avançado.
+- **Reveal:** cada jogador segura o botão para ver seu papel em segredo e passa
+  o celular.
 - **Discussion:** cronômetro regressivo enquanto o grupo debate.
 - **Voting:** o grupo escolhe um suspeito para eliminar.
 - **RoundResult / GameOver:** revela o papel do eliminado e o vencedor.
 
 ### Regras
-- **Modo avançado:** o X9 recebe uma palavra *parecida* em vez de "???".
+
+- **Modo avançado:** o X9 recebe uma palavra _parecida_ em vez de "???".
 - **Civis vencem** quando todos os X9 são eliminados.
-- **X9 vence** quando o nº de X9 vivos ≥ civis vivos (inclui o clássico de 2 jogadores restantes).
+- **X9 vence** quando o nº de X9 vivos ≥ civis vivos (inclui o clássico de 2
+  jogadores restantes).
 
 ## Arquitetura
 
-`src/App.tsx` é uma máquina de estados (`switch (phase)`) que detém **todo** o estado
-do jogo e as transições. As telas são apresentacionais: recebem dados + callbacks
-por props e nunca guardam estado de jogo.
+`src/App.tsx` é uma máquina de estados (`switch (phase)`) que detém **todo** o
+estado do jogo e as transições. As telas são apresentacionais: recebem dados +
+callbacks por props e nunca guardam estado de jogo.
 
 ```
 src/
@@ -81,11 +85,13 @@ public/                   # assets servidos na raiz "/": favicon (svg/ico/png),
 ```
 
 ### Design system
+
 A identidade visual ("Noir Cibernético") está documentada em
-[.claude/skills/](.claude/skills/) — tokens de cor/tipografia, iconografia (Lucide) e
-um UI kit de referência. Os tokens em [src/index.css](src/index.css) são portados de
-lá; reutilize as primitivas de [src/components/ui.tsx](src/components/ui.tsx) e as
-classes `.x9-*` em vez de re-estilizar do zero.
+[.claude/skills/](.claude/skills/) — tokens de cor/tipografia, iconografia
+(Lucide) e um UI kit de referência. Os tokens em [src/index.css](src/index.css)
+são portados de lá; reutilize as primitivas de
+[src/components/ui.tsx](src/components/ui.tsx) e as classes `.x9-*` em vez de
+re-estilizar do zero.
 
 Para adicionar palavras, edite [src/data/words.ts](src/data/words.ts).
 
@@ -94,11 +100,12 @@ Para adicionar palavras, edite [src/data/words.ts](src/data/words.ts).
 O app traz um Web App Manifest e ícones, então dá pra usar **"Adicionar à tela
 inicial"** e rodar em tela cheia, como um app. Por opção de projeto **não há
 service worker** (sem cache offline) — para evitar que um SW desatualizado sirva
-uma versão antiga; o [src/main.tsx](src/main.tsx) inclusive desregistra SWs órfãos
-da origem ao carregar. As metatags de favicon, manifest e Open Graph estão no
-[index.html](index.html); o `og:image` aponta para a URL do deploy.
+uma versão antiga; o [src/main.tsx](src/main.tsx) inclusive desregistra SWs
+órfãos da origem ao carregar. As metatags de favicon, manifest e Open Graph
+estão no [index.html](index.html); o `og:image` aponta para a URL do deploy.
 
 ## Stack
+
 React 18 · TypeScript · Vite 6 · Tailwind CSS v4 (`@tailwindcss/vite`) ·
 [lucide-react](https://lucide.dev) · Fontes Google (Chakra Petch, Space Grotesk,
 Share Tech Mono).

@@ -1,72 +1,77 @@
-import { useState } from 'react'
-import type { ReactNode } from 'react'
-import { CATEGORIES, emojiForCategory } from '../../common/data/words'
-import { VoteMode } from '../../common/enums/vote-mode.enum'
-import { GameConfig } from '../../common/interfaces/game-config'
-import { Button } from '../../components/button/button'
-import { Icon } from '../../components/icon/icon'
-import { Screen } from '../../components/screen/screen'
-import { loadSetup } from '../../game/storage'
+import type { ReactNode } from 'react';
+import { useState } from 'react';
 
-const MIN_PLAYERS = 3
+import { CATEGORIES, emojiForCategory } from '../../common/data/words';
+import { VoteMode } from '../../common/enums/vote-mode.enum';
+import { GameConfig } from '../../common/interfaces/game-config';
+import { Button } from '../../components/button/button';
+import { Icon } from '../../components/icon/icon';
+import { Screen } from '../../components/screen/screen';
+import { loadSetup } from '../../game/storage';
+
+const MIN_PLAYERS = 3;
 
 const DURATIONS = [
   { secs: 60, label: '1 min' },
   { secs: 120, label: '2 min' },
   { secs: 180, label: '3 min' },
-]
+];
 
 interface Props {
-  onStart: (config: GameConfig) => void
-  onBack: () => void
+  onStart: (config: GameConfig) => void;
+  onBack: () => void;
 }
 
 /** Máximo de impostores que ainda permite os civis começarem em maioria. */
 function maxImpostors(playerCount: number): number {
-  return Math.max(1, Math.floor((playerCount - 1) / 2))
+  return Math.max(1, Math.floor((playerCount - 1) / 2));
 }
 
 export default function SetupScreen({ onStart, onBack }: Props) {
-  const [saved] = useState(loadSetup)
-  const savedCategories = (saved?.categories ?? []).filter((c) => CATEGORIES.includes(c))
+  const [saved] = useState(loadSetup);
+  const savedCategories = (saved?.categories ?? []).filter((c) =>
+    CATEGORIES.includes(c),
+  );
 
-  const [players, setPlayers] = useState<string[]>(saved?.names ?? [])
-  const [name, setName] = useState('')
-  const [impostors, setImpostors] = useState(saved?.impostorCount ?? 1)
-  const [hintMode, setHintMode] = useState(saved?.hintMode ?? false)
-  const [duration, setDuration] = useState(saved?.discussionSeconds ?? 120)
+  const [players, setPlayers] = useState<string[]>(saved?.names ?? []);
+  const [name, setName] = useState('');
+  const [impostors, setImpostors] = useState(saved?.impostorCount ?? 1);
+  const [hintMode, setHintMode] = useState(saved?.hintMode ?? false);
+  const [duration, setDuration] = useState(saved?.discussionSeconds ?? 120);
   const [categories, setCategories] = useState<string[]>(
     savedCategories.length ? savedCategories : CATEGORIES,
-  )
-  const [voteMode, setVoteMode] = useState<VoteMode>(saved?.voteMode ?? VoteMode.OPEN)
+  );
+  const [voteMode, setVoteMode] = useState<VoteMode>(
+    saved?.voteMode ?? VoteMode.OPEN,
+  );
 
-  const enough = players.length >= MIN_PLAYERS
-  const cap = maxImpostors(players.length)
-  const canStart = enough && categories.length > 0
+  const enough = players.length >= MIN_PLAYERS;
+  const cap = maxImpostors(players.length);
+  const canStart = enough && categories.length > 0;
 
   function add() {
-    const v = name.trim()
-    if (!v) return
-    setPlayers((prev) => [...prev, v])
-    setName('')
+    const v = name.trim();
+    if (!v) return;
+    setPlayers((prev) => [...prev, v]);
+    setName('');
   }
 
   function remove(i: number) {
     setPlayers((prev) => {
-      const next = prev.filter((_, idx) => idx !== i)
-      setImpostors((c) => Math.min(c, maxImpostors(next.length)))
-      return next
-    })
+      const next = prev.filter((_, idx) => idx !== i);
+      setImpostors((c) => Math.min(c, maxImpostors(next.length)));
+      return next;
+    });
   }
 
   function toggleCategory(cat: string) {
     setCategories((prev) =>
       prev.includes(cat) ? prev.filter((c) => c !== cat) : [...prev, cat],
-    )
+    );
   }
 
   function start() {
-    if (!canStart) return
+    if (!canStart) return;
     onStart({
       names: players,
       impostorCount: Math.min(impostors, cap),
@@ -74,13 +79,20 @@ export default function SetupScreen({ onStart, onBack }: Props) {
       discussionSeconds: duration,
       categories,
       voteMode,
-    })
+    });
   }
 
   return (
     <Screen>
       {/* header */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '30px 22px 6px' }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 12,
+          padding: '30px 22px 6px',
+        }}
+      >
         <button
           onClick={onBack}
           style={{
@@ -92,9 +104,9 @@ export default function SetupScreen({ onStart, onBack }: Props) {
             cursor: 'pointer',
           }}
         >
-          <Icon name="chevron-left" size={20} color="var(--text-mid)" />
+          <Icon name='chevron-left' size={20} color='var(--text-mid)' />
         </button>
-        <div className="x9-h2" style={{ fontSize: 22 }}>
+        <div className='x9-h2' style={{ fontSize: 22 }}>
           Quem vai jogar?
         </div>
       </div>
@@ -110,7 +122,9 @@ export default function SetupScreen({ onStart, onBack }: Props) {
             padding: '6px 12px',
             borderRadius: 'var(--r-pill)',
             border: `1px solid ${enough ? 'var(--line-neon)' : 'var(--line-danger)'}`,
-            background: enough ? 'rgba(176,38,255,0.08)' : 'rgba(255,42,77,0.08)',
+            background: enough
+              ? 'rgba(176,38,255,0.08)'
+              : 'rgba(255,42,77,0.08)',
           }}
         >
           <Icon
@@ -119,19 +133,31 @@ export default function SetupScreen({ onStart, onBack }: Props) {
             color={enough ? 'var(--neon-green)' : 'var(--neon-red)'}
           />
           <span
-            className="x9-label"
-            style={{ color: enough ? 'var(--neon-green)' : 'var(--neon-red)', letterSpacing: '0.08em' }}
+            className='x9-label'
+            style={{
+              color: enough ? 'var(--neon-green)' : 'var(--neon-red)',
+              letterSpacing: '0.08em',
+            }}
           >
-            {enough ? `${players.length} jogadores prontos` : `Mínimo de ${MIN_PLAYERS} jogadores`}
+            {enough
+              ? `${players.length} jogadores prontos`
+              : `Mínimo de ${MIN_PLAYERS} jogadores`}
           </span>
         </div>
 
         {/* player list */}
-        <div style={{ marginTop: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <div
+          style={{
+            marginTop: 16,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 10,
+          }}
+        >
           {players.map((p, i) => (
             <div
               key={i}
-              className="animate-fade-in"
+              className='animate-fade-in'
               style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -158,12 +184,28 @@ export default function SetupScreen({ onStart, onBack }: Props) {
               >
                 {String(i + 1).padStart(2, '0')}
               </span>
-              <span style={{ flex: 1, color: 'var(--text-hi)', fontFamily: 'var(--font-body)', fontSize: 16 }}>{p}</span>
+              <span
+                style={{
+                  flex: 1,
+                  color: 'var(--text-hi)',
+                  fontFamily: 'var(--font-body)',
+                  fontSize: 16,
+                }}
+              >
+                {p}
+              </span>
               <button
                 onClick={() => remove(i)}
-                style={{ display: 'inline-flex', background: 'transparent', border: 'none', cursor: 'pointer', padding: 4, color: 'var(--text-low)' }}
+                style={{
+                  display: 'inline-flex',
+                  background: 'transparent',
+                  border: 'none',
+                  cursor: 'pointer',
+                  padding: 4,
+                  color: 'var(--text-low)',
+                }}
               >
-                <Icon name="x" size={18} />
+                <Icon name='x' size={18} />
               </button>
             </div>
           ))}
@@ -175,7 +217,7 @@ export default function SetupScreen({ onStart, onBack }: Props) {
             value={name}
             onChange={(e) => setName(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && add()}
-            placeholder="Nome do jogador"
+            placeholder='Nome do jogador'
             maxLength={16}
             style={{
               flex: 1,
@@ -188,8 +230,12 @@ export default function SetupScreen({ onStart, onBack }: Props) {
               fontSize: 16,
               outline: 'none',
             }}
-            onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--line-neon)')}
-            onBlur={(e) => (e.currentTarget.style.borderColor = 'var(--line-soft)')}
+            onFocus={(e) =>
+              (e.currentTarget.style.borderColor = 'var(--line-neon)')
+            }
+            onBlur={(e) =>
+              (e.currentTarget.style.borderColor = 'var(--line-soft)')
+            }
           />
           <button
             onClick={add}
@@ -206,7 +252,7 @@ export default function SetupScreen({ onStart, onBack }: Props) {
               boxShadow: 'var(--glow-purple-sm)',
             }}
           >
-            <Icon name="plus" size={22} />
+            <Icon name='plus' size={22} />
           </button>
         </div>
 
@@ -215,16 +261,29 @@ export default function SetupScreen({ onStart, onBack }: Props) {
 
         {/* X9 stepper */}
         <Row>
-          <RowLeft icon="venetian-mask" iconColor="var(--neon-red)" label="Quantidade de X9s" />
-          <Stepper value={Math.min(impostors, cap)} min={1} max={cap} onChange={setImpostors} />
+          <RowLeft
+            icon='venetian-mask'
+            iconColor='var(--neon-red)'
+            label='Quantidade de X9s'
+          />
+          <Stepper
+            value={Math.min(impostors, cap)}
+            min={1}
+            max={cap}
+            onChange={setImpostors}
+          />
         </Row>
 
         {/* duração */}
         <Row>
-          <RowLeft icon="pause" iconColor="var(--neon-purple-soft)" label="Tempo de discussão" />
+          <RowLeft
+            icon='pause'
+            iconColor='var(--neon-purple-soft)'
+            label='Tempo de discussão'
+          />
           <div style={{ display: 'flex', gap: 6 }}>
             {DURATIONS.map((d) => {
-              const on = duration === d.secs
+              const on = duration === d.secs;
               return (
                 <button
                   key={d.secs}
@@ -237,14 +296,16 @@ export default function SetupScreen({ onStart, onBack }: Props) {
                     fontSize: 12,
                     letterSpacing: '0.04em',
                     color: on ? 'var(--text-on-neon)' : 'var(--text-mid)',
-                    background: on ? 'var(--neon-purple)' : 'var(--bg-elevated)',
+                    background: on
+                      ? 'var(--neon-purple)'
+                      : 'var(--bg-elevated)',
                     border: `1px solid ${on ? 'var(--neon-purple)' : 'var(--line-soft)'}`,
                     boxShadow: on ? 'var(--glow-purple-sm)' : 'none',
                   }}
                 >
                   {d.label}
                 </button>
-              )
+              );
             })}
           </div>
         </Row>
@@ -252,15 +313,25 @@ export default function SetupScreen({ onStart, onBack }: Props) {
         {/* modo de votação */}
         <Row>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <Icon name="gavel" size={18} color="var(--neon-purple-soft)" />
-            <span style={{ color: 'var(--text-hi)', fontFamily: 'var(--font-body)', fontSize: 15 }}>Votação</span>
+            <Icon name='gavel' size={18} color='var(--neon-purple-soft)' />
+            <span
+              style={{
+                color: 'var(--text-hi)',
+                fontFamily: 'var(--font-body)',
+                fontSize: 15,
+              }}
+            >
+              Votação
+            </span>
           </div>
           <div style={{ display: 'flex', gap: 6 }}>
-            {([
-              { v: VoteMode.OPEN, label: 'Aberta' },
-              { v: VoteMode.SECRET, label: 'Secreta' },
-            ] as const).map((o) => {
-              const on = voteMode === o.v
+            {(
+              [
+                { v: VoteMode.OPEN, label: 'Aberta' },
+                { v: VoteMode.SECRET, label: 'Secreta' },
+              ] as const
+            ).map((o) => {
+              const on = voteMode === o.v;
               return (
                 <button
                   key={o.v}
@@ -273,18 +344,28 @@ export default function SetupScreen({ onStart, onBack }: Props) {
                     fontSize: 12,
                     letterSpacing: '0.04em',
                     color: on ? 'var(--text-on-neon)' : 'var(--text-mid)',
-                    background: on ? 'var(--neon-purple)' : 'var(--bg-elevated)',
+                    background: on
+                      ? 'var(--neon-purple)'
+                      : 'var(--bg-elevated)',
                     border: `1px solid ${on ? 'var(--neon-purple)' : 'var(--line-soft)'}`,
                     boxShadow: on ? 'var(--glow-purple-sm)' : 'none',
                   }}
                 >
                   {o.label}
                 </button>
-              )
+              );
             })}
           </div>
         </Row>
-        <div className="x9-small" style={{ marginTop: 6, color: 'var(--text-low)', fontSize: 12, paddingLeft: 2 }}>
+        <div
+          className='x9-small'
+          style={{
+            marginTop: 6,
+            color: 'var(--text-low)',
+            fontSize: 12,
+            paddingLeft: 2,
+          }}
+        >
           {voteMode === 'open'
             ? 'Aberta: o grupo declara e soma os votos juntos.'
             : 'Secreta: cada um vota escondido passando o celular.'}
@@ -300,18 +381,43 @@ export default function SetupScreen({ onStart, onBack }: Props) {
             border: '1px solid var(--line-soft)',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}
+          >
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <Icon name="flag" size={18} color="var(--neon-purple-soft)" />
-              <span style={{ color: 'var(--text-hi)', fontFamily: 'var(--font-body)', fontSize: 15 }}>Categorias</span>
+              <Icon name='flag' size={18} color='var(--neon-purple-soft)' />
+              <span
+                style={{
+                  color: 'var(--text-hi)',
+                  fontFamily: 'var(--font-body)',
+                  fontSize: 15,
+                }}
+              >
+                Categorias
+              </span>
             </div>
-            <span className="x9-label" style={{ color: categories.length ? 'var(--text-low)' : 'var(--neon-red)' }}>
-              {categories.length ? `${categories.length}/${CATEGORIES.length}` : 'escolha 1'}
+            <span
+              className='x9-label'
+              style={{
+                color: categories.length
+                  ? 'var(--text-low)'
+                  : 'var(--neon-red)',
+              }}
+            >
+              {categories.length
+                ? `${categories.length}/${CATEGORIES.length}`
+                : 'escolha 1'}
             </span>
           </div>
-          <div style={{ marginTop: 12, display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+          <div
+            style={{ marginTop: 12, display: 'flex', flexWrap: 'wrap', gap: 8 }}
+          >
             {CATEGORIES.map((cat) => {
-              const on = categories.includes(cat)
+              const on = categories.includes(cat);
               return (
                 <button
                   key={cat}
@@ -333,7 +439,7 @@ export default function SetupScreen({ onStart, onBack }: Props) {
                   <span>{emojiForCategory(cat)}</span>
                   {cat}
                 </button>
-              )
+              );
             })}
           </div>
         </div>
@@ -357,8 +463,19 @@ export default function SetupScreen({ onStart, onBack }: Props) {
           }}
         >
           <div>
-            <div style={{ color: 'var(--text-hi)', fontFamily: 'var(--font-body)', fontSize: 15 }}>Modo avançado</div>
-            <div className="x9-small" style={{ color: 'var(--text-low)', fontSize: 12 }}>
+            <div
+              style={{
+                color: 'var(--text-hi)',
+                fontFamily: 'var(--font-body)',
+                fontSize: 15,
+              }}
+            >
+              Modo avançado
+            </div>
+            <div
+              className='x9-small'
+              style={{ color: 'var(--text-low)', fontSize: 12 }}
+            >
               O X9 recebe uma palavra parecida no lugar de "???".
             </div>
           </div>
@@ -368,20 +485,28 @@ export default function SetupScreen({ onStart, onBack }: Props) {
 
       {/* start */}
       <div style={{ padding: '14px 22px 26px' }}>
-        <Button variant="primary" icon="zap" disabled={!canStart} onClick={start}>
+        <Button
+          variant='primary'
+          icon='zap'
+          disabled={!canStart}
+          onClick={start}
+        >
           Iniciar Jogo
         </Button>
       </div>
     </Screen>
-  )
+  );
 }
 
 function SectionLabel({ children }: { children: ReactNode }) {
   return (
-    <div className="x9-label" style={{ marginTop: 22, marginBottom: 4, color: 'var(--text-low)' }}>
+    <div
+      className='x9-label'
+      style={{ marginTop: 22, marginBottom: 4, color: 'var(--text-low)' }}
+    >
       {children}
     </div>
-  )
+  );
 }
 
 function Row({ children }: { children: ReactNode }) {
@@ -401,16 +526,32 @@ function Row({ children }: { children: ReactNode }) {
     >
       {children}
     </div>
-  )
+  );
 }
 
-function RowLeft({ icon, iconColor, label }: { icon: 'venetian-mask' | 'pause'; iconColor: string; label: string }) {
+function RowLeft({
+  icon,
+  iconColor,
+  label,
+}: {
+  icon: 'venetian-mask' | 'pause';
+  iconColor: string;
+  label: string;
+}) {
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
       <Icon name={icon} size={18} color={iconColor} />
-      <span style={{ color: 'var(--text-hi)', fontFamily: 'var(--font-body)', fontSize: 15 }}>{label}</span>
+      <span
+        style={{
+          color: 'var(--text-hi)',
+          fontFamily: 'var(--font-body)',
+          fontSize: 15,
+        }}
+      >
+        {label}
+      </span>
     </div>
-  )
+  );
 }
 
 function Toggle({ on }: { on: boolean }) {
@@ -440,10 +581,20 @@ function Toggle({ on }: { on: boolean }) {
         }}
       />
     </span>
-  )
+  );
 }
 
-function Stepper({ value, min, max, onChange }: { value: number; min: number; max: number; onChange: (n: number) => void }) {
+function Stepper({
+  value,
+  min,
+  max,
+  onChange,
+}: {
+  value: number;
+  min: number;
+  max: number;
+  onChange: (n: number) => void;
+}) {
   const btn = (disabled: boolean) => ({
     width: 34,
     height: 34,
@@ -455,18 +606,32 @@ function Stepper({ value, min, max, onChange }: { value: number; min: number; ma
     background: disabled ? 'transparent' : 'var(--bg-elevated)',
     color: disabled ? 'var(--text-low)' : 'var(--neon-purple-soft)',
     cursor: disabled ? 'not-allowed' : 'pointer',
-  })
+  });
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-      <button style={btn(value <= min)} onClick={() => value > min && onChange(value - 1)}>
-        <Icon name="minus" size={16} />
+      <button
+        style={btn(value <= min)}
+        onClick={() => value > min && onChange(value - 1)}
+      >
+        <Icon name='minus' size={16} />
       </button>
-      <span style={{ minWidth: 22, textAlign: 'center', fontFamily: 'var(--font-mono)', fontSize: 20, color: 'var(--text-hi)' }}>
+      <span
+        style={{
+          minWidth: 22,
+          textAlign: 'center',
+          fontFamily: 'var(--font-mono)',
+          fontSize: 20,
+          color: 'var(--text-hi)',
+        }}
+      >
         {value}
       </span>
-      <button style={btn(value >= max)} onClick={() => value < max && onChange(value + 1)}>
-        <Icon name="plus" size={16} />
+      <button
+        style={btn(value >= max)}
+        onClick={() => value < max && onChange(value + 1)}
+      >
+        <Icon name='plus' size={16} />
       </button>
     </div>
-  )
+  );
 }

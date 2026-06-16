@@ -1,31 +1,43 @@
-import { Team } from '../../common/enums/team.enum'
-import { Player } from '../../common/interfaces/player.interface'
-import { WordEntry } from '../../common/interfaces/word-entry.interface'
-import { Button } from '../../components/button/button'
-import { Icon } from '../../components/icon/icon'
-import { Screen } from '../../components/screen/screen'
+import { Team } from '../../common/enums/team.enum';
+import { Player } from '../../common/interfaces/player.interface';
+import { WordEntry } from '../../common/interfaces/word-entry.interface';
+import { Button } from '../../components/button/button';
+import { Icon } from '../../components/icon/icon';
+import { Screen } from '../../components/screen/screen';
 
 interface Props {
-  winner: Team
-  players: Player[]
-  word: WordEntry
-  onPlayAgain: () => void
-  onNewSetup: () => void
+  winner: Team;
+  players: Player[];
+  word: WordEntry;
+  onPlayAgain: () => void;
+  onNewSetup: () => void;
 }
 
-export default function GameOverScreen({ winner, players, word, onPlayAgain, onNewSetup }: Props) {
-  const civsWon = winner === 'civilians'
-  const impostors = players.filter((p) => p.isImpostor)
+export default function GameOverScreen({
+  winner,
+  players,
+  word,
+  onPlayAgain,
+  onNewSetup,
+}: Props) {
+  const civsWon = winner === 'civilians';
+  const impostors = players.filter((p) => p.isImpostor);
 
-  const accent = civsWon ? 'var(--neon-green)' : 'var(--neon-red)'
-  const accentSoft = civsWon ? '#9CFFC8' : '#FF8095'
-  const glow = civsWon ? 'var(--glow-green)' : 'var(--glow-red)'
+  const accent = civsWon ? 'var(--neon-green)' : 'var(--neon-red)';
+  const accentSoft = civsWon ? '#9CFFC8' : '#FF8095';
+  const glow = civsWon ? 'var(--glow-green)' : 'var(--glow-red)';
 
   return (
     <Screen dark>
       <div
-        className="animate-pop-in"
-        style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '40px 26px 28px' }}
+        className='animate-pop-in'
+        style={{
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          padding: '40px 26px 28px',
+        }}
       >
         <div style={{ textAlign: 'center' }}>
           <div
@@ -42,10 +54,17 @@ export default function GameOverScreen({ winner, players, word, onPlayAgain, onN
               boxShadow: `0 0 30px -6px ${accent}`,
             }}
           >
-            <Icon name={civsWon ? 'shield-check' : 'venetian-mask'} size={42} color={accentSoft} />
+            <Icon
+              name={civsWon ? 'shield-check' : 'venetian-mask'}
+              size={42}
+              color={accentSoft}
+            />
           </div>
 
-          <div className="x9-label" style={{ marginTop: 18, color: 'var(--text-low)' }}>
+          <div
+            className='x9-label'
+            style={{ marginTop: 18, color: 'var(--text-low)' }}
+          >
             Fim de jogo
           </div>
           <div
@@ -61,8 +80,13 @@ export default function GameOverScreen({ winner, players, word, onPlayAgain, onN
           >
             {civsWon ? 'Vitória dos Civis' : 'O X9 venceu'}
           </div>
-          <p className="x9-body" style={{ marginTop: 10, color: 'var(--text-mid)', fontSize: 15 }}>
-            {civsWon ? 'Todos os X9 foram desmascarados.' : 'O X9 sobreviveu até o fim.'}
+          <p
+            className='x9-body'
+            style={{ marginTop: 10, color: 'var(--text-mid)', fontSize: 15 }}
+          >
+            {civsWon
+              ? 'Todos os X9 foram desmascarados.'
+              : 'O X9 sobreviveu até o fim.'}
           </p>
         </div>
 
@@ -77,8 +101,12 @@ export default function GameOverScreen({ winner, players, word, onPlayAgain, onN
             textAlign: 'center',
           }}
         >
-          <div className="x9-label" style={{ color: 'var(--text-low)' }}>A palavra era</div>
-          <div style={{ marginTop: 8, fontSize: 40, lineHeight: 1 }}>{word.emoji}</div>
+          <div className='x9-label' style={{ color: 'var(--text-low)' }}>
+            A palavra era
+          </div>
+          <div style={{ marginTop: 8, fontSize: 40, lineHeight: 1 }}>
+            {word.emoji}
+          </div>
           <div
             style={{
               marginTop: 8,
@@ -90,7 +118,12 @@ export default function GameOverScreen({ winner, players, word, onPlayAgain, onN
           >
             {word.word}
           </div>
-          <div className="x9-small" style={{ color: 'var(--text-low)', fontSize: 12 }}>{word.category}</div>
+          <div
+            className='x9-small'
+            style={{ color: 'var(--text-low)', fontSize: 12 }}
+          >
+            {word.category}
+          </div>
         </div>
 
         {/* impostors */}
@@ -103,10 +136,12 @@ export default function GameOverScreen({ winner, players, word, onPlayAgain, onN
             border: '1px solid var(--line-danger)',
           }}
         >
-          <div className="x9-label" style={{ color: '#FF8095' }}>
+          <div className='x9-label' style={{ color: '#FF8095' }}>
             {impostors.length > 1 ? 'Os X9 eram' : 'O X9 era'}
           </div>
-          <div style={{ marginTop: 6, display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+          <div
+            style={{ marginTop: 6, display: 'flex', flexWrap: 'wrap', gap: 8 }}
+          >
             {impostors.map((p) => (
               <span
                 key={p.id}
@@ -123,7 +158,7 @@ export default function GameOverScreen({ winner, players, word, onPlayAgain, onN
                   fontSize: 14,
                 }}
               >
-                <Icon name="venetian-mask" size={14} />
+                <Icon name='venetian-mask' size={14} />
                 {p.name}
               </span>
             ))}
@@ -133,14 +168,14 @@ export default function GameOverScreen({ winner, players, word, onPlayAgain, onN
         <div style={{ flex: 1, minHeight: 16 }} />
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          <Button variant="primary" icon="party-popper" onClick={onPlayAgain}>
+          <Button variant='primary' icon='party-popper' onClick={onPlayAgain}>
             Jogar de Novo
           </Button>
-          <Button variant="quiet" size="md" icon="users" onClick={onNewSetup}>
+          <Button variant='quiet' size='md' icon='users' onClick={onNewSetup}>
             Novos Jogadores
           </Button>
         </div>
       </div>
     </Screen>
-  )
+  );
 }

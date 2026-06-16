@@ -2,8 +2,33 @@
 // X9 — Iconografia (Lucide)
 // `<Icon name="venetian-mask" />` mantém a API kebab-case do design kit.
 
-import { LucideIcon, ArrowRight, Check, CheckCircle2, ChevronLeft, EyeOff, Fingerprint, Flag, Gavel, HelpCircle, Minus, PartyPopper, Pause, Play, Plus, ShieldCheck, Skull, Smartphone, User, UserX, Users, VenetianMask, X, Zap } from "lucide-react"
-import { CSSProperties } from "react"
+import {
+  ArrowRight,
+  Check,
+  CheckCircle2,
+  ChevronLeft,
+  EyeOff,
+  Fingerprint,
+  Flag,
+  Gavel,
+  HelpCircle,
+  LucideIcon,
+  Minus,
+  PartyPopper,
+  Pause,
+  Play,
+  Plus,
+  ShieldCheck,
+  Skull,
+  Smartphone,
+  User,
+  Users,
+  UserX,
+  VenetianMask,
+  X,
+  Zap,
+} from 'lucide-react';
+import { CSSProperties } from 'react';
 
 // ============================================================
 const ICONS: Record<string, LucideIcon> = {
@@ -30,9 +55,9 @@ const ICONS: Record<string, LucideIcon> = {
   'venetian-mask': VenetianMask,
   x: X,
   zap: Zap,
-}
+};
 
-export type IconName = keyof typeof ICONS
+export type IconName = keyof typeof ICONS;
 
 export function Icon({
   name,
@@ -41,17 +66,17 @@ export function Icon({
   color = 'currentColor',
   style,
 }: {
-  name: IconName
-  size?: number
-  strokeWidth?: number
-  color?: string
-  style?: CSSProperties
+  name: IconName;
+  size?: number;
+  strokeWidth?: number;
+  color?: string;
+  style?: CSSProperties;
 }) {
-  const Glyph = ICONS[name]
-  if (!Glyph) return null
+  const Glyph = ICONS[name];
+  if (!Glyph) return null;
   return (
     <span style={{ display: 'inline-flex', lineHeight: 0, color, ...style }}>
       <Glyph size={size} strokeWidth={strokeWidth} />
     </span>
-  )
+  );
 }

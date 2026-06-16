@@ -1,7 +1,9 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
+import './index.css';
+
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+
+import App from './App.tsx';
 
 // O X9 não usa Service Worker. Remove qualquer SW/cache antigo registrado nesta
 // origem (ex.: outro projeto que rodou na mesma porta do localhost) para que ele
@@ -10,14 +12,17 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker
     .getRegistrations()
     .then((regs) => regs.forEach((r) => r.unregister()))
-    .catch(() => {})
+    .catch(() => {});
 }
 if (typeof caches !== 'undefined') {
-  caches.keys().then((keys) => keys.forEach((k) => caches.delete(k))).catch(() => {})
+  caches
+    .keys()
+    .then((keys) => keys.forEach((k) => caches.delete(k)))
+    .catch(() => {});
 }
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <App />
   </StrictMode>,
-)
+);

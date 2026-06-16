@@ -1,66 +1,82 @@
-import { Player } from "../../common/interfaces/player.interface"
-import { Icon, type IconName } from "../../components/icon/icon"
-import { Button } from "../../components/button/button"
-import { Screen } from "../../components/screen/screen"
+import { Player } from '../../common/interfaces/player.interface';
+import { Button } from '../../components/button/button';
+import { Icon, type IconName } from '../../components/icon/icon';
+import { Screen } from '../../components/screen/screen';
 
 interface Props {
-  eliminated: Player | null
-  noElimReason: 'tie' | 'skip' | null
-  remainingImpostors: number
-  onContinue: () => void
+  eliminated: Player | null;
+  noElimReason: 'tie' | 'skip' | null;
+  remainingImpostors: number;
+  onContinue: () => void;
 }
 
 /** Resultado da rodada: eliminação (X9/Civil), empate ou votação pulada. */
-export default function RoundResultScreen({ eliminated, noElimReason, remainingImpostors, onContinue }: Props) {
+export default function RoundResultScreen({
+  eliminated,
+  noElimReason,
+  remainingImpostors,
+  onContinue,
+}: Props) {
   // Configuração visual por desfecho.
-  let accent = 'var(--neon-purple)'
-  let accentSoft = 'var(--neon-purple-soft)'
-  let glow = 'var(--glow-purple)'
-  let icon: IconName = 'user'
-  let title: string
-  let subtitle: string
-  let banner: string
-  let bannerBg = 'rgba(176,38,255,0.08)'
+  let accent = 'var(--neon-purple)';
+  let accentSoft = 'var(--neon-purple-soft)';
+  let glow = 'var(--glow-purple)';
+  let icon: IconName = 'user';
+  let title: string;
+  let subtitle: string;
+  let banner: string;
+  let bannerBg = 'rgba(176,38,255,0.08)';
 
   if (eliminated) {
-    const wasImpostor = eliminated.isImpostor
-    accent = wasImpostor ? 'var(--neon-red)' : 'var(--neon-purple)'
-    accentSoft = wasImpostor ? '#FF8095' : 'var(--neon-purple-soft)'
-    glow = wasImpostor ? 'var(--glow-red)' : 'var(--glow-purple)'
-    icon = wasImpostor ? 'venetian-mask' : 'user'
-    bannerBg = wasImpostor ? 'rgba(255,42,77,0.08)' : 'rgba(176,38,255,0.08)'
-    title = `${eliminated.name} foi eliminado`
-    subtitle = wasImpostor ? 'Era o X9, desmascarado.' : 'Era um Civil inocente. O X9 continua à solta…'
+    const wasImpostor = eliminated.isImpostor;
+    accent = wasImpostor ? 'var(--neon-red)' : 'var(--neon-purple)';
+    accentSoft = wasImpostor ? '#FF8095' : 'var(--neon-purple-soft)';
+    glow = wasImpostor ? 'var(--glow-red)' : 'var(--glow-purple)';
+    icon = wasImpostor ? 'venetian-mask' : 'user';
+    bannerBg = wasImpostor ? 'rgba(255,42,77,0.08)' : 'rgba(176,38,255,0.08)';
+    title = `${eliminated.name} foi eliminado`;
+    subtitle = wasImpostor
+      ? 'Era o X9, desmascarado.'
+      : 'Era um Civil inocente. O X9 continua à solta…';
     banner = wasImpostor
       ? remainingImpostors > 0
         ? `Ainda restam ${remainingImpostors} X9`
         : 'Último X9 caiu'
-      : 'O X9 continua à solta'
+      : 'O X9 continua à solta';
   } else {
     // empate ou pulado — caução âmbar
-    accent = 'var(--neon-amber)'
-    accentSoft = 'var(--neon-amber)'
-    glow = '0 0 0 1px rgba(255,197,61,0.4), 0 0 22px -4px rgba(255,197,61,0.5)'
-    icon = 'gavel'
-    bannerBg = 'rgba(255,197,61,0.08)'
-    title = noElimReason === 'tie' ? 'Deu empate' : 'Votação pulada'
+    accent = 'var(--neon-amber)';
+    accentSoft = 'var(--neon-amber)';
+    glow = '0 0 0 1px rgba(255,197,61,0.4), 0 0 22px -4px rgba(255,197,61,0.5)';
+    icon = 'gavel';
+    bannerBg = 'rgba(255,197,61,0.08)';
+    title = noElimReason === 'tie' ? 'Deu empate' : 'Votação pulada';
     subtitle =
       noElimReason === 'tie'
         ? 'Os votos empataram no topo — ninguém foi eliminado.'
-        : 'O grupo decidiu não eliminar ninguém desta vez.'
-    banner = 'Ninguém foi eliminado'
+        : 'O grupo decidiu não eliminar ninguém desta vez.';
+    banner = 'Ninguém foi eliminado';
   }
 
   return (
     <Screen>
-      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 26 }}>
+      <div
+        style={{
+          flex: 1,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: 26,
+        }}
+      >
         <div
-          className="animate-pop-in"
+          className='animate-pop-in'
           style={{
             width: '100%',
             borderRadius: 'var(--r-xl)',
             padding: '30px 24px 26px',
-            background: 'linear-gradient(180deg, rgba(20,20,31,0.97), rgba(10,10,16,0.97))',
+            background:
+              'linear-gradient(180deg, rgba(20,20,31,0.97), rgba(10,10,16,0.97))',
             border: `1.5px solid ${accent}`,
             boxShadow: glow,
             textAlign: 'center',
@@ -83,11 +99,22 @@ export default function RoundResultScreen({ eliminated, noElimReason, remainingI
             <Icon name={icon} size={40} color={accentSoft} />
           </div>
 
-          <div style={{ marginTop: 18, fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 24, color: 'var(--text-hi)' }}>
+          <div
+            style={{
+              marginTop: 18,
+              fontFamily: 'var(--font-display)',
+              fontWeight: 700,
+              fontSize: 24,
+              color: 'var(--text-hi)',
+            }}
+          >
             {title}
           </div>
 
-          <p className="x9-body" style={{ marginTop: 8, color: 'var(--text-mid)', fontSize: 15 }}>
+          <p
+            className='x9-body'
+            style={{ marginTop: 8, color: 'var(--text-mid)', fontSize: 15 }}
+          >
             {subtitle}
           </p>
 
@@ -116,12 +143,16 @@ export default function RoundResultScreen({ eliminated, noElimReason, remainingI
           </div>
 
           <div style={{ marginTop: 22 }}>
-            <Button variant={eliminated?.isImpostor ? 'danger' : 'primary'} icon="arrow-right" onClick={onContinue}>
+            <Button
+              variant={eliminated?.isImpostor ? 'danger' : 'primary'}
+              icon='arrow-right'
+              onClick={onContinue}
+            >
               Continuar
             </Button>
           </div>
         </div>
       </div>
     </Screen>
-  )
+  );
 }

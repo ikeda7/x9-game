@@ -1,30 +1,36 @@
-import { useRef, useState } from 'react'
-import { WordEntry } from '../../common/interfaces/word-entry.interface'
-import { Player } from '../../common/interfaces/player.interface'
-import { Button} from '../../components/button/button'
-import { Icon } from '../../components/icon/icon'
-import { Screen } from '../../components/screen/screen'
-import { haptic } from '../../game/feedback'
+import { useRef, useState } from 'react';
+
+import { Player } from '../../common/interfaces/player.interface';
+import { WordEntry } from '../../common/interfaces/word-entry.interface';
+import { Button } from '../../components/button/button';
+import { Icon } from '../../components/icon/icon';
+import { Screen } from '../../components/screen/screen';
+import { haptic } from '../../game/feedback';
 
 interface Props {
-  players: Player[]
-  word: WordEntry
-  hintMode: boolean
-  onDone: () => void
+  players: Player[];
+  word: WordEntry;
+  hintMode: boolean;
+  onDone: () => void;
 }
 
 /** Fase de distribuição: cada jogador vê seu papel em segredo. */
-export default function RevealScreen({ players, word, hintMode, onDone }: Props) {
-  const [index, setIndex] = useState(0)
-  const [revealed, setRevealed] = useState(false)
+export default function RevealScreen({
+  players,
+  word,
+  hintMode,
+  onDone,
+}: Props) {
+  const [index, setIndex] = useState(0);
+  const [revealed, setRevealed] = useState(false);
 
-  const player = players[index]
-  const isLast = index === players.length - 1
+  const player = players[index];
+  const isLast = index === players.length - 1;
 
   function next() {
-    setRevealed(false)
-    if (isLast) onDone()
-    else setIndex((i) => i + 1)
+    setRevealed(false);
+    if (isLast) onDone();
+    else setIndex((i) => i + 1);
   }
 
   if (!revealed) {
@@ -34,11 +40,11 @@ export default function RevealScreen({ players, word, hintMode, onDone }: Props)
         index={index}
         total={players.length}
         onReveal={() => {
-          haptic(28)
-          setRevealed(true)
+          haptic(28);
+          setRevealed(true);
         }}
       />
-    )
+    );
   }
 
   return (
@@ -51,7 +57,7 @@ export default function RevealScreen({ players, word, hintMode, onDone }: Props)
       last={isLast}
       onNext={next}
     />
-  )
+  );
 }
 
 // ---- A. Passe o celular / segure para revelar ----------------
@@ -61,30 +67,30 @@ function RevealWait({
   total,
   onReveal,
 }: {
-  playerName: string
-  index: number
-  total: number
-  onReveal: () => void
+  playerName: string;
+  index: number;
+  total: number;
+  onReveal: () => void;
 }) {
-  const [holding, setHolding] = useState(false)
-  const timer = useRef<number | null>(null)
+  const [holding, setHolding] = useState(false);
+  const timer = useRef<number | null>(null);
 
   const start = () => {
-    setHolding(true)
+    setHolding(true);
     timer.current = window.setTimeout(() => {
-      setHolding(false)
-      onReveal()
-    }, 650)
-  }
+      setHolding(false);
+      onReveal();
+    }, 650);
+  };
   const cancel = () => {
-    setHolding(false)
-    if (timer.current) window.clearTimeout(timer.current)
-  }
+    setHolding(false);
+    if (timer.current) window.clearTimeout(timer.current);
+  };
 
   return (
     <Screen dark>
       <div
-        className="animate-fade-in"
+        className='animate-fade-in'
         style={{
           flex: 1,
           display: 'flex',
@@ -95,11 +101,18 @@ function RevealWait({
           textAlign: 'center',
         }}
       >
-        <div className="x9-mono" style={{ color: 'var(--text-low)', fontSize: 13 }}>
-          {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
+        <div
+          className='x9-mono'
+          style={{ color: 'var(--text-low)', fontSize: 13 }}
+        >
+          {String(index + 1).padStart(2, '0')} /{' '}
+          {String(total).padStart(2, '0')}
         </div>
 
-        <div className="x9-label" style={{ marginTop: 26, color: 'var(--text-low)' }}>
+        <div
+          className='x9-label'
+          style={{ marginTop: 26, color: 'var(--text-low)' }}
+        >
           Passe o celular para
         </div>
 
@@ -117,7 +130,10 @@ function RevealWait({
           {playerName}
         </div>
 
-        <p className="x9-small" style={{ marginTop: 16, color: 'var(--text-low)', maxWidth: 250 }}>
+        <p
+          className='x9-small'
+          style={{ marginTop: 16, color: 'var(--text-low)', maxWidth: 250 }}
+        >
           Que ninguém mais veja a tela. Segure o botão para revelar seu papel.
         </p>
 
@@ -132,7 +148,8 @@ function RevealWait({
             height: 188,
             borderRadius: '50%',
             border: '1px solid var(--line-neon)',
-            background: 'radial-gradient(circle at 50% 40%, rgba(176,38,255,0.22), rgba(176,38,255,0.04) 70%)',
+            background:
+              'radial-gradient(circle at 50% 40%, rgba(176,38,255,0.22), rgba(176,38,255,0.04) 70%)',
             boxShadow: holding
               ? '0 0 0 2px var(--neon-purple), 0 0 60px -4px rgba(176,38,255,0.85)'
               : 'var(--glow-purple)',
@@ -147,14 +164,17 @@ function RevealWait({
             transition: 'transform .2s ease, box-shadow .2s ease',
           }}
         >
-          <Icon name="fingerprint" size={54} color="var(--neon-purple-soft)" />
-          <span className="x9-label" style={{ color: 'var(--neon-purple-soft)', letterSpacing: '0.1em' }}>
+          <Icon name='fingerprint' size={54} color='var(--neon-purple-soft)' />
+          <span
+            className='x9-label'
+            style={{ color: 'var(--neon-purple-soft)', letterSpacing: '0.1em' }}
+          >
             {holding ? 'Revelando…' : 'Segure para ver'}
           </span>
         </button>
       </div>
     </Screen>
-  )
+  );
 }
 
 // ---- B/C. Card de revelação (Civil / X9) ---------------------
@@ -167,27 +187,35 @@ function RevealCard({
   last,
   onNext,
 }: {
-  player: Player
-  word: WordEntry
-  hintMode: boolean
-  index: number
-  total: number
-  last: boolean
-  onNext: () => void
+  player: Player;
+  word: WordEntry;
+  hintMode: boolean;
+  index: number;
+  total: number;
+  last: boolean;
+  onNext: () => void;
 }) {
-  const isImpostor = player.isImpostor
-  const accent = isImpostor ? 'var(--neon-red)' : 'var(--neon-purple)'
-  const accentSoft = isImpostor ? '#FF8095' : 'var(--neon-purple-soft)'
-  const glow = isImpostor ? 'var(--glow-red)' : 'var(--glow-purple)'
+  const isImpostor = player.isImpostor;
+  const accent = isImpostor ? 'var(--neon-red)' : 'var(--neon-purple)';
+  const accentSoft = isImpostor ? '#FF8095' : 'var(--neon-purple-soft)';
+  const glow = isImpostor ? 'var(--glow-red)' : 'var(--glow-purple)';
 
-  const emoji = isImpostor ? '❓' : word.emoji
-  const bigText = isImpostor ? (hintMode && word.hint ? word.hint : '???') : word.word
-  const overline = isImpostor ? (hintMode && word.hint ? 'Sua dica secreta' : null) : word.category
+  const emoji = isImpostor ? '❓' : word.emoji;
+  const bigText = isImpostor
+    ? hintMode && word.hint
+      ? word.hint
+      : '???'
+    : word.word;
+  const overline = isImpostor
+    ? hintMode && word.hint
+      ? 'Sua dica secreta'
+      : null
+    : word.category;
 
   return (
     <Screen dark>
       <div
-        className="animate-pop-in"
+        className='animate-pop-in'
         style={{
           flex: 1,
           display: 'flex',
@@ -197,8 +225,9 @@ function RevealCard({
           padding: '0 26px',
         }}
       >
-        <div className="x9-label" style={{ color: 'var(--text-low)' }}>
-          {player.name} · {String(index + 1).padStart(2, '0')}/{String(total).padStart(2, '0')}
+        <div className='x9-label' style={{ color: 'var(--text-low)' }}>
+          {player.name} · {String(index + 1).padStart(2, '0')}/
+          {String(total).padStart(2, '0')}
         </div>
 
         <div
@@ -207,7 +236,8 @@ function RevealCard({
             width: '100%',
             borderRadius: 'var(--r-xl)',
             padding: '34px 26px 30px',
-            background: 'linear-gradient(180deg, rgba(20,20,31,0.95), rgba(10,10,16,0.95))',
+            background:
+              'linear-gradient(180deg, rgba(20,20,31,0.95), rgba(10,10,16,0.95))',
             border: `1.5px solid ${accent}`,
             boxShadow: glow,
             textAlign: 'center',
@@ -236,11 +266,20 @@ function RevealCard({
               padding: '7px 14px',
               borderRadius: 'var(--r-pill)',
               border: `1px solid ${accent}`,
-              background: isImpostor ? 'rgba(255,42,77,0.10)' : 'rgba(176,38,255,0.10)',
+              background: isImpostor
+                ? 'rgba(255,42,77,0.10)'
+                : 'rgba(176,38,255,0.10)',
             }}
           >
-            <Icon name={isImpostor ? 'venetian-mask' : 'shield-check'} size={16} color={accentSoft} />
-            <span className="x9-label" style={{ color: accentSoft, letterSpacing: '0.12em' }}>
+            <Icon
+              name={isImpostor ? 'venetian-mask' : 'shield-check'}
+              size={16}
+              color={accentSoft}
+            />
+            <span
+              className='x9-label'
+              style={{ color: accentSoft, letterSpacing: '0.12em' }}
+            >
               {isImpostor ? 'Você é o X9' : 'Você é um Civil'}
             </span>
           </div>
@@ -249,7 +288,10 @@ function RevealCard({
           <div style={{ position: 'relative', marginTop: 30, marginBottom: 8 }}>
             <div style={{ fontSize: 60, lineHeight: 1 }}>{emoji}</div>
             {overline && (
-              <div className="x9-label" style={{ marginTop: 14, color: accentSoft }}>
+              <div
+                className='x9-label'
+                style={{ marginTop: 14, color: accentSoft }}
+              >
                 {overline}
               </div>
             )}
@@ -261,7 +303,9 @@ function RevealCard({
                 fontSize: isImpostor ? 36 : 44,
                 letterSpacing: '0.04em',
                 color: isImpostor ? accentSoft : 'var(--text-hi)',
-                textShadow: isImpostor ? '0 0 24px rgba(255,42,77,0.5)' : '0 0 24px rgba(176,38,255,0.5)',
+                textShadow: isImpostor
+                  ? '0 0 24px rgba(255,42,77,0.5)'
+                  : '0 0 24px rgba(176,38,255,0.5)',
               }}
             >
               {bigText}
@@ -277,7 +321,14 @@ function RevealCard({
             }}
           />
 
-          <p className="x9-body" style={{ position: 'relative', color: 'var(--text-mid)', fontSize: 15 }}>
+          <p
+            className='x9-body'
+            style={{
+              position: 'relative',
+              color: 'var(--text-mid)',
+              fontSize: 15,
+            }}
+          >
             {isImpostor
               ? 'Blefe! Tente descobrir a palavra dos Civis e sobreviva.'
               : 'Fale palavras relacionadas, mas não revele a palavra!'}
@@ -285,14 +336,26 @@ function RevealCard({
         </div>
 
         <div style={{ marginTop: 28, width: '100%' }}>
-          <Button variant={isImpostor ? 'danger' : 'primary'} icon={last ? 'flag' : 'eye-off'} onClick={onNext}>
+          <Button
+            variant={isImpostor ? 'danger' : 'primary'}
+            icon={last ? 'flag' : 'eye-off'}
+            onClick={onNext}
+          >
             {last ? 'Começar Discussão' : 'Pronto, já vi'}
           </Button>
         </div>
-        <p className="x9-small" style={{ marginTop: 14, color: 'var(--text-low)', textAlign: 'center', maxWidth: 240 }}>
+        <p
+          className='x9-small'
+          style={{
+            marginTop: 14,
+            color: 'var(--text-low)',
+            textAlign: 'center',
+            maxWidth: 240,
+          }}
+        >
           Esconda a tela e passe o celular adiante.
         </p>
       </div>
     </Screen>
-  )
+  );
 }

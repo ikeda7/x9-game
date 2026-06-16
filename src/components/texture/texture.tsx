@@ -1,9 +1,23 @@
 // ============================================================
 // X9 — Camada de textura (ruído + scanlines + vinheta)
 // ============================================================
-export function Texture({ scanlines = true, vignette = true }: { scanlines?: boolean; vignette?: boolean }) {
+export function Texture({
+  scanlines = true,
+  vignette = true,
+}: {
+  scanlines?: boolean;
+  vignette?: boolean;
+}) {
   return (
-    <div aria-hidden style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0 }}>
+    <div
+      aria-hidden
+      style={{
+        position: 'absolute',
+        inset: 0,
+        pointerEvents: 'none',
+        zIndex: 0,
+      }}
+    >
       <div
         style={{
           position: 'absolute',
@@ -36,5 +50,5 @@ export function Texture({ scanlines = true, vignette = true }: { scanlines?: boo
         />
       )}
     </div>
-  )
+  );
 }
