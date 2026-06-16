@@ -1,7 +1,7 @@
-import { Player } from '../../common/interfaces/player.interface';
-import { Button } from '../../components/button/button';
-import { Icon, type IconName } from '../../components/icon/icon';
-import { Screen } from '../../components/screen/screen';
+import type { Player } from '../../common/interfaces/player.interface.ts';
+import { Button } from '../../components/button/button.tsx';
+import { Icon, type IconName } from '../../components/icon/icon.tsx';
+import { Screen } from '../../components/screen/screen.tsx';
 
 interface Props {
   eliminated: Player | null;

@@ -12,7 +12,7 @@ import {
   Flag,
   Gavel,
   HelpCircle,
-  LucideIcon,
+  type LucideIcon,
   Minus,
   PartyPopper,
   Pause,
@@ -28,7 +28,7 @@ import {
   X,
   Zap,
 } from 'lucide-react';
-import { CSSProperties } from 'react';
+import type { CSSProperties } from 'react';
 
 // ============================================================
 const ICONS: Record<string, LucideIcon> = {

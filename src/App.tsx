@@ -1,20 +1,20 @@
 import { useState } from 'react';
 
-import { pickRandomWord } from './common/data/words';
-import { Phase } from './common/enums/phase.enum';
-import { Team } from './common/enums/team.enum';
-import { GameConfig } from './common/interfaces/game-config';
-import { Player } from './common/interfaces/player.interface';
-import { WordEntry } from './common/interfaces/word-entry.interface';
-import { checkWinner, createPlayers } from './game/logic';
-import { saveSetup } from './game/storage';
-import DiscussionScreen from './screens/discussion/discussion';
-import GameOverScreen from './screens/game-over/game-over';
-import HomeScreen from './screens/home/home';
-import RevealScreen from './screens/reveal/reveal';
-import RoundResultScreen from './screens/round-result/round-result';
-import SetupScreen from './screens/setup/setup';
-import VotingScreen from './screens/voting/voting';
+import { pickRandomWord } from './common/data/words.ts';
+import { Phase } from './common/enums/phase.enum.ts';
+import type { Team } from './common/enums/team.enum.ts';
+import type { GameConfig } from './common/interfaces/game-config.ts';
+import type { Player } from './common/interfaces/player.interface.ts';
+import type { WordEntry } from './common/interfaces/word-entry.interface.ts';
+import { checkWinner, createPlayers } from './game/logic.ts';
+import { saveSetup } from './game/storage.ts';
+import DiscussionScreen from './screens/discussion/discussion.tsx';
+import GameOverScreen from './screens/game-over/game-over.tsx';
+import HomeScreen from './screens/home/home.tsx';
+import RevealScreen from './screens/reveal/reveal.tsx';
+import RoundResultScreen from './screens/round-result/round-result.tsx';
+import SetupScreen from './screens/setup/setup.tsx';
+import VotingScreen from './screens/voting/voting.tsx';
 
 type NoElimReason = 'tie' | 'skip';
 
@@ -32,7 +32,7 @@ export default function App() {
   /** Sorteia quem abre a discussão entre os jogadores vivos. */
   function pickStarter(list: Player[]): number | null {
     const alive = list.filter((p) => p.alive);
-    if (!alive.length) return null;
+    if (alive.length === 0) return null;
     return alive[Math.floor(Math.random() * alive.length)].id;
   }
 
@@ -114,30 +114,33 @@ export default function App() {
       return <SetupScreen onStart={startGame} onBack={backToHome} />;
 
     case Phase.REVEAL:
+      if (!word || !config) return null;
       return (
         <RevealScreen
           players={players}
-          word={word!}
-          hintMode={config!.hintMode}
+          word={word}
+          hintMode={config.hintMode}
           onDone={() => goToDiscussion()}
         />
       );
 
     case Phase.DISCUSSION:
+      if (!config) return null;
       return (
         <DiscussionScreen
           key={round}
           players={players}
           starterId={starterId}
-          durationSeconds={config!.discussionSeconds}
+          durationSeconds={config.discussionSeconds}
           onVote={() => setPhase(Phase.VOTING)}
         />
       );
 
     case Phase.VOTING:
+      if (!config) return null;
       return (
         <VotingScreen
-          mode={config!.voteMode}
+          mode={config.voteMode}
           players={players}
           onEliminate={eliminate}
           onTie={() => resolveNoElimination('tie')}
@@ -158,11 +161,12 @@ export default function App() {
       );
 
     case Phase.GAME_OVER:
+      if (!winner || !word) return null;
       return (
         <GameOverScreen
-          winner={winner!}
+          winner={winner}
           players={players}
-          word={word!}
+          word={word}
           onPlayAgain={playAgain}
           onNewSetup={newSetup}
         />

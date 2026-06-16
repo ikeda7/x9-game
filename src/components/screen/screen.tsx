@@ -1,9 +1,9 @@
 // ============================================================
 // X9 — Shell de tela: fundo + textura + coluna centralizada (largura de celular)
 
-import { CSSProperties, ReactNode } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 
-import { Texture } from '../texture/texture';
+import { Texture } from '../texture/texture.tsx';
 
 // ============================================================
 export function Screen({
@@ -28,7 +28,7 @@ export function Screen({
           : 'radial-gradient(130% 80% at 50% -5%, #16101f 0%, #0c0c13 55%)',
       }}
     >
-      <Texture vignette={!dark} scanlines />
+      <Texture vignette={!dark} scanlines={true} />
       <div
         className='animate-screen-in'
         style={{

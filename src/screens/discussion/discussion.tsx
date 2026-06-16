@@ -1,14 +1,14 @@
 import './discussion.css';
 
-import { Screen } from '../../components/screen/screen';
-import { computePlayerOrder, useDiscussionTimer } from './discussion.hooks';
-import { DiscussionScreenProps } from './discussion.interface';
+import { Screen } from '../../components/screen/screen.tsx';
+import { computePlayerOrder, useDiscussionTimer } from './discussion.hooks.ts';
+import type { DiscussionScreenProps } from './discussion.interface.ts';
 import {
   DiscussionFooter,
   PlayerOrderList,
   StarterBadge,
   TimerPanel,
-} from './discussion.layout';
+} from './discussion.layout.tsx';
 
 /** Fase de debate: quem começa + ordem de fala, cronômetro regressivo. */
 export default function DiscussionScreen({

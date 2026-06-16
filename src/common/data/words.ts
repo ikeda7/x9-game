@@ -1,4 +1,4 @@
-import { WordEntry } from '../interfaces/word-entry.interface';
+import type { WordEntry } from '../interfaces/word-entry.interface.ts';
 
 /**
  * Banco de palavras secretas.
@@ -139,10 +139,11 @@ export const CATEGORIES: string[] = [...new Set(WORDS.map((w) => w.category))];
  * `categories` vazio (ou sem correspondência) = todas as categorias.
  */
 export function pickRandomWord(categories: string[] = []): WordEntry {
-  const pool = categories.length
-    ? WORDS.filter((w) => categories.includes(w.category))
-    : WORDS;
-  const list = pool.length ? pool : WORDS;
+  const pool =
+    categories.length > 0
+      ? WORDS.filter((w) => categories.includes(w.category))
+      : WORDS;
+  const list = pool.length > 0 ? pool : WORDS;
   return list[Math.floor(Math.random() * list.length)];
 }
 

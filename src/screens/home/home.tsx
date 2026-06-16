@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
-import { Button } from '../../components/button/button';
-import { Icon, type IconName } from '../../components/icon/icon';
-import { Logo } from '../../components/logo/logo';
-import { Screen } from '../../components/screen/screen';
+import { Button } from '../../components/button/button.tsx';
+import { Icon, type IconName } from '../../components/icon/icon.tsx';
+import { Logo } from '../../components/logo/logo.tsx';
+import { Screen } from '../../components/screen/screen.tsx';
 
 interface Props {
   onNew: () => void;
@@ -133,7 +133,9 @@ function HowToPlay({ onClose }: { onClose: () => void }) {
     },
   ];
   return (
-    <div
+    <button
+      type='button'
+      aria-label='Fechar'
       style={{
         position: 'absolute',
         inset: 0,
@@ -144,11 +146,19 @@ function HowToPlay({ onClose }: { onClose: () => void }) {
         alignItems: 'center',
         justifyContent: 'center',
         padding: 22,
+        border: 'none',
+        width: '100%',
+        cursor: 'default',
       }}
       onClick={onClose}
+      onKeyDown={(e) => e.key === 'Escape' && onClose()}
     >
       <div
+        role='dialog'
+        aria-modal='true'
+        aria-label='Como Jogar'
         onClick={(e) => e.stopPropagation()}
+        onKeyDown={(e) => e.stopPropagation()}
         style={{
           width: '100%',
           maxWidth: 390,
@@ -211,7 +221,7 @@ function HowToPlay({ onClose }: { onClose: () => void }) {
           >
             {steps.map((s, i) => (
               <div
-                key={i}
+                key={s.icon}
                 style={{ display: 'flex', gap: 13, alignItems: 'flex-start' }}
               >
                 <span
@@ -288,7 +298,7 @@ function HowToPlay({ onClose }: { onClose: () => void }) {
           </Button>
         </div>
       </div>
-    </div>
+    </button>
   );
 }
 

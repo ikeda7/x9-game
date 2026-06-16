@@ -1,4 +1,4 @@
-import { Player } from '../../common/interfaces/player.interface';
+import type { Player } from '../../common/interfaces/player.interface.ts';
 
 export interface DiscussionScreenProps {
   players: Player[];

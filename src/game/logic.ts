@@ -1,5 +1,5 @@
-import { Team } from '../common/enums/team.enum';
-import { Player } from '../common/interfaces/player.interface';
+import { Team } from '../common/enums/team.enum.ts';
+import type { Player } from '../common/interfaces/player.interface.ts';
 
 /** Sorteia quais jogadores serão impostores e monta a lista inicial. */
 export function createPlayers(

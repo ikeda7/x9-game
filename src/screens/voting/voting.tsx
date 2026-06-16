@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-import { VoteMode } from '../../common/enums/vote-mode.enum';
-import { Player } from '../../common/interfaces/player.interface';
-import { Button } from '../../components/button/button';
-import { Icon } from '../../components/icon/icon';
-import { Screen } from '../../components/screen/screen';
-import { haptic } from '../../game/feedback';
+import type { VoteMode } from '../../common/enums/vote-mode.enum.ts';
+import type { Player } from '../../common/interfaces/player.interface.ts';
+import { Button } from '../../components/button/button.tsx';
+import { Icon } from '../../components/icon/icon.tsx';
+import { Screen } from '../../components/screen/screen.tsx';
+import { haptic } from '../../game/feedback.ts';
 
 interface Props {
   mode: VoteMode;
@@ -31,7 +31,7 @@ function resolveBallots(
 ) {
   const counts: Record<number, number> = {};
   Object.values(ballots).forEach((id) => {
-    if (id != null) counts[id] = (counts[id] ?? 0) + 1;
+    if (id !== null) counts[id] = (counts[id] ?? 0) + 1;
   });
   const max = Math.max(0, ...alive.map((p) => counts[p.id] ?? 0));
   if (max === 0) return on.onSkip();
@@ -155,6 +155,7 @@ function OpenVoting({ players, onEliminate, onTie, onSkip }: Props) {
               >
                 <button
                   onClick={() => inc(p.id)}
+                  type='button'
                   style={{
                     flex: 1,
                     display: 'flex',
@@ -197,6 +198,7 @@ function OpenVoting({ players, onEliminate, onTie, onSkip }: Props) {
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                   <button
+                    type='button'
                     onClick={() => dec(p.id)}
                     disabled={n === 0}
                     style={stepBtn(n === 0, false)}
@@ -215,6 +217,7 @@ function OpenVoting({ players, onEliminate, onTie, onSkip }: Props) {
                     {n}
                   </span>
                   <button
+                    type='button'
                     onClick={() => inc(p.id)}
                     disabled={remaining <= 0}
                     style={stepBtn(remaining <= 0, true)}
@@ -300,7 +303,7 @@ function SecretVoting({ players, onEliminate, onTie, onSkip }: Props) {
   // ---- passe o celular ----
   if (step === 'pass') {
     return (
-      <Screen dark>
+      <Screen dark={true}>
         <div
           className='animate-fade-in'
           style={{
@@ -365,7 +368,7 @@ function SecretVoting({ players, onEliminate, onTie, onSkip }: Props) {
 
   // ---- cédula ----
   return (
-    <Screen dark>
+    <Screen dark={true}>
       <div
         style={{
           flex: 1,
@@ -399,6 +402,7 @@ function SecretVoting({ players, onEliminate, onTie, onSkip }: Props) {
             return (
               <button
                 key={p.id}
+                type='button'
                 onClick={() => setSelected(p.id)}
                 style={{
                   display: 'flex',

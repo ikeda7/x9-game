@@ -1,4 +1,4 @@
-import { VoteMode } from '../enums/vote-mode.enum';
+import type { VoteMode } from '../enums/vote-mode.enum.ts';
 
 export interface GameConfig {
   names: string[];

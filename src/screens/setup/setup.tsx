@@ -1,13 +1,13 @@
 import type { ReactNode } from 'react';
 import { useState } from 'react';
 
-import { CATEGORIES, emojiForCategory } from '../../common/data/words';
-import { VoteMode } from '../../common/enums/vote-mode.enum';
-import { GameConfig } from '../../common/interfaces/game-config';
-import { Button } from '../../components/button/button';
-import { Icon } from '../../components/icon/icon';
-import { Screen } from '../../components/screen/screen';
-import { loadSetup } from '../../game/storage';
+import { CATEGORIES, emojiForCategory } from '../../common/data/words.ts';
+import { VoteMode } from '../../common/enums/vote-mode.enum.ts';
+import type { GameConfig } from '../../common/interfaces/game-config.ts';
+import { Button } from '../../components/button/button.tsx';
+import { Icon } from '../../components/icon/icon.tsx';
+import { Screen } from '../../components/screen/screen.tsx';
+import { loadSetup } from '../../game/storage.ts';
 
 const MIN_PLAYERS = 3;
 
@@ -39,7 +39,7 @@ export default function SetupScreen({ onStart, onBack }: Props) {
   const [hintMode, setHintMode] = useState(saved?.hintMode ?? false);
   const [duration, setDuration] = useState(saved?.discussionSeconds ?? 120);
   const [categories, setCategories] = useState<string[]>(
-    savedCategories.length ? savedCategories : CATEGORIES,
+    savedCategories.length > 0 ? savedCategories : CATEGORIES,
   );
   const [voteMode, setVoteMode] = useState<VoteMode>(
     saved?.voteMode ?? VoteMode.OPEN,
@@ -94,6 +94,7 @@ export default function SetupScreen({ onStart, onBack }: Props) {
         }}
       >
         <button
+          type='button'
           onClick={onBack}
           style={{
             display: 'inline-flex',
@@ -156,7 +157,7 @@ export default function SetupScreen({ onStart, onBack }: Props) {
         >
           {players.map((p, i) => (
             <div
-              key={i}
+              key={p}
               className='animate-fade-in'
               style={{
                 display: 'flex',
@@ -195,6 +196,7 @@ export default function SetupScreen({ onStart, onBack }: Props) {
                 {p}
               </span>
               <button
+                type='button'
                 onClick={() => remove(i)}
                 style={{
                   display: 'inline-flex',
@@ -238,6 +240,7 @@ export default function SetupScreen({ onStart, onBack }: Props) {
             }
           />
           <button
+            type='button'
             onClick={add}
             style={{
               display: 'inline-flex',
@@ -286,6 +289,7 @@ export default function SetupScreen({ onStart, onBack }: Props) {
               const on = duration === d.secs;
               return (
                 <button
+                  type='button'
                   key={d.secs}
                   onClick={() => setDuration(d.secs)}
                   style={{
@@ -334,6 +338,7 @@ export default function SetupScreen({ onStart, onBack }: Props) {
               const on = voteMode === o.v;
               return (
                 <button
+                  type='button'
                   key={o.v}
                   onClick={() => setVoteMode(o.v)}
                   style={{
@@ -403,12 +408,11 @@ export default function SetupScreen({ onStart, onBack }: Props) {
             <span
               className='x9-label'
               style={{
-                color: categories.length
-                  ? 'var(--text-low)'
-                  : 'var(--neon-red)',
+                color:
+                  categories.length > 0 ? 'var(--text-low)' : 'var(--neon-red)',
               }}
             >
-              {categories.length
+              {categories.length > 0
                 ? `${categories.length}/${CATEGORIES.length}`
                 : 'escolha 1'}
             </span>
@@ -420,6 +424,7 @@ export default function SetupScreen({ onStart, onBack }: Props) {
               const on = categories.includes(cat);
               return (
                 <button
+                  type='button'
                   key={cat}
                   onClick={() => toggleCategory(cat)}
                   style={{
@@ -446,6 +451,7 @@ export default function SetupScreen({ onStart, onBack }: Props) {
 
         {/* modo avançado */}
         <button
+          type='button'
           onClick={() => setHintMode((v) => !v)}
           style={{
             marginTop: 12,
@@ -610,6 +616,7 @@ function Stepper({
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
       <button
+        type='button'
         style={btn(value <= min)}
         onClick={() => value > min && onChange(value - 1)}
       >
@@ -627,6 +634,7 @@ function Stepper({
         {value}
       </span>
       <button
+        type='button'
         style={btn(value >= max)}
         onClick={() => value < max && onChange(value + 1)}
       >

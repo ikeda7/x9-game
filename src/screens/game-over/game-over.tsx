@@ -1,9 +1,9 @@
-import { Team } from '../../common/enums/team.enum';
-import { Player } from '../../common/interfaces/player.interface';
-import { WordEntry } from '../../common/interfaces/word-entry.interface';
-import { Button } from '../../components/button/button';
-import { Icon } from '../../components/icon/icon';
-import { Screen } from '../../components/screen/screen';
+import type { Team } from '../../common/enums/team.enum.ts';
+import type { Player } from '../../common/interfaces/player.interface.ts';
+import type { WordEntry } from '../../common/interfaces/word-entry.interface.ts';
+import { Button } from '../../components/button/button.tsx';
+import { Icon } from '../../components/icon/icon.tsx';
+import { Screen } from '../../components/screen/screen.tsx';
 
 interface Props {
   winner: Team;
@@ -28,7 +28,7 @@ export default function GameOverScreen({
   const glow = civsWon ? 'var(--glow-green)' : 'var(--glow-red)';
 
   return (
-    <Screen dark>
+    <Screen dark={true}>
       <div
         className='animate-pop-in'
         style={{

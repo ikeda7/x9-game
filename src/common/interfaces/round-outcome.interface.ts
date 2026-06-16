@@ -1,5 +1,5 @@
-import { RoundOutcomeKind } from '../enums/round-outcome-kind.enum';
-import { Player } from './player.interface';
+import type { RoundOutcomeKind } from '../enums/round-outcome-kind.enum.ts';
+import type { Player } from './player.interface.ts';
 
 export interface RoundOutcome<K extends RoundOutcomeKind> {
   kind: K;

@@ -1,10 +1,10 @@
-import { Button } from '../../components/button/button';
-import { Icon } from '../../components/icon/icon';
-import {
+import { Button } from '../../components/button/button.tsx';
+import { Icon } from '../../components/icon/icon.tsx';
+import type {
   PlayerOrderListProps,
   StarterBadgeProps,
   TimerPanelProps,
-} from './discussion.interface';
+} from './discussion.interface.ts';
 
 export function TimerPanel({
   mm,
@@ -21,7 +21,11 @@ export function TimerPanel({
       >
         {mm}:{ss}
       </div>
-      <button onClick={toggle} className='discussion-timer-control'>
+      <button
+        type='button'
+        onClick={toggle}
+        className='discussion-timer-control'
+      >
         <Icon
           name={done ? 'play' : running ? 'pause' : 'play'}
           size={13}

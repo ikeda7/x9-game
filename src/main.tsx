@@ -11,7 +11,11 @@ import App from './App.tsx';
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker
     .getRegistrations()
-    .then((regs) => regs.forEach((r) => r.unregister()))
+    .then((regs) =>
+      regs.forEach((r) => {
+        r.unregister();
+      }),
+    )
     .catch(() => {
       /* ignore */
     });
@@ -19,13 +23,19 @@ if ('serviceWorker' in navigator) {
 if (typeof caches !== 'undefined') {
   caches
     .keys()
-    .then((keys) => keys.forEach((k) => caches.delete(k)))
+    .then((keys) =>
+      keys.forEach((k) => {
+        caches.delete(k);
+      }),
+    )
     .catch(() => {
       /* ignore */
     });
 }
 
-createRoot(document.getElementById('root')!).render(
+const rootEl = document.getElementById('root');
+if (!rootEl) throw new Error('Root element #root not found');
+createRoot(rootEl).render(
   <StrictMode>
     <App />
   </StrictMode>,

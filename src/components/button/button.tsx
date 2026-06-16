@@ -1,6 +1,6 @@
-import { CSSProperties, ReactNode, useState } from 'react';
+import { type CSSProperties, type ReactNode, useState } from 'react';
 
-import { Icon, IconName } from '../icon/icon';
+import { Icon, type IconName } from '../icon/icon.tsx';
 
 // ============================================================
 // X9 — Botão
@@ -69,6 +69,7 @@ export function Button({
 
   return (
     <button
+      type='button'
       onClick={disabled ? undefined : onClick}
       onPointerDown={() => setPress(true)}
       onPointerUp={() => setPress(false)}

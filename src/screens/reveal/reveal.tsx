@@ -1,11 +1,11 @@
 import { useRef, useState } from 'react';
 
-import { Player } from '../../common/interfaces/player.interface';
-import { WordEntry } from '../../common/interfaces/word-entry.interface';
-import { Button } from '../../components/button/button';
-import { Icon } from '../../components/icon/icon';
-import { Screen } from '../../components/screen/screen';
-import { haptic } from '../../game/feedback';
+import type { Player } from '../../common/interfaces/player.interface.ts';
+import type { WordEntry } from '../../common/interfaces/word-entry.interface.ts';
+import { Button } from '../../components/button/button.tsx';
+import { Icon } from '../../components/icon/icon.tsx';
+import { Screen } from '../../components/screen/screen.tsx';
+import { haptic } from '../../game/feedback.ts';
 
 interface Props {
   players: Player[];
@@ -88,7 +88,7 @@ function RevealWait({
   };
 
   return (
-    <Screen dark>
+    <Screen dark={true}>
       <div
         className='animate-fade-in'
         style={{
@@ -138,6 +138,7 @@ function RevealWait({
         </p>
 
         <button
+          type='button'
           onPointerDown={start}
           onPointerUp={cancel}
           onPointerLeave={cancel}
@@ -213,7 +214,7 @@ function RevealCard({
     : word.category;
 
   return (
-    <Screen dark>
+    <Screen dark={true}>
       <div
         className='animate-pop-in'
         style={{

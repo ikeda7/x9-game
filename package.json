@@ -8,6 +8,9 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "check": "biome check .",
+    "check:write": "biome check --write .",
+    "unsafe-check": "biome check --unsafe .",
+    "unsafe-check:write": "biome check --unsafe --write .",
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
     "format": "biome format --write ."

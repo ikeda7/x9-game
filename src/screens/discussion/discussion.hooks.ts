@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { Player } from '../../common/interfaces/player.interface';
-import { timesUp } from '../../game/feedback';
-import { UseDiscussionTimerResult } from './discussion.interface';
+import type { Player } from '../../common/interfaces/player.interface.ts';
+import { timesUp } from '../../game/feedback.ts';
+import type { UseDiscussionTimerResult } from './discussion.interface.ts';
 
 export function useDiscussionTimer(
   durationSeconds: number,
