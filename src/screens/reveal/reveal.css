@@ -1,0 +1,198 @@
+@reference "tailwindcss";
+
+/* ── wait screen ─────────────────────────────────────────── */
+.reveal-wait {
+  @apply flex-1 flex flex-col items-center justify-center text-center;
+  padding: 0 30px;
+}
+
+.reveal-wait__counter {
+  color: var(--text-low);
+  font-size: 13px;
+}
+
+.reveal-wait__label {
+  margin-top: 26px;
+  color: var(--text-low);
+}
+
+.reveal-wait__name {
+  margin-top: 14px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 44px;
+  line-height: 1.05;
+  color: var(--text-hi);
+  text-shadow: 0 0 26px rgba(176, 38, 255, 0.45);
+}
+
+.reveal-wait__hint {
+  margin-top: 16px;
+  color: var(--text-low);
+  max-width: 250px;
+}
+
+.reveal-wait__btn {
+  @apply relative flex flex-col items-center justify-center;
+  margin-top: 48px;
+  width: 188px;
+  height: 188px;
+  border-radius: 50%;
+  border: 1px solid var(--line-neon);
+  background: radial-gradient(
+    circle at 50% 40%,
+    rgba(176, 38, 255, 0.22),
+    rgba(176, 38, 255, 0.04) 70%
+  );
+  color: var(--neon-purple-soft);
+  cursor: pointer;
+  gap: 12px;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.reveal-wait__btn--idle {
+  box-shadow: var(--glow-purple);
+  transform: scale(1);
+}
+
+.reveal-wait__btn--holding {
+  box-shadow:
+    0 0 0 2px var(--neon-purple),
+    0 0 60px -4px rgba(176, 38, 255, 0.85);
+  transform: scale(0.96);
+}
+
+.reveal-wait__btn-label {
+  color: var(--neon-purple-soft);
+  letter-spacing: 0.1em;
+}
+
+/* ── card screen ─────────────────────────────────────────── */
+.reveal-card {
+  @apply flex-1 flex flex-col items-center justify-center;
+  padding: 0 26px;
+}
+
+.reveal-card__header {
+  color: var(--text-low);
+}
+
+.reveal-card__box {
+  @apply relative w-full text-center;
+  margin-top: 18px;
+  border-radius: var(--r-xl);
+  padding: 34px 26px 30px;
+  background: linear-gradient(
+    180deg,
+    rgba(20, 20, 31, 0.95),
+    rgba(10, 10, 16, 0.95)
+  );
+  overflow: hidden;
+}
+
+.reveal-card__glow {
+  @apply absolute inset-0;
+  pointer-events: none;
+}
+
+.reveal-card__glow--impostor {
+  background: radial-gradient(
+    80% 50% at 50% 0%,
+    rgba(255, 42, 77, 0.18),
+    transparent 60%
+  );
+}
+
+.reveal-card__glow--civil {
+  background: radial-gradient(
+    80% 50% at 50% 0%,
+    rgba(176, 38, 255, 0.18),
+    transparent 60%
+  );
+}
+
+.reveal-card__role-chip {
+  @apply relative inline-flex items-center;
+  gap: 8px;
+  padding: 7px 14px;
+  border-radius: var(--r-pill);
+}
+
+.reveal-card__role-chip--impostor {
+  border: 1px solid var(--neon-red);
+  background: rgba(255, 42, 77, 0.1);
+}
+
+.reveal-card__role-chip--civil {
+  border: 1px solid var(--neon-purple);
+  background: rgba(176, 38, 255, 0.1);
+}
+
+.reveal-card__role-label {
+  letter-spacing: 0.12em;
+}
+
+.reveal-card__word-area {
+  @apply relative;
+  margin-top: 30px;
+  margin-bottom: 8px;
+}
+
+.reveal-card__emoji {
+  font-size: 60px;
+  line-height: 1;
+}
+
+.reveal-card__overline {
+  margin-top: 14px;
+}
+
+.reveal-card__word {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.reveal-card__word--civil {
+  margin-top: 6px;
+  font-size: 44px;
+  color: var(--text-hi);
+  text-shadow: 0 0 24px rgba(176, 38, 255, 0.5);
+}
+
+.reveal-card__word--impostor {
+  margin-top: 6px;
+  font-size: 36px;
+  text-shadow: 0 0 24px rgba(255, 42, 77, 0.5);
+}
+
+.reveal-card__word--no-overline {
+  margin-top: 14px;
+}
+
+.reveal-card__divider {
+  @apply relative;
+  height: 1px;
+  margin: 22px 0 18px;
+}
+
+.reveal-card__tip {
+  @apply relative;
+  color: var(--text-mid);
+  font-size: 15px;
+}
+
+/* ── card footer ─────────────────────────────────────────── */
+.reveal-card__actions {
+  margin-top: 28px;
+  width: 100%;
+}
+
+.reveal-card__pass-hint {
+  @apply text-center;
+  margin-top: 14px;
+  color: var(--text-low);
+  max-width: 240px;
+}
