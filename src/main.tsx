@@ -3,7 +3,7 @@ import './index.css';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import App from './App.tsx';
+import App from './app/App.tsx';
 
 // O X9 não usa Service Worker. Remove qualquer SW/cache antigo registrado nesta
 // origem (ex.: outro projeto que rodou na mesma porta do localhost) para que ele
