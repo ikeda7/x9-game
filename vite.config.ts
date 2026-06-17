@@ -1,6 +1,6 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
 
 // https://vite.dev/config/
 export default defineConfig(({ command }) => ({
@@ -11,4 +11,21 @@ export default defineConfig(({ command }) => ({
       port: 3000,
     },
   }),
+  test: {
+    environment: 'happy-dom',
+    setupFiles: ['src/test-setup.ts'],
+    include: ['src/**/tests/**/*.test.ts', 'src/**/tests/**/*.test.tsx'],
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'json', 'html'],
+      include: [
+        'src/app/**/*.{ts,tsx}',
+        'src/game/**/*.ts',
+        'src/common/data/**/*.ts',
+        'src/components/**/*.{ts,tsx}',
+        'src/screens/**/*.{ts,tsx}',
+      ],
+      exclude: ['src/**/*.interface.ts', 'src/**/tests/**'],
+    },
+  },
 }));
