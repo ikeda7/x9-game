@@ -1,0 +1,21 @@
+@reference "tailwindcss";
+
+.screen {
+  @apply relative flex justify-center w-full;
+  min-height: 100dvh;
+}
+
+.screen--light {
+  background: radial-gradient(130% 80% at 50% -5%, #16101f 0%, #0c0c13 55%);
+}
+
+.screen--dark {
+  background: radial-gradient(120% 70% at 50% 0%, #0d0a14 0%, #07070b 70%);
+}
+
+.screen__inner {
+  @apply relative flex flex-col w-full;
+  z-index: 10;
+  max-width: 440px;
+  min-height: 100dvh;
+}

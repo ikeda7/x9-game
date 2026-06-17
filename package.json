@@ -3,10 +3,21 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=22.22.1"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "check": "biome check .",
+    "check:write": "biome check --write .",
+    "unsafe-check": "biome check --unsafe .",
+    "unsafe-check:write": "biome check --unsafe --write .",
+    "lint": "biome lint .",
+    "lint:fix": "biome lint --write .",
+    "format": "biome format --write .",
+    "prepare": "husky"
   },
   "dependencies": {
     "lucide-react": "^0.460.0",
@@ -14,12 +25,22 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.5.0",
     "@tailwindcss/vite": "^4.1.4",
+    "@types/node": "^25.9.3",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
-    "@vitejs/plugin-react": "^4.3.4",
+    "@vitejs/plugin-react": "^6.0.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.7",
     "tailwindcss": "^4.1.4",
-    "typescript": "^5.6.3",
-    "vite": "^6.0.5"
+    "typescript": "^5.9.3",
+    "vite": "^8.0.16"
+  },
+  "allowScripts": {
+    "esbuild@0.25.12": true
+  },
+  "lint-staged": {
+    "*": "biome check --write --no-errors-on-unmatched"
   }
 }

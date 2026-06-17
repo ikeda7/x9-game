@@ -1,0 +1,151 @@
+@reference "tailwindcss";
+
+/* ── wrapper ──────────────────────────────────────────────── */
+.discussion-content {
+  @apply flex flex-col flex-1;
+  padding: 30px 22px 24px;
+}
+
+.discussion-phase-label {
+  @apply text-center;
+  color: var(--text-low);
+}
+
+.discussion-order-label {
+  margin-top: 18px;
+  color: var(--text-low);
+}
+
+/* ── timer ────────────────────────────────────────────────── */
+.discussion-timer {
+  @apply self-center flex flex-col items-center;
+  margin-top: 12px;
+  gap: 6px;
+  padding: 16px 36px;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--line-neon);
+  background: rgba(176, 38, 255, 0.05);
+  box-shadow: var(--glow-purple-sm);
+}
+
+.discussion-timer--warn {
+  border-color: var(--line-danger);
+  background: rgba(255, 42, 77, 0.06);
+  box-shadow: var(--glow-red);
+}
+
+.discussion-timer-digits {
+  font-family: var(--font-mono);
+  font-size: 58px;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  color: var(--neon-purple-soft);
+  text-shadow: 0 0 30px rgba(176, 38, 255, 0.55);
+}
+
+.discussion-timer-digits--warn {
+  color: var(--neon-red);
+  text-shadow: 0 0 30px rgba(255, 42, 77, 0.6);
+}
+
+.discussion-timer-control {
+  @apply inline-flex items-center cursor-pointer uppercase;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  color: var(--text-low);
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+}
+
+/* ── starter badge ────────────────────────────────────────── */
+.discussion-starter-badge {
+  @apply flex items-center justify-center;
+  margin-top: 16px;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: var(--r-md);
+  background: rgba(176, 38, 255, 0.08);
+  border: 1px solid var(--line-neon);
+}
+
+.discussion-starter-text {
+  color: var(--text-mid);
+}
+
+.discussion-starter-name {
+  @apply font-semibold;
+  color: var(--text-hi);
+}
+
+/* ── player list ──────────────────────────────────────────── */
+.discussion-player-list {
+  @apply flex-1 overflow-y-auto flex flex-col;
+  margin-top: 10px;
+  gap: 9px;
+}
+
+.discussion-player-row {
+  @apply flex items-center;
+  gap: 12px;
+  padding: 12px 15px;
+  border-radius: var(--r-md);
+  background: var(--bg-surface);
+  border: 1px solid var(--line-soft);
+}
+
+.discussion-player-row--starter {
+  background: rgba(176, 38, 255, 0.1);
+  border-color: var(--line-neon);
+}
+
+.discussion-player-name {
+  @apply flex-1;
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--text-hi);
+}
+
+.discussion-starter-tag {
+  color: var(--neon-purple-soft);
+}
+
+/* ── eliminated section ───────────────────────────────────── */
+.discussion-eliminated-header {
+  margin-top: 6px;
+  color: var(--text-low);
+}
+
+.discussion-eliminated-row {
+  @apply flex items-center;
+  gap: 12px;
+  padding: 10px 15px;
+  border-radius: var(--r-md);
+  opacity: 0.45;
+}
+
+.discussion-eliminated-badge {
+  @apply inline-flex items-center justify-center flex-shrink-0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--line-soft);
+  color: var(--text-low);
+}
+
+.discussion-eliminated-name {
+  @apply flex-1 line-through;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--text-low);
+}
+
+/* ── footer ───────────────────────────────────────────────── */
+.discussion-footer {
+  @apply flex items-center justify-center gap-2 text-center;
+  margin-top: 14px;
+  margin-bottom: 14px;
+  font-size: 14px;
+  color: var(--text-mid);
+}

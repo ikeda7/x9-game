@@ -1,0 +1,186 @@
+@reference "tailwindcss";
+
+/* ── main content ────────────────────────────────────────── */
+.home {
+  @apply flex-1 flex flex-col items-center;
+  padding: 0 28px 36px;
+}
+
+/* ── eyebrow ─────────────────────────────────────────────── */
+.home__eyebrow {
+  @apply flex items-center;
+  margin-top: 72px;
+  gap: 8px;
+}
+
+.home__eyebrow-line {
+  width: 28px;
+  height: 1px;
+  background: var(--line-neon);
+}
+
+.home__eyebrow-text {
+  color: var(--neon-purple-soft);
+}
+
+/* ── hero ────────────────────────────────────────────────── */
+.home__logo {
+  margin-top: 54px;
+}
+
+.home__tagline {
+  margin-top: 14px;
+  color: var(--text-low);
+}
+
+.home__description {
+  @apply text-center;
+  margin-top: 24px;
+  max-width: 270px;
+  color: var(--text-mid);
+}
+
+/* ── actions ─────────────────────────────────────────────── */
+.home__spacer {
+  flex: 1;
+}
+
+.home__actions {
+  @apply w-full flex flex-col;
+  gap: 14px;
+}
+
+.home__footer {
+  @apply flex items-center;
+  margin-top: 24px;
+  gap: 8px;
+  color: var(--text-low);
+}
+
+/* ── how to play overlay ─────────────────────────────────── */
+.howto-overlay {
+  @apply absolute inset-0 flex items-center justify-center;
+  z-index: 100;
+  background: var(--bg-overlay);
+  backdrop-filter: blur(6px);
+  padding: 22px;
+  border: none;
+  width: 100%;
+  cursor: default;
+}
+
+.howto-dialog {
+  @apply w-full flex flex-col;
+  max-width: 390px;
+  max-height: 86dvh;
+  border-radius: var(--r-xl);
+  background: linear-gradient(
+    180deg,
+    rgba(20, 20, 31, 0.98),
+    rgba(10, 10, 16, 0.98)
+  );
+  border: 1.5px solid var(--neon-purple);
+  box-shadow: var(--glow-purple);
+}
+
+.howto-body {
+  overflow-y: auto;
+  padding: 26px 24px 8px;
+}
+
+.howto-title {
+  font-size: 22px;
+}
+
+.howto-intro {
+  margin-top: 8px;
+  color: var(--text-mid);
+}
+
+.howto-intro strong {
+  color: #ff8095;
+}
+
+/* ── roles ───────────────────────────────────────────────── */
+.howto-roles {
+  @apply flex;
+  margin-top: 18px;
+  gap: 10px;
+}
+
+.howto-role-card {
+  flex: 1;
+  padding: 14px 14px 16px;
+  border-radius: var(--r-md);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.howto-role-header {
+  @apply flex items-center;
+  gap: 8px;
+}
+
+.howto-role-title {
+  letter-spacing: 0.1em;
+}
+
+.howto-role-text {
+  margin-top: 8px;
+  color: var(--text-mid);
+  font-size: 13px;
+}
+
+/* ── steps ───────────────────────────────────────────────── */
+.howto-section-label {
+  margin-top: 22px;
+  color: var(--text-low);
+}
+
+.howto-steps {
+  @apply flex flex-col;
+  margin-top: 10px;
+  gap: 14px;
+}
+
+.howto-step {
+  @apply flex;
+  gap: 13px;
+  align-items: flex-start;
+}
+
+.howto-step-text {
+  color: var(--text-mid);
+  padding-top: 3px;
+}
+
+/* ── win conditions ──────────────────────────────────────── */
+.howto-wins {
+  @apply flex flex-col;
+  margin-top: 10px;
+  gap: 9px;
+}
+
+.howto-win-row {
+  @apply flex items-baseline;
+  gap: 8px;
+}
+
+.howto-win-label {
+  min-width: 38px;
+}
+
+.howto-win-text {
+  color: var(--text-mid);
+}
+
+/* ── tip ─────────────────────────────────────────────────── */
+.howto-tip {
+  margin-top: 18px;
+  color: var(--text-low);
+  font-style: italic;
+}
+
+/* ── footer ──────────────────────────────────────────────── */
+.howto-footer {
+  padding: 12px 24px 22px;
+}

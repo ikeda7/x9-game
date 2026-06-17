@@ -1,0 +1,49 @@
+@reference "tailwindcss";
+
+.round-result {
+  @apply flex-1 flex items-center justify-center;
+  padding: 26px;
+}
+
+.round-result__card {
+  @apply w-full text-center;
+  border-radius: var(--r-xl);
+  padding: 30px 24px 26px;
+  background: linear-gradient(
+    180deg,
+    rgba(20, 20, 31, 0.97),
+    rgba(10, 10, 16, 0.97)
+  );
+}
+
+.round-result__title {
+  margin-top: 18px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 24px;
+  color: var(--text-hi);
+}
+
+.round-result__subtitle {
+  margin-top: 8px;
+  color: var(--text-mid);
+  font-size: 15px;
+}
+
+.round-result__banner {
+  margin-top: 20px;
+  padding: 14px;
+  border-radius: var(--r-md);
+}
+
+.round-result__banner-text {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.round-result__actions {
+  margin-top: 22px;
+}
