@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "engines": {
-    "node": "26.3.0"
+    "node": ">=22.22.1"
   },
   "scripts": {
     "dev": "vite",
@@ -41,6 +41,6 @@
     "esbuild@0.25.12": true
   },
   "lint-staged": {
-    "*": "npm run check:write"
+    "*": "biome check --write --no-errors-on-unmatched"
   }
 }
