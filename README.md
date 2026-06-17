@@ -55,34 +55,71 @@ home → setup → reveal → discussion → voting → roundResult → (discuss
 
 ## Arquitetura
 
-`src/App.tsx` é uma máquina de estados (`switch (phase)`) que detém **todo** o
-estado do jogo e as transições. As telas são apresentacionais: recebem dados +
-callbacks por props e nunca guardam estado de jogo.
+O app segue uma arquitetura modular com separação por responsabilidade. Cada
+tela e componente é organizado em sua própria pasta com arquivos dedicados
+para interfaces, hooks, CSS, sub-componentes de layout e o componente principal.
 
 ```
 src/
-  App.tsx                 # máquina de estados (fases) — a espinha do app
+  app/
+    App.tsx               # componente raiz — conecta hook ao router
+    App.hooks.ts          # useGame() — toda a state machine (fases + transições)
+    App.interface.ts      # tipos do estado e ações do jogo
+    App.layout.tsx        # PhaseRouter — switch que mapeia fase → tela
   main.tsx                # bootstrap React
-  types.ts                # tipos compartilhados (Phase, Player, WordEntry, ...)
   index.css               # tokens de design "Noir Cibernético" + classes .x9-*
-  components/
-    ui.tsx                # primitivas: Icon, Texture, Logo, Button, Screen
-  data/
-    words.ts              # banco de palavras por categoria + emoji por categoria
+
+  common/
+    enums/                # enums compartilhados (Phase, Team, VoteMode, ...)
+    interfaces/           # interfaces compartilhadas (Player, GameConfig, ...)
+    data/
+      words.ts            # banco de palavras por categoria + emoji por categoria
+
+  components/             # primitivas e componentes reutilizáveis
+    button/               # Button (variantes: primary, danger, ghost, quiet)
+    icon/                 # Icon (wrapper kebab-case para lucide-react)
+    icon-circle/          # IconCircle (círculo com ícone, usado em resultados)
+    logo/                 # Logo (wordmark X9 com glow neon)
+    numbered-badge/       # NumberedBadge (badge numérico 01, 02, ...)
+    pass-phone/           # PassPhoneView (layout "passe o celular para X")
+    screen/               # Screen (shell de tela: fundo + textura + coluna)
+    status-pill/          # StatusPill (pill com ícone + label colorido)
+    stepper/              # Stepper (+/- com valor numérico)
+    texture/              # Texture (ruído + scanlines + vinheta)
+    toggle/               # Toggle (switch on/off)
+
+  screens/                # cada tela em sua pasta com 5 arquivos
+    home/                 # tela inicial + modal "Como Jogar"
+    setup/                # config de partida (jogadores, X9s, categorias, ...)
+    reveal/               # distribuição de papéis (segure para ver)
+    discussion/           # debate com cronômetro + ordem de fala
+    voting/               # votação aberta ou secreta
+    round-result/         # resultado da rodada (eliminação, empate, skip)
+    game-over/            # fim de jogo (vitória + revelação da palavra)
+
   game/
     logic.ts              # sorteio de X9 (Fisher–Yates) e condição de vitória
-  screens/
-    HomeScreen.tsx
-    SetupScreen.tsx
-    RevealScreen.tsx
-    DiscussionScreen.tsx
-    VotingScreen.tsx
-    RoundResultScreen.tsx
-    GameOverScreen.tsx
+    feedback.ts           # haptic feedback e sons
+    storage.ts            # persistência de config no localStorage
 
 public/                   # assets servidos na raiz "/": favicon (svg/ico/png),
                           # ícones PWA, manifest.webmanifest, og-image, splash
 ```
+
+### Padrão de arquivos por tela
+
+Cada tela segue um padrão de **5 arquivos**:
+
+| Arquivo            | Responsabilidade                                       |
+| ------------------ | ------------------------------------------------------ |
+| `*.interface.ts`   | Props, tipos de retorno de hooks, props de sub-componentes |
+| `*.hooks.ts`       | Hooks customizados e funções puras de lógica           |
+| `*.css`            | Estilos via classes CSS (Tailwind `@apply` + tokens)   |
+| `*.layout.tsx`     | Sub-componentes visuais (fragmentos de UI)             |
+| `*.tsx`            | Componente principal — importa tudo e orquestra        |
+
+Componentes simples em `src/components/` seguem o mesmo padrão com menos
+arquivos (`.interface.ts` + `.css` + `.tsx`).
 
 ### Design system
 
@@ -90,10 +127,10 @@ A identidade visual ("Noir Cibernético") está documentada em
 [.claude/skills/](.claude/skills/) — tokens de cor/tipografia, iconografia
 (Lucide) e um UI kit de referência. Os tokens em [src/index.css](src/index.css)
 são portados de lá; reutilize as primitivas de
-[src/components/ui.tsx](src/components/ui.tsx) e as classes `.x9-*` em vez de
-re-estilizar do zero.
+[src/components/](src/components/) e as classes `.x9-*` em vez de re-estilizar
+do zero.
 
-Para adicionar palavras, edite [src/data/words.ts](src/data/words.ts).
+Para adicionar palavras, edite [src/common/data/words.ts](src/common/data/words.ts).
 
 ## Instalar no celular
 
