@@ -13,7 +13,8 @@
     "unsafe-check:write": "biome check --unsafe --write .",
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
-    "format": "biome format --write ."
+    "format": "biome format --write .",
+    "prepare": "husky"
   },
   "dependencies": {
     "lucide-react": "^0.460.0",
@@ -27,11 +28,16 @@
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^6.0.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.7",
     "tailwindcss": "^4.1.4",
     "typescript": "^5.9.3",
     "vite": "^8.0.16"
   },
   "allowScripts": {
     "esbuild@0.25.12": true
+  },
+  "lint-staged": {
+    "*": "npm run check:write"
   }
 }
