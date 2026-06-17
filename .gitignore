@@ -19,6 +19,9 @@ pnpm-debug.log*
 # Vite cache
 .vite/
 
+# Vitest coverage
+coverage/
+
 # Vercel CLI
 .vercel/
 

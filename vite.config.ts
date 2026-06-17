@@ -14,5 +14,17 @@ export default defineConfig(({ command }) => ({
   test: {
     environment: 'happy-dom',
     include: ['src/**/tests/**/*.test.ts'],
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'json', 'html'],
+      include: [
+        'src/app/**/*.{ts,tsx}',
+        'src/game/**/*.ts',
+        'src/common/data/**/*.ts',
+        'src/components/**/*.{ts,tsx}',
+        'src/screens/**/*.{ts,tsx}',
+      ],
+      exclude: ['src/**/*.interface.ts', 'src/**/tests/**'],
+    },
   },
 }));
