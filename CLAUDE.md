@@ -11,8 +11,17 @@ npm run build    # tsc -b (type-check) THEN vite build — build fails on any ty
 npm run preview  # serve the production build locally
 ```
 
-There is no test runner, linter, or formatter configured. `npm run build` is the
-only correctness gate — run it to verify changes type-check and bundle.
+There is no test runner configured. **Biome** handles linting and formatting
+(`npm run check`). **Husky + lint-staged** run Biome automatically on
+pre-commit. `npm run build` is the type-check + bundle gate — run it to
+verify changes compile and bundle correctly.
+
+```bash
+npm run check        # Biome lint + format check
+npm run check:write  # Biome lint + format with auto-fix
+npm run lint         # lint only
+npm run format       # format only
+```
 
 ## Architecture
 

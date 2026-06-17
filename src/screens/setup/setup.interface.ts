@@ -6,8 +6,13 @@ export interface SetupScreenProps {
   onBack: () => void;
 }
 
+export interface PlayerEntry {
+  id: number;
+  name: string;
+}
+
 export interface UseSetupFormResult {
-  players: string[];
+  players: PlayerEntry[];
   name: string;
   setName: (v: string) => void;
   impostors: number;
@@ -19,7 +24,7 @@ export interface UseSetupFormResult {
   cap: number;
   canStart: boolean;
   add: () => void;
-  remove: (i: number) => void;
+  remove: (id: number) => void;
   setImpostors: (n: number) => void;
   setDuration: (s: number) => void;
   setVoteMode: (m: VoteMode) => void;
@@ -39,7 +44,7 @@ export interface PlayerCountPillProps {
 }
 
 export interface PlayerRowProps {
-  name: string;
+  player: PlayerEntry;
   index: number;
   onRemove: () => void;
 }

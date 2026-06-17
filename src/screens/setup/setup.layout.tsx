@@ -58,11 +58,11 @@ export function PlayerCountPill({
   );
 }
 
-export function PlayerRow({ name, index, onRemove }: PlayerRowProps) {
+export function PlayerRow({ player, index, onRemove }: PlayerRowProps) {
   return (
     <div className='animate-fade-in setup-player-row'>
       <NumberedBadge index={index} />
-      <span className='setup-player-name'>{name}</span>
+      <span className='setup-player-name'>{player.name}</span>
       <button type='button' className='setup-player-remove' onClick={onRemove}>
         <Icon name='x' size={18} />
       </button>

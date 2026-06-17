@@ -34,10 +34,10 @@ export default function SetupScreen({ onStart, onBack }: SetupScreenProps) {
         <div className='setup-player-list'>
           {form.players.map((p, i) => (
             <PlayerRow
-              key={p}
-              name={p}
+              key={p.id}
+              player={p}
               index={i}
-              onRemove={() => form.remove(i)}
+              onRemove={() => form.remove(p.id)}
             />
           ))}
         </div>

@@ -4,12 +4,17 @@ import { CATEGORIES } from '../../common/data/words.ts';
 import { VoteMode } from '../../common/enums/vote-mode.enum.ts';
 import type { GameConfig } from '../../common/interfaces/game-config.ts';
 import { loadSetup } from '../../game/storage.ts';
-import type { UseSetupFormResult } from './setup.interface.ts';
+import type { PlayerEntry, UseSetupFormResult } from './setup.interface.ts';
 
 const MIN_PLAYERS = 3;
+let nextId = 1;
 
 function maxImpostors(playerCount: number): number {
   return Math.max(1, Math.floor((playerCount - 1) / 2));
+}
+
+function toEntries(names: string[]): PlayerEntry[] {
+  return names.map((n) => ({ id: nextId++, name: n }));
 }
 
 export function useSetupForm(
@@ -20,7 +25,9 @@ export function useSetupForm(
     CATEGORIES.includes(c),
   );
 
-  const [players, setPlayers] = useState<string[]>(saved?.names ?? []);
+  const [players, setPlayers] = useState<PlayerEntry[]>(() =>
+    toEntries(saved?.names ?? []),
+  );
   const [name, setName] = useState('');
   const [impostors, setImpostors] = useState(saved?.impostorCount ?? 1);
   const [hintMode, setHintMode] = useState(saved?.hintMode ?? false);
@@ -39,13 +46,13 @@ export function useSetupForm(
   function add() {
     const v = name.trim();
     if (!v) return;
-    setPlayers((prev) => [...prev, v]);
+    setPlayers((prev) => [...prev, { id: nextId++, name: v }]);
     setName('');
   }
 
-  function remove(i: number) {
+  function remove(id: number) {
     setPlayers((prev) => {
-      const next = prev.filter((_, idx) => idx !== i);
+      const next = prev.filter((p) => p.id !== id);
       setImpostors((c) => Math.min(c, maxImpostors(next.length)));
       return next;
     });
@@ -64,7 +71,7 @@ export function useSetupForm(
   function start() {
     if (!canStart) return;
     onStart({
-      names: players,
+      names: players.map((p) => p.name),
       impostorCount: Math.min(impostors, cap),
       hintMode,
       discussionSeconds: duration,

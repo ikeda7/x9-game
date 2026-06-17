@@ -125,13 +125,8 @@ function WinRow({ color, label, text }: WinRowProps) {
 
 export function HowToPlay({ onClose }: HowToPlayProps) {
   return (
-    <button
-      type='button'
-      aria-label='Fechar'
-      className='howto-overlay'
-      onClick={onClose}
-      onKeyDown={(e) => e.key === 'Escape' && onClose()}
-    >
+    // biome-ignore lint/a11y/noStaticElementInteractions: backdrop dismiss overlay, not an interactive control
+    <div role='presentation' className='howto-overlay' onClick={onClose}>
       <div
         role='dialog'
         aria-modal='true'
@@ -202,6 +197,6 @@ export function HowToPlay({ onClose }: HowToPlayProps) {
           </Button>
         </div>
       </div>
-    </button>
+    </div>
   );
 }

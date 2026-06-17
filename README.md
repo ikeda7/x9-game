@@ -6,7 +6,7 @@
 &nbsp;
 [![React](https://img.shields.io/badge/React-18-149ECA?style=flat-square&logo=react&logoColor=white&labelColor=0C0C13)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript&logoColor=white&labelColor=0C0C13)](https://www.typescriptlang.org)
-[![Vite](https://img.shields.io/badge/Vite-6-646CFF?style=flat-square&logo=vite&logoColor=white&labelColor=0C0C13)](https://vite.dev)
+[![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=flat-square&logo=vite&logoColor=white&labelColor=0C0C13)](https://vite.dev)
 
 **🎮 Jogue agora: [x9-game.vercel.app](https://x9-game.vercel.app)**
 
@@ -143,6 +143,6 @@ estão no [index.html](index.html); o `og:image` aponta para a URL do deploy.
 
 ## Stack
 
-React 18 · TypeScript · Vite 6 · Tailwind CSS v4 (`@tailwindcss/vite`) ·
+React 18 · TypeScript · Vite 8 · Tailwind CSS v4 (`@tailwindcss/vite`) ·
 [lucide-react](https://lucide.dev) · Fontes Google (Chakra Petch, Space Grotesk,
 Share Tech Mono).
