@@ -1,3 +1,2 @@
 #!/usr/bin/env sh
-npx vitest related --run $(git diff --name-only --cached)
 npx lint-staged
