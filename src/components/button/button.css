@@ -1,0 +1,95 @@
+@reference "tailwindcss";
+
+.x9-btn {
+  @apply inline-flex items-center justify-center w-full;
+  gap: 10px;
+  border: 1px solid transparent;
+  border-radius: var(--r-md);
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  user-select: none;
+  white-space: nowrap;
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease,
+    opacity 0.2s;
+}
+
+.x9-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.x9-btn:not(:disabled) {
+  cursor: pointer;
+}
+
+.x9-btn--pressed:not(:disabled) {
+  transform: scale(0.975);
+}
+
+/* ── sizes ───────────────────────────────────────────────── */
+.x9-btn--lg {
+  padding: 18px 22px;
+  font-size: 17px;
+}
+
+.x9-btn--md {
+  padding: 13px 18px;
+  font-size: 14px;
+}
+
+.x9-btn--sm {
+  padding: 9px 14px;
+  font-size: 12px;
+}
+
+/* ── variant: primary ────────────────────────────────────── */
+.x9-btn--primary {
+  background: linear-gradient(180deg, #c95cff 0%, #b026ff 55%, #8e12e0 100%);
+  color: var(--text-on-neon);
+  box-shadow:
+    var(--glow-purple),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  border-color: transparent;
+}
+
+.x9-btn--primary:disabled {
+  background: #241b33;
+  color: var(--text-low);
+  box-shadow: none;
+  border-color: var(--line-soft);
+}
+
+/* ── variant: danger ─────────────────────────────────────── */
+.x9-btn--danger {
+  background: linear-gradient(180deg, #ff4d68 0%, #ff2a4d 55%, #c1121f 100%);
+  color: #fff;
+  box-shadow:
+    var(--glow-red),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  border-color: transparent;
+}
+
+.x9-btn--danger:disabled {
+  background: #2a1620;
+  box-shadow: none;
+}
+
+/* ── variant: ghost ──────────────────────────────────────── */
+.x9-btn--ghost {
+  background: rgba(176, 38, 255, 0.06);
+  color: var(--neon-purple-soft);
+  border-color: var(--line-neon);
+  box-shadow: inset 0 0 18px -8px rgba(176, 38, 255, 0.6);
+}
+
+/* ── variant: quiet ──────────────────────────────────────── */
+.x9-btn--quiet {
+  background: transparent;
+  color: var(--text-mid);
+  border-color: var(--line-soft);
+}
