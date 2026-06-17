@@ -1,0 +1,38 @@
+@reference "tailwindcss";
+
+.pass-phone {
+  @apply flex-1 flex flex-col items-center justify-center text-center;
+  padding: 0 30px;
+}
+
+.pass-phone__counter {
+  color: var(--text-low);
+  font-size: 13px;
+}
+
+.pass-phone__label {
+  margin-top: 26px;
+  color: var(--text-low);
+}
+
+.pass-phone__name {
+  margin-top: 14px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 44px;
+  line-height: 1.05;
+  color: var(--text-hi);
+  text-shadow: 0 0 26px rgba(176, 38, 255, 0.45);
+}
+
+.pass-phone__hint {
+  margin-top: 16px;
+  color: var(--text-low);
+  max-width: 250px;
+}
+
+.pass-phone__action {
+  margin-top: 36px;
+  width: 100%;
+  max-width: 320px;
+}

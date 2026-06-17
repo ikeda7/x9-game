@@ -16,14 +16,6 @@
   );
 }
 
-.round-result__icon-circle {
-  @apply flex items-center justify-center mx-auto;
-  width: 84px;
-  height: 84px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.04);
-}
-
 .round-result__title {
   margin-top: 18px;
   font-family: var(--font-display);

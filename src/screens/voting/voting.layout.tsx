@@ -1,5 +1,7 @@
 import { Button } from '../../components/button/button.tsx';
 import { Icon } from '../../components/icon/icon.tsx';
+import { PassPhoneView } from '../../components/pass-phone/pass-phone.tsx';
+import { StatusPill } from '../../components/status-pill/status-pill.tsx';
 import type {
   OpenPlayerRowProps,
   SecretBallotViewProps,
@@ -21,25 +23,15 @@ export function VoteCountPill({ remaining }: { remaining: number }) {
   const active = remaining > 0;
   return (
     <div className='voting__pill-wrapper'>
-      <div
-        className={`voting__pill ${active ? 'voting__pill--active' : 'voting__pill--done'}`}
-      >
-        <Icon
-          name='gavel'
-          size={14}
-          color={active ? 'var(--neon-purple-soft)' : 'var(--text-low)'}
-        />
-        <span
-          className='x9-label'
-          style={{
-            color: active ? 'var(--neon-purple-soft)' : 'var(--text-low)',
-          }}
-        >
-          {active
+      <StatusPill
+        icon='gavel'
+        label={
+          active
             ? `${remaining} voto${remaining > 1 ? 's' : ''} restante${remaining > 1 ? 's' : ''}`
-            : 'Todos votaram'}
-        </span>
-      </div>
+            : 'Todos votaram'
+        }
+        active={active}
+      />
     </div>
   );
 }
@@ -130,25 +122,17 @@ export function SecretPassView({
   onOpen,
 }: SecretPassViewProps) {
   return (
-    <div className='animate-fade-in voting-pass'>
-      <div className='x9-mono voting-pass__counter'>
-        {String(voterIndex + 1).padStart(2, '0')} /{' '}
-        {String(totalVoters).padStart(2, '0')}
-      </div>
-      <div className='x9-label voting-pass__label'>
-        Voto secreto · passe para
-      </div>
-      <div className='voting-pass__name'>{voterName}</div>
-      <p className='x9-small voting-pass__hint'>
-        Que ninguém veja seu voto. Quando estiver com {voterName}, toque para
-        votar.
-      </p>
-      <div className='voting-pass__action'>
-        <Button variant='primary' icon='eye-off' onClick={onOpen}>
-          Votar em segredo
-        </Button>
-      </div>
-    </div>
+    <PassPhoneView
+      index={voterIndex}
+      total={totalVoters}
+      label='Voto secreto · passe para'
+      playerName={voterName}
+      hint={`Que ninguém veja seu voto. Quando estiver com ${voterName}, toque para votar.`}
+    >
+      <Button variant='primary' icon='eye-off' onClick={onOpen}>
+        Votar em segredo
+      </Button>
+    </PassPhoneView>
   );
 }
 

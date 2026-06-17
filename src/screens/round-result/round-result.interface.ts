@@ -1,9 +1,10 @@
 import type { Player } from '../../common/interfaces/player.interface.ts';
+import type { NoElimReason } from '../../common/types/no-elim-reason.type.ts';
 import type { IconName } from '../../components/icon/icon.interface.ts';
 
 export interface RoundResultScreenProps {
   eliminated: Player | null;
-  noElimReason: 'tie' | 'skip' | null;
+  noElimReason: NoElimReason | null;
   remainingImpostors: number;
   onContinue: () => void;
 }

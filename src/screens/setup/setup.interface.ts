@@ -50,17 +50,6 @@ export interface PlayerInputProps {
   onAdd: () => void;
 }
 
-export interface StepperProps {
-  value: number;
-  min: number;
-  max: number;
-  onChange: (n: number) => void;
-}
-
-export interface ToggleProps {
-  on: boolean;
-}
-
 export interface DurationPickerProps {
   duration: number;
   onSelect: (s: number) => void;

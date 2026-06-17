@@ -6,14 +6,6 @@
 }
 
 /* ── victory header ──────────────────────────────────────── */
-.game-over__icon-circle {
-  @apply flex items-center justify-center mx-auto;
-  width: 88px;
-  height: 88px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.04);
-}
-
 .game-over__overline {
   margin-top: 18px;
   color: var(--text-low);

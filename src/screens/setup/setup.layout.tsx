@@ -2,15 +2,16 @@ import { emojiForCategory } from '../../common/data/words.ts';
 import { VoteMode } from '../../common/enums/vote-mode.enum.ts';
 import { Button } from '../../components/button/button.tsx';
 import { Icon } from '../../components/icon/icon.tsx';
+import { NumberedBadge } from '../../components/numbered-badge/numbered-badge.tsx';
+import { StatusPill } from '../../components/status-pill/status-pill.tsx';
+import { Stepper } from '../../components/stepper/stepper.tsx';
+import { Toggle } from '../../components/toggle/toggle.tsx';
 import type {
   CategoryPickerProps,
   DurationPickerProps,
-  PlayerCountPillProps,
   PlayerInputProps,
   PlayerRowProps,
   SetupHeaderProps,
-  StepperProps,
-  ToggleProps,
   VoteModePickerProps,
 } from './setup.interface.ts';
 
@@ -31,32 +32,32 @@ export function SetupHeader({ onBack }: SetupHeaderProps) {
   );
 }
 
-export function PlayerCountPill({ enough, count, min }: PlayerCountPillProps) {
+export function PlayerCountPill({
+  enough,
+  count,
+  min,
+}: {
+  enough: boolean;
+  count: number;
+  min: number;
+}) {
   return (
-    <div
-      className={`setup-pill ${enough ? 'setup-pill--ok' : 'setup-pill--warn'}`}
-    >
-      <Icon
-        name={enough ? 'check-circle-2' : 'users'}
-        size={15}
-        color={enough ? 'var(--neon-green)' : 'var(--neon-red)'}
-      />
-      <span
-        className='x9-label setup-pill__label'
-        style={{ color: enough ? 'var(--neon-green)' : 'var(--neon-red)' }}
-      >
-        {enough ? `${count} jogadores prontos` : `Mínimo de ${min} jogadores`}
-      </span>
-    </div>
+    <StatusPill
+      icon={enough ? 'check-circle-2' : 'users'}
+      label={
+        enough ? `${count} jogadores prontos` : `Mínimo de ${min} jogadores`
+      }
+      active={enough}
+      activeColor={enough ? 'var(--neon-green)' : undefined}
+      inactiveColor='var(--neon-red)'
+    />
   );
 }
 
 export function PlayerRow({ name, index, onRemove }: PlayerRowProps) {
   return (
     <div className='animate-fade-in setup-player-row'>
-      <span className='setup-player-badge'>
-        {String(index + 1).padStart(2, '0')}
-      </span>
+      <NumberedBadge index={index} />
       <span className='setup-player-name'>{name}</span>
       <button type='button' className='setup-player-remove' onClick={onRemove}>
         <Icon name='x' size={18} />
@@ -78,28 +79,6 @@ export function PlayerInput({ name, onNameChange, onAdd }: PlayerInputProps) {
       />
       <button type='button' className='setup-input-add' onClick={onAdd}>
         <Icon name='plus' size={22} />
-      </button>
-    </div>
-  );
-}
-
-export function Stepper({ value, min, max, onChange }: StepperProps) {
-  return (
-    <div className='setup-stepper'>
-      <button
-        type='button'
-        className={`setup-stepper__btn ${value <= min ? 'setup-stepper__btn--disabled' : 'setup-stepper__btn--enabled'}`}
-        onClick={() => value > min && onChange(value - 1)}
-      >
-        <Icon name='minus' size={16} />
-      </button>
-      <span className='setup-stepper__value'>{value}</span>
-      <button
-        type='button'
-        className={`setup-stepper__btn ${value >= max ? 'setup-stepper__btn--disabled' : 'setup-stepper__btn--enabled'}`}
-        onClick={() => value < max && onChange(value + 1)}
-      >
-        <Icon name='plus' size={16} />
       </button>
     </div>
   );
@@ -204,18 +183,6 @@ export function CategoryPicker({
         })}
       </div>
     </div>
-  );
-}
-
-export function Toggle({ on }: ToggleProps) {
-  return (
-    <span
-      className={`setup-toggle ${on ? 'setup-toggle--on' : 'setup-toggle--off'}`}
-    >
-      <span
-        className={`setup-toggle__knob ${on ? 'setup-toggle__knob--on' : 'setup-toggle__knob--off'}`}
-      />
-    </span>
   );
 }
 

@@ -1,5 +1,6 @@
 import { Button } from '../../components/button/button.tsx';
 import { Icon } from '../../components/icon/icon.tsx';
+import { PassPhoneView } from '../../components/pass-phone/pass-phone.tsx';
 import { useHoldToReveal } from './reveal.hooks.ts';
 import type { RevealCardProps, RevealWaitProps } from './reveal.interface.ts';
 
@@ -12,19 +13,13 @@ export function RevealWaitView({
   const { holding, start, cancel } = useHoldToReveal(onReveal);
 
   return (
-    <div className='animate-fade-in reveal-wait'>
-      <div className='x9-mono reveal-wait__counter'>
-        {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
-      </div>
-
-      <div className='x9-label reveal-wait__label'>Passe o celular para</div>
-
-      <div className='reveal-wait__name'>{playerName}</div>
-
-      <p className='x9-small reveal-wait__hint'>
-        Que ninguém mais veja a tela. Segure o botão para revelar seu papel.
-      </p>
-
+    <PassPhoneView
+      index={index}
+      total={total}
+      label='Passe o celular para'
+      playerName={playerName}
+      hint='Que ninguém mais veja a tela. Segure o botão para revelar seu papel.'
+    >
       <button
         type='button'
         className={`reveal-wait__btn ${holding ? 'reveal-wait__btn--holding' : 'reveal-wait__btn--idle'}`}
@@ -37,7 +32,7 @@ export function RevealWaitView({
           {holding ? 'Revelando…' : 'Segure para ver'}
         </span>
       </button>
-    </div>
+    </PassPhoneView>
   );
 }
 

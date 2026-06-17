@@ -1,5 +1,6 @@
 import { Button } from '../../components/button/button.tsx';
 import { Icon } from '../../components/icon/icon.tsx';
+import { IconCircle } from '../../components/icon-circle/icon-circle.tsx';
 import type {
   GameOverActionsProps,
   ImpostorListProps,
@@ -15,19 +16,13 @@ export function VictoryHeader({
 }: VictoryHeaderProps) {
   return (
     <div style={{ textAlign: 'center' }}>
-      <div
-        className='game-over__icon-circle'
-        style={{
-          border: `1.5px solid ${accent}`,
-          boxShadow: `0 0 30px -6px ${accent}`,
-        }}
-      >
-        <Icon
-          name={civsWon ? 'shield-check' : 'venetian-mask'}
-          size={42}
-          color={accentSoft}
-        />
-      </div>
+      <IconCircle
+        icon={civsWon ? 'shield-check' : 'venetian-mask'}
+        size={88}
+        iconSize={42}
+        accent={accent}
+        accentSoft={accentSoft}
+      />
 
       <div className='x9-label game-over__overline'>Fim de jogo</div>
 

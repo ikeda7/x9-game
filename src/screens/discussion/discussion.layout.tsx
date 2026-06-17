@@ -1,5 +1,6 @@
 import { Button } from '../../components/button/button.tsx';
 import { Icon } from '../../components/icon/icon.tsx';
+import { NumberedBadge } from '../../components/numbered-badge/numbered-badge.tsx';
 import type {
   PlayerOrderListProps,
   StarterBadgeProps,
@@ -59,9 +60,7 @@ export function PlayerOrderList({ order, eliminated }: PlayerOrderListProps) {
             key={p.id}
             className={`discussion-player-row${isStarter ? ' discussion-player-row--starter' : ''}`}
           >
-            <span className='discussion-player-badge'>
-              {String(i + 1).padStart(2, '0')}
-            </span>
+            <NumberedBadge index={i} />
             <span className='discussion-player-name'>{p.name}</span>
             {isStarter && (
               <span className='x9-label discussion-starter-tag'>Começa</span>

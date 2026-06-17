@@ -3,8 +3,9 @@ import type { Team } from '../common/enums/team.enum.ts';
 import type { GameConfig } from '../common/interfaces/game-config.ts';
 import type { Player } from '../common/interfaces/player.interface.ts';
 import type { WordEntry } from '../common/interfaces/word-entry.interface.ts';
+import type { NoElimReason } from '../common/types/no-elim-reason.type.ts';
 
-export type NoElimReason = 'tie' | 'skip';
+export type { NoElimReason } from '../common/types/no-elim-reason.type.ts';
 
 export interface GameState {
   phase: Phase;

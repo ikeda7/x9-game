@@ -1,5 +1,5 @@
 import { Button } from '../../components/button/button.tsx';
-import { Icon } from '../../components/icon/icon.tsx';
+import { IconCircle } from '../../components/icon-circle/icon-circle.tsx';
 import type { ResultCardProps } from './round-result.interface.ts';
 
 export function ResultCard({ config, onContinue }: ResultCardProps) {
@@ -20,15 +20,13 @@ export function ResultCard({ config, onContinue }: ResultCardProps) {
       className='animate-pop-in round-result__card'
       style={{ border: `1.5px solid ${accent}`, boxShadow: glow }}
     >
-      <div
-        className='round-result__icon-circle'
-        style={{
-          border: `1.5px solid ${accent}`,
-          boxShadow: `0 0 26px -6px ${accent}`,
-        }}
-      >
-        <Icon name={icon} size={40} color={accentSoft} />
-      </div>
+      <IconCircle
+        icon={icon}
+        size={84}
+        iconSize={40}
+        accent={accent}
+        accentSoft={accentSoft}
+      />
 
       <div className='round-result__title'>{title}</div>
 

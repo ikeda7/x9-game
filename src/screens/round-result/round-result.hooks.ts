@@ -1,9 +1,10 @@
 import type { Player } from '../../common/interfaces/player.interface.ts';
+import type { NoElimReason } from '../../common/types/no-elim-reason.type.ts';
 import type { ResultConfig } from './round-result.interface.ts';
 
 export function computeResultConfig(
   eliminated: Player | null,
-  noElimReason: 'tie' | 'skip' | null,
+  noElimReason: NoElimReason | null,
   remainingImpostors: number,
 ): ResultConfig {
   if (eliminated) {

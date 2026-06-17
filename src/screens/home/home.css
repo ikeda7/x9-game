@@ -148,17 +148,6 @@
   align-items: flex-start;
 }
 
-.howto-step-badge {
-  @apply inline-flex items-center justify-center flex-shrink-0;
-  width: 30px;
-  height: 30px;
-  border-radius: 9px;
-  background: rgba(176, 38, 255, 0.12);
-  color: var(--neon-purple-soft);
-  font-family: var(--font-mono);
-  font-size: 13px;
-}
-
 .howto-step-text {
   color: var(--text-mid);
   padding-top: 3px;

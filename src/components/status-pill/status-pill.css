@@ -1,0 +1,22 @@
+@reference "tailwindcss";
+
+.status-pill {
+  @apply inline-flex items-center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: var(--r-pill);
+}
+
+.status-pill--active {
+  border: 1px solid var(--line-neon);
+  background: rgba(176, 38, 255, 0.08);
+}
+
+.status-pill--inactive {
+  border: 1px solid var(--line-soft);
+  background: transparent;
+}
+
+.status-pill__label {
+  letter-spacing: 0.08em;
+}

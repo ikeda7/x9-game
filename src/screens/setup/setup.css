@@ -26,28 +26,6 @@
   padding: 14px 22px 8px;
 }
 
-/* ── counter pill ────────────────────────────────────────── */
-.setup-pill {
-  @apply inline-flex items-center;
-  gap: 8px;
-  padding: 6px 12px;
-  border-radius: var(--r-pill);
-}
-
-.setup-pill--ok {
-  border: 1px solid var(--line-neon);
-  background: rgba(176, 38, 255, 0.08);
-}
-
-.setup-pill--warn {
-  border: 1px solid var(--line-danger);
-  background: rgba(255, 42, 77, 0.08);
-}
-
-.setup-pill__label {
-  letter-spacing: 0.08em;
-}
-
 /* ── player list ─────────────────────────────────────────── */
 .setup-player-list {
   @apply flex flex-col;
@@ -62,17 +40,6 @@
   border-radius: var(--r-md);
   background: var(--bg-surface);
   border: 1px solid var(--line-soft);
-}
-
-.setup-player-badge {
-  @apply inline-flex items-center justify-center flex-shrink-0;
-  width: 30px;
-  height: 30px;
-  border-radius: 9px;
-  background: rgba(176, 38, 255, 0.12);
-  color: var(--neon-purple-soft);
-  font-family: var(--font-mono);
-  font-size: 13px;
 }
 
 .setup-player-name {
@@ -152,40 +119,6 @@
   color: var(--text-hi);
   font-family: var(--font-body);
   font-size: 15px;
-}
-
-/* ── stepper ─────────────────────────────────────────────── */
-.setup-stepper {
-  @apply flex items-center;
-  gap: 12px;
-}
-
-.setup-stepper__btn {
-  @apply inline-flex items-center justify-center;
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
-  border: 1px solid var(--line-soft);
-}
-
-.setup-stepper__btn--enabled {
-  background: var(--bg-elevated);
-  color: var(--neon-purple-soft);
-  cursor: pointer;
-}
-
-.setup-stepper__btn--disabled {
-  background: transparent;
-  color: var(--text-low);
-  cursor: not-allowed;
-}
-
-.setup-stepper__value {
-  min-width: 22px;
-  text-align: center;
-  font-family: var(--font-mono);
-  font-size: 20px;
-  color: var(--text-hi);
 }
 
 /* ── chip buttons (duration / vote mode) ─────────────────── */
@@ -292,43 +225,6 @@
 .setup-advanced__desc {
   color: var(--text-low);
   font-size: 12px;
-}
-
-/* ── toggle switch ───────────────────────────────────────── */
-.setup-toggle {
-  @apply relative flex-shrink-0;
-  width: 46px;
-  height: 26px;
-  border-radius: var(--r-pill);
-  transition: background 0.2s ease;
-}
-
-.setup-toggle--on {
-  background: var(--neon-purple);
-  box-shadow: var(--glow-purple-sm);
-}
-
-.setup-toggle--off {
-  background: rgba(255, 255, 255, 0.12);
-  box-shadow: none;
-}
-
-.setup-toggle__knob {
-  position: absolute;
-  top: 3px;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #fff;
-  transition: left 0.2s ease;
-}
-
-.setup-toggle__knob--on {
-  left: 23px;
-}
-
-.setup-toggle__knob--off {
-  left: 3px;
 }
 
 /* ── footer ──────────────────────────────────────────────── */

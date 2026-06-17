@@ -1,6 +1,7 @@
 import { Button } from '../../components/button/button.tsx';
 import { Icon } from '../../components/icon/icon.tsx';
 import { Logo } from '../../components/logo/logo.tsx';
+import { NumberedBadge } from '../../components/numbered-badge/numbered-badge.tsx';
 import type {
   HowToPlayProps,
   RoleCardProps,
@@ -96,9 +97,7 @@ function RoleCard({ icon, color, soft, title, text }: RoleCardProps) {
 function StepRow({ index, text }: StepRowProps) {
   return (
     <div className='howto-step'>
-      <span className='howto-step-badge'>
-        {String(index + 1).padStart(2, '0')}
-      </span>
+      <NumberedBadge index={index} />
       <p className='x9-small howto-step-text'>{text}</p>
     </div>
   );
