@@ -1,7 +1,3 @@
-// ============================================================
-// X9 — Iconografia (Lucide)
-// `<Icon name="venetian-mask" />` mantém a API kebab-case do design kit.
-
 import {
   ArrowRight,
   Check,
@@ -28,10 +24,12 @@ import {
   X,
   Zap,
 } from 'lucide-react';
-import type { CSSProperties } from 'react';
 
-// ============================================================
-const ICONS: Record<string, LucideIcon> = {
+import type { IconName, IconProps } from './icon.interface.ts';
+
+export type { IconName, IconProps } from './icon.interface.ts';
+
+const ICONS: Record<IconName, LucideIcon> = {
   'arrow-right': ArrowRight,
   check: Check,
   'check-circle-2': CheckCircle2,
@@ -57,21 +55,13 @@ const ICONS: Record<string, LucideIcon> = {
   zap: Zap,
 };
 
-export type IconName = keyof typeof ICONS;
-
 export function Icon({
   name,
   size = 20,
   strokeWidth = 2,
   color = 'currentColor',
   style,
-}: {
-  name: IconName;
-  size?: number;
-  strokeWidth?: number;
-  color?: string;
-  style?: CSSProperties;
-}) {
+}: IconProps) {
   const Glyph = ICONS[name];
   if (!Glyph) return null;
   return (
