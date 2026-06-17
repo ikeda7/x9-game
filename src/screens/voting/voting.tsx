@@ -1,5 +1,7 @@
 import './voting.css';
 
+import { SecretVoteStep } from '../../common/enums/secret-vote-step.enum.ts';
+import { VoteMode } from '../../common/enums/vote-mode.enum.ts';
 import { Screen } from '../../components/screen/screen.tsx';
 import { useOpenVoting, useSecretVoting } from './voting.hooks.ts';
 import type { VotingScreenProps } from './voting.interface.ts';
@@ -19,7 +21,7 @@ export default function VotingScreen({
   onTie,
   onSkip,
 }: VotingScreenProps) {
-  return mode === 'secret' ? (
+  return mode === VoteMode.SECRET ? (
     <SecretVoting
       players={players}
       onEliminate={onEliminate}
@@ -92,7 +94,7 @@ function SecretVoting({
     commit,
   } = useSecretVoting(players, onEliminate, onTie, onSkip);
 
-  if (step === 'pass') {
+  if (step === SecretVoteStep.PASS) {
     return (
       <Screen dark={true}>
         <SecretPassView

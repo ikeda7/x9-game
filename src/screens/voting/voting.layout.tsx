@@ -1,4 +1,8 @@
-import { Button } from '../../components/button/button.tsx';
+import {
+  Button,
+  ButtonSize,
+  ButtonVariant,
+} from '../../components/button/button.tsx';
 import { Icon } from '../../components/icon/icon.tsx';
 import { PassPhoneView } from '../../components/pass-phone/pass-phone.tsx';
 import { StatusPill } from '../../components/status-pill/status-pill.tsx';
@@ -101,14 +105,18 @@ export function OpenVotingActions({
   return (
     <div className='voting__actions'>
       <Button
-        variant='danger'
+        variant={ButtonVariant.DANGER}
         icon='gavel'
         disabled={total === 0}
         onClick={onApurar}
       >
         Apurar Votos
       </Button>
-      <Button variant='quiet' size='md' onClick={onSkip}>
+      <Button
+        variant={ButtonVariant.QUIET}
+        size={ButtonSize.MD}
+        onClick={onSkip}
+      >
         Pular votação (ninguém sai)
       </Button>
     </div>
@@ -129,7 +137,7 @@ export function SecretPassView({
       playerName={voterName}
       hint={`Que ninguém veja seu voto. Quando estiver com ${voterName}, toque para votar.`}
     >
-      <Button variant='primary' icon='eye-off' onClick={onOpen}>
+      <Button variant={ButtonVariant.PRIMARY} icon='eye-off' onClick={onOpen}>
         Votar em segredo
       </Button>
     </PassPhoneView>
@@ -179,14 +187,18 @@ export function SecretBallotView({
 
       <div className='voting__actions'>
         <Button
-          variant='primary'
+          variant={ButtonVariant.PRIMARY}
           icon={isLast ? 'gavel' : 'arrow-right'}
           disabled={selected === null}
           onClick={() => onCommit(selected)}
         >
           {isLast ? 'Votar e apurar' : 'Confirmar e passar'}
         </Button>
-        <Button variant='quiet' size='md' onClick={() => onCommit(null)}>
+        <Button
+          variant={ButtonVariant.QUIET}
+          size={ButtonSize.MD}
+          onClick={() => onCommit(null)}
+        >
           Anular meu voto
         </Button>
       </div>

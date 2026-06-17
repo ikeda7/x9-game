@@ -1,5 +1,6 @@
+import type { NoElimReason } from '../../common/enums/no-elim-reason.enum.ts';
 import type { Player } from '../../common/interfaces/player.interface.ts';
-import type { NoElimReason } from '../../common/types/no-elim-reason.type.ts';
+import type { ButtonVariant } from '../../components/button/button.interface.ts';
 import type { IconName } from '../../components/icon/icon.interface.ts';
 
 export interface RoundResultScreenProps {
@@ -18,7 +19,7 @@ export interface ResultConfig {
   subtitle: string;
   banner: string;
   bannerBg: string;
-  buttonVariant: 'primary' | 'danger';
+  buttonVariant: ButtonVariant;
 }
 
 export interface ResultCardProps {

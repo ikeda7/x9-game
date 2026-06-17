@@ -1,4 +1,8 @@
-import { Button } from '../../components/button/button.tsx';
+import {
+  Button,
+  ButtonSize,
+  ButtonVariant,
+} from '../../components/button/button.tsx';
 import { Icon } from '../../components/icon/icon.tsx';
 import { Logo } from '../../components/logo/logo.tsx';
 import { NumberedBadge } from '../../components/numbered-badge/numbered-badge.tsx';
@@ -61,10 +65,15 @@ export function HomeActions({
 }) {
   return (
     <div className='home__actions'>
-      <Button variant='primary' icon='play' onClick={onNew}>
+      <Button variant={ButtonVariant.PRIMARY} icon='play' onClick={onNew}>
         Nova Partida
       </Button>
-      <Button variant='ghost' size='md' icon='help-circle' onClick={onHelp}>
+      <Button
+        variant={ButtonVariant.GHOST}
+        size={ButtonSize.MD}
+        icon='help-circle'
+        onClick={onHelp}
+      >
         Como Jogar
       </Button>
     </div>
@@ -184,7 +193,11 @@ export function HowToPlay({ onClose }: HowToPlayProps) {
         </div>
 
         <div className='howto-footer'>
-          <Button variant='primary' icon='check' onClick={onClose}>
+          <Button
+            variant={ButtonVariant.PRIMARY}
+            icon='check'
+            onClick={onClose}
+          >
             Entendi
           </Button>
         </div>

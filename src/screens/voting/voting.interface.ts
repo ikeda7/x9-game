@@ -1,3 +1,4 @@
+import type { SecretVoteStep } from '../../common/enums/secret-vote-step.enum.ts';
 import type { VoteMode } from '../../common/enums/vote-mode.enum.ts';
 import type { Player } from '../../common/interfaces/player.interface.ts';
 
@@ -24,7 +25,7 @@ export interface UseSecretVotingResult {
   voter: Player;
   isLast: boolean;
   suspects: Player[];
-  step: 'pass' | 'ballot';
+  step: SecretVoteStep;
   selected: number | null;
   setSelected: (id: number) => void;
   openBallot: () => void;

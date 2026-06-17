@@ -1,9 +1,12 @@
 import { emojiForCategory } from '../../common/data/words.ts';
 import { VoteMode } from '../../common/enums/vote-mode.enum.ts';
-import { Button } from '../../components/button/button.tsx';
+import { Button, ButtonVariant } from '../../components/button/button.tsx';
 import { Icon } from '../../components/icon/icon.tsx';
 import { NumberedBadge } from '../../components/numbered-badge/numbered-badge.tsx';
-import { StatusPill } from '../../components/status-pill/status-pill.tsx';
+import {
+  StatusPill,
+  StatusPillVariant,
+} from '../../components/status-pill/status-pill.tsx';
 import { Stepper } from '../../components/stepper/stepper.tsx';
 import { Toggle } from '../../components/toggle/toggle.tsx';
 import type {
@@ -48,7 +51,8 @@ export function PlayerCountPill({
         enough ? `${count} jogadores prontos` : `Mínimo de ${min} jogadores`
       }
       active={enough}
-      activeColor={enough ? 'var(--neon-green)' : undefined}
+      variant={enough ? StatusPillVariant.DEFAULT : StatusPillVariant.DANGER}
+      activeColor='var(--neon-green)'
       inactiveColor='var(--neon-red)'
     />
   );
@@ -134,7 +138,7 @@ export function VoteModePicker({ voteMode, onSelect }: VoteModePickerProps) {
         </div>
       </div>
       <div className='x9-small setup-vote-desc'>
-        {voteMode === 'open'
+        {voteMode === VoteMode.OPEN
           ? 'Aberta: o grupo declara e soma os votos juntos.'
           : 'Secreta: cada um vota escondido passando o celular.'}
       </div>
@@ -241,7 +245,7 @@ export function SetupFooter({
   return (
     <div className='setup-footer'>
       <Button
-        variant='primary'
+        variant={ButtonVariant.PRIMARY}
         icon='zap'
         disabled={!canStart}
         onClick={onStart}

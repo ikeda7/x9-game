@@ -1,4 +1,4 @@
-import { Button } from '../../components/button/button.tsx';
+import { Button, ButtonVariant } from '../../components/button/button.tsx';
 import { Icon } from '../../components/icon/icon.tsx';
 import { NumberedBadge } from '../../components/numbered-badge/numbered-badge.tsx';
 import type {
@@ -95,7 +95,7 @@ export function DiscussionFooter({ onVote }: { onVote: () => void }) {
         <Icon name='venetian-mask' size={16} color='var(--neon-red)' />O X9 está
         entre vocês.
       </div>
-      <Button variant='primary' icon='gavel' onClick={onVote}>
+      <Button variant={ButtonVariant.PRIMARY} icon='gavel' onClick={onVote}>
         Ir para Votação
       </Button>
     </>

@@ -1,4 +1,8 @@
-import { Button } from '../../components/button/button.tsx';
+import {
+  Button,
+  ButtonSize,
+  ButtonVariant,
+} from '../../components/button/button.tsx';
 import { Icon } from '../../components/icon/icon.tsx';
 import { IconCircle } from '../../components/icon-circle/icon-circle.tsx';
 import type {
@@ -77,10 +81,19 @@ export function GameOverActions({
 }: GameOverActionsProps) {
   return (
     <div className='game-over__actions'>
-      <Button variant='primary' icon='party-popper' onClick={onPlayAgain}>
+      <Button
+        variant={ButtonVariant.PRIMARY}
+        icon='party-popper'
+        onClick={onPlayAgain}
+      >
         Jogar de Novo
       </Button>
-      <Button variant='quiet' size='md' icon='users' onClick={onNewSetup}>
+      <Button
+        variant={ButtonVariant.QUIET}
+        size={ButtonSize.MD}
+        icon='users'
+        onClick={onNewSetup}
+      >
         Novos Jogadores
       </Button>
     </div>

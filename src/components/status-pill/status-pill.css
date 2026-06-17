@@ -17,6 +17,11 @@
   background: transparent;
 }
 
+.status-pill--danger {
+  border: 1px solid var(--line-danger);
+  background: rgba(255, 42, 77, 0.08);
+}
+
 .status-pill__label {
   letter-spacing: 0.08em;
 }

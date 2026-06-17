@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { SecretVoteStep } from '../../common/enums/secret-vote-step.enum.ts';
 import type { Player } from '../../common/interfaces/player.interface.ts';
 import { haptic } from '../../game/feedback.ts';
 import type {
@@ -67,7 +68,7 @@ export function useSecretVoting(
 ): UseSecretVotingResult {
   const alive = players.filter((p) => p.alive);
   const [voterIndex, setVoterIndex] = useState(0);
-  const [step, setStep] = useState<'pass' | 'ballot'>('pass');
+  const [step, setStep] = useState<SecretVoteStep>(SecretVoteStep.PASS);
   const [selected, setSelected] = useState<number | null>(null);
   const [ballots, setBallots] = useState<Record<number, number | null>>({});
 
@@ -77,7 +78,7 @@ export function useSecretVoting(
 
   function openBallot() {
     haptic(20);
-    setStep('ballot');
+    setStep(SecretVoteStep.BALLOT);
   }
 
   function commit(choice: number | null) {
@@ -88,7 +89,7 @@ export function useSecretVoting(
       setBallots(next);
       setVoterIndex((i) => i + 1);
       setSelected(null);
-      setStep('pass');
+      setStep(SecretVoteStep.PASS);
     }
   }
 

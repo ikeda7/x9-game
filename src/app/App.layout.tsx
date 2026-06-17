@@ -1,3 +1,4 @@
+import { NoElimReason } from '../common/enums/no-elim-reason.enum.ts';
 import { Phase } from '../common/enums/phase.enum.ts';
 import DiscussionScreen from '../screens/discussion/discussion.tsx';
 import GameOverScreen from '../screens/game-over/game-over.tsx';
@@ -66,8 +67,8 @@ export function PhaseRouter({
           mode={config.voteMode}
           players={players}
           onEliminate={actions.eliminate}
-          onTie={() => actions.resolveNoElimination('tie')}
-          onSkip={() => actions.resolveNoElimination('skip')}
+          onTie={() => actions.resolveNoElimination(NoElimReason.TIE)}
+          onSkip={() => actions.resolveNoElimination(NoElimReason.SKIP)}
         />
       );
 

@@ -2,8 +2,18 @@ import type { CSSProperties, ReactNode } from 'react';
 
 import type { IconName } from '../icon/icon.interface.ts';
 
-export type ButtonVariant = 'primary' | 'danger' | 'ghost' | 'quiet';
-export type ButtonSize = 'lg' | 'md' | 'sm';
+export enum ButtonVariant {
+  PRIMARY = 'primary',
+  DANGER = 'danger',
+  GHOST = 'ghost',
+  QUIET = 'quiet',
+}
+
+export enum ButtonSize {
+  LG = 'lg',
+  MD = 'md',
+  SM = 'sm',
+}
 
 export interface ButtonProps {
   children: ReactNode;

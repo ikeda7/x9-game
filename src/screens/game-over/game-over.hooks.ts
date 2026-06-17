@@ -1,4 +1,4 @@
-import type { Team } from '../../common/enums/team.enum.ts';
+import { Team } from '../../common/enums/team.enum.ts';
 import type { Player } from '../../common/interfaces/player.interface.ts';
 import type { GameOverConfig } from './game-over.interface.ts';
 
@@ -6,7 +6,7 @@ export function computeGameOverConfig(
   winner: Team,
   players: Player[],
 ): GameOverConfig {
-  const civsWon = winner === 'civilians';
+  const civsWon = winner === Team.CIVILIANS;
   const impostors = players.filter((p) => p.isImpostor);
 
   return {

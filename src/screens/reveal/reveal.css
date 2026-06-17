@@ -3,7 +3,7 @@
 /* ── fingerprint hold button ──────────────────────────────── */
 .reveal-wait__btn {
   @apply relative flex flex-col items-center justify-center;
-  margin-top: 48px;
+  margin-top: 12px;
   width: 188px;
   height: 188px;
   border-radius: 50%;

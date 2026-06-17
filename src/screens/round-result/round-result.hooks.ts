@@ -1,5 +1,6 @@
+import { NoElimReason } from '../../common/enums/no-elim-reason.enum.ts';
 import type { Player } from '../../common/interfaces/player.interface.ts';
-import type { NoElimReason } from '../../common/types/no-elim-reason.type.ts';
+import { ButtonVariant } from '../../components/button/button.interface.ts';
 import type { ResultConfig } from './round-result.interface.ts';
 
 export function computeResultConfig(
@@ -24,7 +25,7 @@ export function computeResultConfig(
           ? `Ainda restam ${remainingImpostors} X9`
           : 'Último X9 caiu'
         : 'O X9 continua à solta',
-      buttonVariant: wasImpostor ? 'danger' : 'primary',
+      buttonVariant: wasImpostor ? ButtonVariant.DANGER : ButtonVariant.PRIMARY,
     };
   }
 
@@ -34,12 +35,12 @@ export function computeResultConfig(
     glow: '0 0 0 1px rgba(255,197,61,0.4), 0 0 22px -4px rgba(255,197,61,0.5)',
     icon: 'gavel',
     bannerBg: 'rgba(255,197,61,0.08)',
-    title: noElimReason === 'tie' ? 'Deu empate' : 'Votação pulada',
+    title: noElimReason === NoElimReason.TIE ? 'Deu empate' : 'Votação pulada',
     subtitle:
-      noElimReason === 'tie'
+      noElimReason === NoElimReason.TIE
         ? 'Os votos empataram no topo — ninguém foi eliminado.'
         : 'O grupo decidiu não eliminar ninguém desta vez.',
     banner: 'Ninguém foi eliminado',
-    buttonVariant: 'primary',
+    buttonVariant: ButtonVariant.PRIMARY,
   };
 }

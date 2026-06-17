@@ -1,4 +1,4 @@
-import { Button } from '../../components/button/button.tsx';
+import { Button, ButtonVariant } from '../../components/button/button.tsx';
 import { Icon } from '../../components/icon/icon.tsx';
 import { PassPhoneView } from '../../components/pass-phone/pass-phone.tsx';
 import { useHoldToReveal } from './reveal.hooks.ts';
@@ -131,7 +131,7 @@ export function RevealCardView({
 
       <div className='reveal-card__actions'>
         <Button
-          variant={isImpostor ? 'danger' : 'primary'}
+          variant={isImpostor ? ButtonVariant.DANGER : ButtonVariant.PRIMARY}
           icon={last ? 'flag' : 'eye-off'}
           onClick={onNext}
         >
