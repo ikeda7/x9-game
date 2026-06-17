@@ -13,7 +13,8 @@ export default defineConfig(({ command }) => ({
   }),
   test: {
     environment: 'happy-dom',
-    include: ['src/**/tests/**/*.test.ts'],
+    setupFiles: ['src/test-setup.ts'],
+    include: ['src/**/tests/**/*.test.ts', 'src/**/tests/**/*.test.tsx'],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
