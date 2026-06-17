@@ -1,0 +1,109 @@
+@reference "tailwindcss";
+
+.game-over {
+  @apply flex-1 flex flex-col justify-center;
+  padding: 40px 26px 28px;
+}
+
+/* ── victory header ──────────────────────────────────────── */
+.game-over__icon-circle {
+  @apply flex items-center justify-center mx-auto;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.game-over__overline {
+  margin-top: 18px;
+  color: var(--text-low);
+}
+
+.game-over__title {
+  margin-top: 8px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 30px;
+  letter-spacing: 0.02em;
+}
+
+.game-over__subtitle {
+  margin-top: 10px;
+  color: var(--text-mid);
+  font-size: 15px;
+}
+
+/* ── word reveal ─────────────────────────────────────────── */
+.game-over__word-box {
+  @apply text-center;
+  margin-top: 26px;
+  padding: 18px;
+  border-radius: var(--r-lg);
+  background: var(--bg-surface);
+  border: 1px solid var(--line-soft);
+}
+
+.game-over__word-label {
+  color: var(--text-low);
+}
+
+.game-over__word-emoji {
+  margin-top: 8px;
+  font-size: 40px;
+  line-height: 1;
+}
+
+.game-over__word-text {
+  margin-top: 8px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 26px;
+  color: var(--text-hi);
+}
+
+.game-over__word-category {
+  color: var(--text-low);
+  font-size: 12px;
+}
+
+/* ── impostor list ───────────────────────────────────────── */
+.game-over__impostors {
+  margin-top: 12px;
+  padding: 14px 16px;
+  border-radius: var(--r-md);
+  background: rgba(255, 42, 77, 0.07);
+  border: 1px solid var(--line-danger);
+}
+
+.game-over__impostors-label {
+  color: #ff8095;
+}
+
+.game-over__impostors-list {
+  @apply flex flex-wrap;
+  margin-top: 6px;
+  gap: 8px;
+}
+
+.game-over__impostor-chip {
+  @apply inline-flex items-center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--line-danger);
+  background: rgba(255, 42, 77, 0.1);
+  color: #ff8095;
+  font-family: var(--font-body);
+  font-size: 14px;
+}
+
+/* ── actions ─────────────────────────────────────────────── */
+.game-over__spacer {
+  flex: 1;
+  min-height: 16px;
+}
+
+.game-over__actions {
+  @apply flex flex-col;
+  gap: 12px;
+}
